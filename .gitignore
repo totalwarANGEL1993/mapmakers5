@@ -1,0 +1,7 @@
+*.jar
+*.iml
+.idea
+.attach_pid*
+target/*
+var/*
+lua/orthus/*

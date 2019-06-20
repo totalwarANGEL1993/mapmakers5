@@ -1,0 +1,847 @@
+{
+    "Goal_MapScriptFunction": {
+        "Description": "Definiert eine Funktion als Auslöser für einen Quest. Gibt die Funktion true zurück, ist der Auftrag gewonnen. Bei false schlägt er fehl.",
+        "Parameter":   [
+            ["StringInput", "Funktion im Kartenskript", []]
+        ]
+    },
+    
+    "Goal_InstantSuccess": {
+        "Description": "Das Ziel ist sofort erfüllt.",
+        "Parameter":   []
+    },
+    
+    "Goal_InstantFailure": {
+        "Description": "Das Ziel ist sofort gescheitert.",
+        "Parameter":   []
+    },
+    
+    "Goal_NoChange": {
+        "Description": "Das Ziel wird niemals seinen Zustand ändern. <br><b>Tipp:</p> Ändere den Status durch andere Behavior.",
+        "Parameter":   []
+    },
+    
+    "Goal_Destroy": {
+        "Description": "Der Spieler muss ein Ziel zerstören. Handelt es sich um einen Helden, so muss dieser umgehauen werden.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []]
+        ]
+    },
+    
+    "Goal_Create": {
+        "Description": "Der Auftragnehmer muss eine Anzahl an Entities in einem Gebiet erstellen. Handelt es sich um Gebäude, müssen diese erst fertig gebaut werden.",
+        "Parameter":   [
+            ["StringSelect", "Typname des Entity", ["CU_BanditLeaderBow1", "CU_BanditLeaderSword1", "CU_BanditLeaderSword2", "CU_Barbarian_LeaderClub1", "CU_Barbarian_LeaderClub2", "CU_BlackKnight_LeaderMace1", "CU_BlackKnight_LeaderMace2", "CU_Evil_LeaderBearman1", "CU_Evil_LeaderSkirmisher1", "PB_Alchemist1", "PB_Alchemist2", "PB_Archery1", "PB_Archery2", "PB_Bank1", "PB_Bank2", "PB_Barracks1", "PB_Barracks2", "PB_Beautification01", "PB_Beautification02", "PB_Beautification03", "PB_Beautification04", "PB_Beautification05", "PB_Beautification06", "PB_Beautification07", "PB_Beautification08", "PB_Beautification09", "PB_Beautification10", "PB_Beautification11", "PB_Beautification12", "PB_Blacksmith1", "PB_Blacksmith2", "PB_Blacksmith3", "PB_Brickworks1", "PB_Brickworks2", "PB_ClayMine1", "PB_ClayMine2", "PB_ClayMine3", "PB_DarkTower1", "PB_DarkTower2", "PB_DarkTower3", "PB_Farm1", "PB_Farm2", "PB_Farm3", "PB_Foundry1", "PB_Foundry2", "PB_GunsmithWorkshop1", "PB_GunsmithWorkshop2", "PB_Headquarters1", "PB_Headquarters2", "PB_Headquarters3", "PB_IronMine1", "PB_IronMine2", "PB_IronMine3", "PB_Market1", "PB_Market2", "PB_MasterBuilderWorkshop", "PB_Monastery1", "PB_Monastery2", "PB_Monastery3", "PB_PowerPlant1", "PB_Residence1", "PB_Residence2", "PB_Residence3", "PB_Sawmill1", "PB_Sawmill2", "PB_Stable1", "PB_Stable2", "PB_StoneMason1", "PB_StoneMason2", "PB_StoneMine1", "PB_StoneMine2", "PB_StoneMine3", "PB_SulfurMine1", "PB_SulfurMine2", "PB_SulfurMine3", "PB_Tavern1", "PB_Tavern2", "PB_Tower1", "PB_Tower2", "PB_Tower3", "PB_University1", "PB_University2", "PB_VillageCenter1", "PB_VillageCenter2", "PB_VillageCenter3", "PB_WeatherTower1", "PU_BattleSerf", "PU_LeaderBow1", "PU_LeaderBow2", "PU_LeaderBow3", "PU_LeaderBow4", "PU_LeaderCavalry1", "PU_LeaderCavalry2", "PU_LeaderHeavyCavalry1", "PU_LeaderHeavyCavalry2", "PU_LeaderPoleArm1", "PU_LeaderPoleArm2", "PU_LeaderPoleArm3", "PU_LeaderPoleArm4", "PU_LeaderRifle1", "PU_LeaderRifle2", "PU_LeaderSword1", "PU_LeaderSword2", "PU_LeaderSword3", "PU_LeaderSword4", "PU_Scout", "PU_Serf", "PU_Thief", "PV_Cannon1", "PV_Cannon2", "PV_Cannon3", "PV_Cannon4"]],
+            ["ScriptName", "Position auf der Map", []],
+            ["NumberInput", "Größe des Bereich", []],
+            ["NumberInput", "Anzahl", []],
+            ["BooleanSelect", "Markierung anzeigen", []],
+            ["NumberSelect", "Besitzer ändern", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
+    },
+    
+    "Goal_Diplomacy": {
+        "Description": "Der Auftragnehmer muss zu einem anderen Spieler einen diplomatischen Status erreichen.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei wählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringSelect", "Diplomatiestatus", ["Neutral", "Hostile", "Friendly"]]
+        ]
+    },
+    
+    "Goal_Produce": {
+        "Description": "Der Auftragnehmer muss eine Menge an Rohstoffen produzieren.",
+        "Parameter":   [
+            ["StringSelect", "Typname des Rohstoff", ["Gold", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Menge an Rohstoffen", []],
+            ["BooleanSelect", "Nur veredelt", []]
+        ]
+    },
+    
+    "Goal_Protect": {
+        "Description": "Eine Entität muss beschützt werden.",
+        "Parameter":   [
+            ["StringInput", "Zu beschützendes Entity", []]
+        ]
+    },
+    
+    "Goal_EntityDistance": {
+        "Description": "Zwischen zwei Entitäten muss eine bestimmte Entfernung erreicht werden.",
+        "Parameter":   [
+            ["StringInput", "Erstes Entity", []],
+            ["StringInput", "Zweites Entity", []],
+            ["NumberInput", "Entfernung", []],
+            ["StringSelect", "Relation festlegen", [">=", "<"]]
+        ]
+    },
+    
+    "Goal_WorkerCount": {
+        "Description": "Ein Spieler muss eine Menge an Arbeitern in seiner Siedlung unterhalten.",
+        "Parameter":   [
+            ["NumberInput", "Menge an Arbeitern", []],
+            ["StringSelect", "Relation festlegen", [">=", "<"]],
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
+    },
+    
+    "Goal_Motivation": {
+        "Description": "Ein Spieler muss eine bestimmte durchschnittliche Motivation erreichen.",
+        "Parameter":   [
+            ["NumberInput", "Höhe der Motivation", []],
+            ["StringSelect", "Relation festlegen", [">=", "<"]],
+            ["NumberSelect", "Spieler auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
+    },
+    
+    "Goal_SettlerCount": {
+        "Description": "Ein Spieler muss eine Menge an Siedlern in seiner Siedlung unterhalten.",
+        "Parameter":   [
+            ["NumberInput", "Menge an Siedlern", []],
+            ["StringSelect", "Relation festlegen", [">=", "<"]],
+            ["NumberSelect", "Spieler auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
+    },
+    
+    "Goal_SoldierCount": {
+        "Description": "Ein Spieler muss eine Menge an Soldaten in seiner Siedlung unterhalten.",
+        "Parameter":   [
+            ["NumberInput", "Menge an Soldaten", []],
+            ["StringSelect", "Relation festlegen", [">=", "<"]],
+            ["NumberSelect", "Spieler auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
+    },
+    
+    "Goal_Units": {
+        "Description": "Der Auftragnehmer muss eine Menge an Militäreinheiten besitzen.",
+        "Parameter":   [
+            ["StringSelect", "Typname der Einheit", ["CU_BanditLeaderBow1", "CU_BanditLeaderSword1", "CU_BanditLeaderSword2", "CU_Barbarian_LeaderClub1", "CU_Barbarian_LeaderClub2", "CU_BlackKnight_LeaderMace1", "CU_BlackKnight_LeaderMace2", "CU_Evil_LeaderBearman1", "CU_Evil_LeaderSkirmisher1", "PU_BattleSerf", "PU_LeaderBow1", "PU_LeaderBow2", "PU_LeaderBow3", "PU_LeaderBow4", "PU_LeaderCavalry1", "PU_LeaderCavalry2", "PU_LeaderHeavyCavalry1", "PU_LeaderHeavyCavalry2", "PU_LeaderPoleArm1", "PU_LeaderPoleArm2", "PU_LeaderPoleArm3", "PU_LeaderPoleArm4", "PU_LeaderRifle1", "PU_LeaderRifle2", "PU_LeaderSword1", "PU_LeaderSword2", "PU_LeaderSword3", "PU_LeaderSword4", "PU_Scout", "PU_Serf", "PU_Thief", "PV_Cannon1", "PV_Cannon2", "PV_Cannon3", "PV_Cannon4"]],
+            ["NumberInput", "Anzahl Battalione", []]
+        ]
+    },
+    
+    "Goal_Technology": {
+        "Description": "Der Auftragnehmer muss eine Technologie erforschen.",
+        "Parameter":   [
+            ["StringSelect", "Typname der Technologie", ["GT_Alchemy","GT_Alloying","GT_Architecture","GT_Binocular","GT_ChainBlock","GT_Chemistry","GT_Construction","GT_GearWheel","GT_Library","GT_Literacy","GT_Matchlock","GT_Mathematics","GT_Mercenaries","GT_Metallurgy","GT_Printing","GT_PulledBarrel","GT_StandingArmy","GT_Strategies","GT_Tactics","GT_Trading","T_BetterChassis","T_BetterTrainingArchery","T_BetterTrainingBarracks","T_BlisteringCannonballs","T_BodkinArrow","T_BookKeeping","T_ChainBardingArmor","T_ChainMailArmor","T_CityGuard","T_EnhancedGunPowder","T_FleeceArmor","T_FleeceLinedLeatherArmor","T_Fletching","T_IronCasting","T_LeadShot","T_LeatherArcherArmor","T_LeatherMailArmor","T_Loom","T_Masonry","T_MasterOfSmithery","T_PaddedArcherArmor","T_PlateMailArmor","T_Shoeing","T_Shoes","T_Sights","T_SoftArcherArmor","T_SpinningWheel","T_TownGuard","T_Tracking","T_Turnery","T_UpgradeBow1","T_UpgradeBow2","T_UpgradeBow3","T_UpgradeHeavyCavalry1","T_UpgradeLightCavalry1","T_UpgradeRifle1","T_UpgradeSpear1","T_UpgradeSpear2","T_UpgradeSpear3","T_UpgradeSword1","T_UpgradeSword2","T_UpgradeSword3","T_WeatherForecast","T_WoodAging"]]
+        ]
+    },
+    
+    "Goal_UpgradeHeadquarters": {
+        "Description": "Der Auftragnehmer muss sein Haupthaus ausbauen.",
+        "Parameter":   [
+            ["NumberSelect", "Ausbaustufe der Burg", ["1", "2"]]
+        ]
+    },
+    
+    "Goal_NPC": {
+        "Description": "Ein NPC muss durch einen Helden antgesprochen werden. Optional kann ein bestimmter Held vorgegeben werden. Wird dann der falsche Held geschickt, wird die Nachricht für falsche Helden angezeigt.",
+        "Parameter":   [
+            ["ScriptName", "Anzusprechender Charakter", []],
+            ["ScriptName", "Benötigter Held", []],
+            ["MessageInput", "Nachricht falscher Held", []]
+        ]
+    },
+    
+    "Goal_DestroyType": {
+        "Description": "Der Auftragnehmer muss eine Anzahl an Entities des Typs eines anderen Spielers zerstören.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringSelect", "Typname des Entity", ["CU_BanditLeaderBow1", "CU_BanditLeaderSword1", "CU_BanditLeaderSword2", "CU_Barbarian_LeaderClub1", "CU_Barbarian_LeaderClub2", "CU_BlackKnight_LeaderMace1", "CU_BlackKnight_LeaderMace2", "CU_Evil_LeaderBearman1", "CU_Evil_LeaderSkirmisher1", "PB_Alchemist1", "PB_Alchemist2", "PB_Archery1", "PB_Archery2", "PB_Bank1", "PB_Bank2", "PB_Barracks1", "PB_Barracks2", "PB_Beautification01", "PB_Beautification02", "PB_Beautification03", "PB_Beautification04", "PB_Beautification05", "PB_Beautification06", "PB_Beautification07", "PB_Beautification08", "PB_Beautification09", "PB_Beautification10", "PB_Beautification11", "PB_Beautification12", "PB_Blacksmith1", "PB_Blacksmith2", "PB_Blacksmith3", "PB_Brickworks1", "PB_Brickworks2", "PB_ClayMine1", "PB_ClayMine2", "PB_ClayMine3", "PB_DarkTower1", "PB_DarkTower2", "PB_DarkTower3", "PB_Farm1", "PB_Farm2", "PB_Farm3", "PB_Foundry1", "PB_Foundry2", "PB_GunsmithWorkshop1", "PB_GunsmithWorkshop2", "PB_Headquarters1", "PB_Headquarters2", "PB_Headquarters3", "PB_IronMine1", "PB_IronMine2", "PB_IronMine3", "PB_Market1", "PB_Market2", "PB_MasterBuilderWorkshop", "PB_Monastery1", "PB_Monastery2", "PB_Monastery3", "PB_PowerPlant1", "PB_Residence1", "PB_Residence2", "PB_Residence3", "PB_Sawmill1", "PB_Sawmill2", "PB_Stable1", "PB_Stable2", "PB_StoneMason1", "PB_StoneMason2", "PB_StoneMine1", "PB_StoneMine2", "PB_StoneMine3", "PB_SulfurMine1", "PB_SulfurMine2", "PB_SulfurMine3", "PB_Tavern1", "PB_Tavern2", "PB_Tower1", "PB_Tower2", "PB_Tower3", "PB_University1", "PB_University2", "PB_VillageCenter1", "PB_VillageCenter2", "PB_VillageCenter3", "PB_WeatherTower1", "PU_BattleSerf", "PU_LeaderBow1", "PU_LeaderBow2", "PU_LeaderBow3", "PU_LeaderBow4", "PU_LeaderCavalry1", "PU_LeaderCavalry2", "PU_LeaderHeavyCavalry1", "PU_LeaderHeavyCavalry2", "PU_LeaderPoleArm1", "PU_LeaderPoleArm2", "PU_LeaderPoleArm3", "PU_LeaderPoleArm4", "PU_LeaderRifle1", "PU_LeaderRifle2", "PU_LeaderSword1", "PU_LeaderSword2", "PU_LeaderSword3", "PU_LeaderSword4", "PU_Scout", "PU_Serf", "PU_Thief", "PV_Cannon1", "PV_Cannon2", "PV_Cannon3", "PV_Cannon4"]],
+            ["NumberInput", "Benötigte Menge", []]
+        ]
+    },
+    
+    "Goal_DestroyCategory": {
+        "Description": "Der Auftragnehmer muss eine Anzahl an Entities der Kategorie eines anderen Spielers zerstören.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringSelect", "Entitätskategorie", ["Barracks","Bow","Bridge","Cannon","CavalryHeavy","CavalryLight","ClaySupplier","DefendableBuilding","EvilLeader","Farm","GoldSupplier","Headquarters","IronSupplier","Leader","LongRange","Melee","Military","MilitaryBuilding","Residence","Rifle","Scout","Serf","Soldier","Spear","StoneSupplier","SulfurSupplier","Sword","Thief","VillageCenter","Wall","WoodSupplier","Worker","Workplace"]],
+            ["NumberInput", "Benötigte Menge", []]
+        ]
+    },
+    
+    "Goal_Tribute": {
+        "Description": "Der Auftragnehmer muss einen Tribut entrichten.",
+        "Parameter":   [
+            ["StringSelect", "Typname des Rohstoff", ["Gold", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Höhe des Tribut", []],
+            ["MessageInput", "Nachricht des Tribut", []]
+        ]
+    },
+    
+    "Goal_WeatherState": {
+        "Description": "Das Wetter muss auf den entsprechenden Wettertyp geändert werden.",
+        "Parameter":   [
+            ["StringSelect", "Benötigter Wetterstatus", ["Summer", "Rain", "Winter"]]
+        ]
+    },
+    
+    "Goal_BuyOffer": {
+        "Description": "Das Angebot eines Händlers muss in einer bestimmten Menge wahrgenommen werden.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["NumberSelect", "Index des Angebots", ["1", "2", "3", "4"]],
+            ["NumberInput", "Menge an Transaktionen", []]
+        ]
+    },
+    
+    "Goal_DestroyAllPlayerUnits": {
+        "Description": "Alle Einheiten und Gebäude eines Spielers müssen vernichtet werden.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
+    },
+    
+    "Reward_MapScriptFunction": {
+        "Description": "Führt eine Funktion als Belohnung für einen erfolgreichen Abschluss aus.",
+        "Parameter":   [
+            ["StringInput", "Funktion im Kartenskript", []]
+        ]
+    },
+    
+    "Reward_Defeat": {
+        "Description": "Der Auftragnehmer verliert das Spiel.",
+        "Parameter":   []
+    },
+    
+    "Reward_Victory": {
+        "Description": "Der Auftragnehmer gewinnt das Spiel.",
+        "Parameter":   []
+    },
+    
+    "Reward_Briefing": {
+        "Description": "Startet das Briefing als Belohnung des Quest.",
+        "Parameter":   [
+            ["BriefingName", "Name des Briefings", []]
+        ]
+    },
+    
+    "Reward_ChangePlayer": {
+        "Description": "Ändert den Besitzer des Entity.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
+    },
+    
+    "Reward_Message": {
+        "Description": "Zeigt eine Nachricht auf dem Bildschirm an.",
+        "Parameter":   [
+            ["MessageInput", "Text der Nachricht", []]
+        ]
+    },
+    
+    "Reward_DestroyEntity": {
+        "Description": "Zerstört das Entity mit dem angegebenen Skriptnamen.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []]
+        ]
+    },
+    
+    "Reward_DestroyEffect": {
+        "Description": "Zerstört den Effekt mit dem angegebenen Effektnamen.",
+        "Parameter":   [
+            ["StringInput", "Bezeichner des Effekt", []]
+        ]
+    },
+    
+    "Reward_Diplomacy": {
+        "Description": "Ändert den Diplomatiestatus zweier Parteien.",
+        "Parameter":   [
+            ["NumberSelect", "Ersten Spieler wählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["NumberSelect", "Zweiten Spieler wählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringSelect", "Diplomatiestatus", ["Neutral", "Hostile", "Friendly"]]
+        ]
+    },
+    
+    "Reward_RemoveQuest": {
+        "Description": "Entfernt die Beschreibung des Quests aus dem Auftragsbuch.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reward_QuestSucceed": {
+        "Description": "Beendet den angegebenen Quest erfolgreich.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reward_QuestFail": {
+        "Description": "Lässt den angegebenen Quest fehlschlagen.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reward_QuestInterrupt": {
+        "Description": "Unterbricht den angegebenen Quest ohne ein Resultat.",
+        "Parameter":   [
+            ["StringInput", "Name des Quest", []]
+        ]
+    },
+    
+    "Reward_QuestActivate": {
+        "Description": "Aktiviert den angegebenen Quest, sodass er ausgelöst werden kann.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reward_QuestRestart": {
+        "Description": "Setzt einen Quest zurück und aktiviert ihn erneut.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reward_QuestRestartForceActive": {
+        "Description": "Setzt einen Quest zurück und löst ihn sofort aus.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reward_Technology": {
+        "Description": "Ändert den Status der Technologie für den Auftragnehmer.",
+        "Parameter":   [
+            ["StringSelect", "Typname der Technologie", ["GT_Alchemy","GT_Alloying","GT_Architecture","GT_Binocular","GT_ChainBlock","GT_Chemistry","GT_Construction","GT_GearWheel","GT_Library","GT_Literacy","GT_Matchlock","GT_Mathematics","GT_Mercenaries","GT_Metallurgy","GT_Printing","GT_PulledBarrel","GT_StandingArmy","GT_Strategies","GT_Tactics","GT_Trading","T_BetterChassis","T_BetterTrainingArchery","T_BetterTrainingBarracks","T_BlisteringCannonballs","T_BodkinArrow","T_BookKeeping","T_ChainBardingArmor","T_ChainMailArmor","T_CityGuard","T_EnhancedGunPowder","T_FleeceArmor","T_FleeceLinedLeatherArmor","T_Fletching","T_IronCasting","T_LeadShot","T_LeatherArcherArmor","T_LeatherMailArmor","T_Loom","T_Masonry","T_MasterOfSmithery","T_PaddedArcherArmor","T_PlateMailArmor","T_Shoeing","T_Shoes","T_Sights","T_SoftArcherArmor","T_SpinningWheel","T_TownGuard","T_Tracking","T_Turnery","T_UpgradeBow1","T_UpgradeBow2","T_UpgradeBow3","T_UpgradeHeavyCavalry1","T_UpgradeLightCavalry1","T_UpgradeRifle1","T_UpgradeSpear1","T_UpgradeSpear2","T_UpgradeSpear3","T_UpgradeSword1","T_UpgradeSword2","T_UpgradeSword3","T_WeatherForecast","T_WoodAging","UP1_Alchemist","UP1_Archery","UP1_Bank","UP1_Barracks","UP1_Blacksmith","UP1_Brickworks","UP1_Claymine","UP1_Farm","UP1_Foundry","UP1_GunsmithWorkshop","UP1_Headquarter","UP1_Ironmine","UP1_Market","UP1_Monastery","UP1_Residence","UP1_Sawmill","UP1_Stables","UP1_StoneMason","UP1_Stonemine","UP1_Sulfurmine","UP1_Tavern","UP1_Tower","UP1_University","UP1_Village","UP2_Blacksmith","UP2_Claymine","UP2_Farm","UP2_Headquarter","UP2_Ironmine","UP2_Monastery","UP2_Residence","UP2_Stonemine","UP2_Sulfurmine","UP2_Tower","UP2_Village"]],
+            ["StringSelect", "Technologiestatus", ["Researched", "Allowed", "Forbidden"]]
+        ]
+    },
+    
+    "Reward_ConcealArea": {
+        "Description": "Verdunkelt das (künstlich) aufgedeckte Gebiet um das Entity.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []]
+        ]
+    },
+    
+    "Reward_Move": {
+        "Description": "Bewegt das Entity zum Zielpunkt.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["ScriptName", "Zielposition", []]
+        ]
+    },
+    
+    "Reward_CreateEntity": {
+        "Description": "Ersetzt eine Skriptentität mit einem neuen Entity, dass den Namen übernimmt.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["StringSelect", "Typname des Entity", ["CB_Abbey01","CB_Abbey02","CB_Abbey03","CB_Abbey04","CB_BarmeciaCastle","CB_Bastille1","CB_Camp01","CB_Camp02","CB_Camp03","CB_Camp04","CB_Camp05","CB_Camp06","CB_Camp07","CB_Camp08","CB_Camp09","CB_Camp10","CB_Camp11","CB_Camp12","CB_Camp13","CB_Camp14","CB_Camp15","CB_Camp16","CB_Camp17","CB_Camp18","CB_Camp19","CB_Camp20","CB_Camp21","CB_Camp22","CB_Camp23","CB_Camp24","CB_Castle1","CB_Castle2","CB_CleycourtCastle","CB_CrawfordCastle","CB_DarkCastle","CB_DestroyAbleRuinHouse1","CB_DestroyAbleRuinMonastery1","CB_DestroyAbleRuinResidence1","CB_DestroyAbleRuinSmallTower1","CB_DestroyAbleRuinSmallTower3","CB_Evil_Tower1","CB_FolklungCastle","CB_HermitHut1","CB_InventorsHut1","CB_KaloixCastle","CB_Lighthouse","CB_LighthouseActivated","CB_Mercenary","CB_MinerCamp1","CB_MinerCamp2","CB_MinerCamp3","CB_MinerCamp4","CB_MinerCamp5","CB_MinerCamp6","CB_Mint1","CB_MonasteryBuildingSite1","CB_OldKingsCastle","CB_OldKingsCastleRuin","CB_RobberyTower1","CB_SteamMashine","CB_TechTrader","CU_AfraidAlchemist","CU_AfraidMasterBuilder","CU_AfraidMiner","CU_AfraidSawmillworker","CU_AfraidSerf","CU_AfraidSmith","CU_AfraidStonecutter","CU_AggressiveWolf","CU_AlchemistIdle","CU_AssistentLeoIdle","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_Hero","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BenedictineMonkIdle","CU_BishopIdle","CU_BishopOfCrawford","CU_BlackKnight","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_BlackKnight_SoldierSword3","CU_CaptainIdle","CU_CavalryIdle","CU_ChiefIdle","CU_EngineerIdle","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_Evil_Queen","CU_FarmerIdle","CU_GCBlackKnight","CU_GCScholar","CU_Garek","CU_Hermit","CU_Johannes","CU_Leonardo","CU_Major01Idle","CU_Major02Idle","CU_Mary_de_Mortfichet","CU_MasterBuilder","CU_Merchant","CU_MinerIdle","CU_NPC_Major_Barmecia","CU_NPC_Major_Cleycourt","CU_PoleArmIdle","CU_Princess","CU_RegentDovbar","CU_ScoutIdle","CU_SettlerIdle","CU_Sheep","CU_Sheep2","CU_Sheep3","CU_SmelterIdle","CU_Thief","CU_Trader","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","CU_Wanderer","PB_Alchemist1","PB_Alchemist2","PB_Archery1","PB_Archery2","PB_Bank1","PB_Bank2","PB_Barracks1","PB_Barracks2","PB_Beautification01","PB_Beautification02","PB_Beautification03","PB_Beautification04","PB_Beautification05","PB_Beautification06","PB_Beautification07","PB_Beautification08","PB_Beautification09","PB_Beautification10","PB_Beautification11","PB_Beautification12","PB_Blacksmith1","PB_Blacksmith2","PB_Blacksmith3","PB_Brickworks1","PB_Brickworks2","PB_ClayMine1","PB_ClayMine2","PB_ClayMine3","PB_DarkTower1","PB_DarkTower2","PB_DarkTower3","PB_DrawBridgeClosed1","PB_DrawBridgeClosed2","PB_Farm1","PB_Farm2","PB_Farm3","PB_Foundry1","PB_Foundry2","PB_GunsmithWorkshop1","PB_GunsmithWorkshop2","PB_Headquarters1","PB_Headquarters2","PB_Headquarters3","PB_IronMine1","PB_IronMine2","PB_IronMine3","PB_Market1","PB_Market2","PB_MasterBuilderWorkshop","PB_Monastery1","PB_Monastery2","PB_Monastery3","PB_PowerPlant1","PB_Residence1","PB_Residence2","PB_Residence3","PB_Sawmill1","PB_Sawmill2","PB_Stable1","PB_Stable2","PB_StoneMason1","PB_StoneMason2","PB_StoneMine1","PB_StoneMine2","PB_StoneMine3","PB_SulfurMine1","PB_SulfurMine2","PB_SulfurMine3","PB_Tavern1","PB_Tavern2","PB_Tower1","PB_Tower2","PB_Tower3","PB_University1","PB_University2","PB_VillageCenter1","PB_VillageCenter2","PB_VillageCenter3","PB_WeatherTower1","PB_Weathermachine","PB_Weathermachine_Activated","PU_Alchemist","PU_BattleSerf","PU_BrickMaker","PU_Coiner","PU_Engineer","PU_Farmer","PU_Gunsmith","PU_Hero1","PU_Hero10","PU_Hero11","PU_Hero1a","PU_Hero1b","PU_Hero1c","PU_Hero2","PU_Hero3","PU_Hero4","PU_Hero5","PU_Hero6","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PU_MasterBuilder","PU_Miner","PU_Priest","PU_Sawmillworker","PU_Scholar","PU_Scout","PU_Serf","PU_Smelter","PU_Smith","PU_Stonecutter","PU_TavernBarkeeper","PU_Thief","PU_Trader","PU_Travelling_Salesman","PU_Treasurer","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4","XA_Deer","XA_Doe","XA_Rabbit","XA_SheepDog","XA_Wolf","XD_AppleTree1","XD_AppleTree2","XD_BlendingFog","XD_Bomb1","XD_BoneAnimal1","XD_BoneAnimal2","XD_BoneAnimal3","XD_BoneAnimal4","XD_BoneAnimal5","XD_BoneAnimal6","XD_BoneAnimal7","XD_BoneHuman1","XD_BoneHuman2","XD_BoneHuman3","XD_BoneHuman4","XD_BoneHuman5","XD_BoneHuman6","XD_BoneHuman7","XD_BoneHuman8","XD_Bridge1","XD_Bridge2","XD_Bridge3","XD_Bridge4","XD_Bush1","XD_Bush2","XD_Bush3","XD_Bush4","XD_BushMoor1","XD_BushMoor2","XD_BushMoor3","XD_BushMoor4","XD_Camp","XD_CaveEntry","XD_CherryTree","XD_ChestClose","XD_ChestOpen","XD_ChestOrb","XD_Clay1","XD_ClayPit1","XD_Cliff1","XD_Cliff2","XD_CliffBright1","XD_CliffBright2","XD_CliffBright3","XD_CliffBright4","XD_CliffBright5","XD_CliffEvelance1","XD_CliffEvelance2","XD_CliffEvelance3","XD_CliffEvelance4","XD_CliffEvelance5","XD_CliffGrey1","XD_CliffGrey2","XD_CliffMoor1","XD_CliffMoor2","XD_CliffMoor3","XD_CliffMoor4","XD_CliffMoor5","XD_CliffSteepBright01","XD_CliffSteepBright02","XD_CliffTideland1","XD_CliffTideland2","XD_CliffTideland3","XD_CliffTideland4","XD_CliffTideland5","XD_CliffTidelandShadows1","XD_CliffTidelandShadows2","XD_CliffTidelandShadows3","XD_CliffTidelandShadows4","XD_CliffTidelandShadows5","XD_ClosedClayPit1","XD_ClosedIronPit1","XD_ClosedStonePit1","XD_ClosedSulfurPit1","XD_Cobweb1","XD_Cobweb2","XD_Cobweb3","XD_Cobweb4","XD_Corn1","XD_Cypress1","XD_Cypress2","XD_DarkTree1","XD_DarkTree2","XD_DarkTree3","XD_DarkTree4","XD_DarkTree5","XD_DarkTree6","XD_DarkTree7","XD_DarkTree8","XD_DarkWallCorner","XD_DarkWallDistorted","XD_DarkWallStraight","XD_DarkWallStraightGate","XD_DarkWallStraightGate_Closed","XD_DeadBush1","XD_DeadBush2","XD_DeadBush3","XD_DeadBush4","XD_DeadBush5","XD_DeadBush6","XD_DeadTree01","XD_DeadTree02","XD_DeadTree03","XD_DeadTree04","XD_DeadTree05","XD_DeadTree06","XD_DeadTreeEvelance1","XD_DeadTreeEvelance2","XD_DeadTreeEvelance3","XD_DeadTreeMoor1","XD_DeadTreeMoor2","XD_DeadTreeMoor3","XD_DeadTreeNorth1","XD_DeadTreeNorth2","XD_DeadTreeNorth3","XD_DrawBridgeOpen1","XD_DrawBridgeOpen2","XD_Driftwood1","XD_Driftwood2","XD_Evil_Camp01","XD_Evil_Camp02","XD_Evil_Camp03","XD_Evil_Camp04","XD_Evil_Camp05","XD_Evil_Camp06","XD_Evil_Camp07","XD_Fir1","XD_Fir1_small","XD_Fir2","XD_Fir2_small","XD_Flower1","XD_Flower2","XD_Flower3","XD_Flower4","XD_Flower5","XD_Fog1","XD_Fog2","XD_Fog3","XD_GCPodium","XD_GeyserEvelance1","XD_Grave1","XD_GraveComplete1","XD_GraveComplete2","XD_GraveComplete3","XD_GraveComplete4","XD_GraveComplete5","XD_GraveComplete6","XD_GraveComplete7","XD_Greenery1","XD_Greenery2","XD_Greenery3","XD_Greenery4","XD_GreeneryBush1","XD_GreeneryBush2","XD_GreeneryBush3","XD_GreeneryBush4","XD_GreeneryBush5","XD_GreeneryBushHigh1","XD_GreeneryBushHigh2","XD_GreeneryBushHigh3","XD_GreeneryBushHigh4","XD_GreeneryVertical1","XD_GreeneryVertical2","XD_Groyne1","XD_Groyne2","XD_Groyne3","XD_Iron1","XD_IronGrid1","XD_IronGrid2","XD_IronGrid3","XD_IronGrid4","XD_IronPit1","XD_LargeCampFire","XD_MiscAxeShield","XD_MiscBank1","XD_MiscBarrel1","XD_MiscBarrel2","XD_MiscBow","XD_MiscBox1","XD_MiscBox2","XD_MiscChest1","XD_MiscChest2","XD_MiscChest3","XD_MiscHaybale1","XD_MiscHaybale2","XD_MiscHaybale3","XD_MiscPile1","XD_MiscPoleArm","XD_MiscQuiver1","XD_MiscSack1","XD_MiscSack2","XD_MiscShield","XD_MiscSmallSack1","XD_MiscSmallSack2","XD_MiscSmallSack3","XD_MiscSword","XD_MiscSwordShield","XD_MiscTable1","XD_MiscTable2","XD_MiscTent1","XD_MiscTrolley1","XD_MiscTrolley2","XD_MiscTrolley3","XD_NephilimFlower","XD_OliveTree1","XD_OliveTree2","XD_OrangeTree1","XD_OrangeTree2","XD_Palisade1","XD_Palisade2","XD_Palisade3","XD_PalisadeGate1","XD_PalisadeGate2","XD_Pine1","XD_Pine2","XD_Pine3","XD_Pine4","XD_Pine5","XD_Pine6","XD_PineNorth1","XD_PineNorth2","XD_PineNorth3","XD_Plant1","XD_Plant2","XD_Plant3","XD_Plant4","XD_Plant5","XD_Plant6","XD_PlantDecal1","XD_PlantDecal2","XD_PlantDecal3","XD_PlantDecal4","XD_PlantDecalLarge1","XD_PlantDecalLarge2","XD_PlantDecalLarge3","XD_PlantDecalLarge4","XD_PlantDecalLarge5","XD_PlantDecalTideland1","XD_PlantDecalTideland2","XD_PlantDecalTideland3","XD_PlantDecalTideland4","XD_PlantDecalTideland5","XD_PlantMoor1","XD_PlantMoor2","XD_PlantMoor3","XD_PlantMoor4","XD_PlantMoor5","XD_PlantMoor6","XD_PlantNorth1","XD_PlantNorth2","XD_PlantNorth3","XD_PlantNorth4","XD_PlantNorth5","XD_PlantNorth6","XD_PlantNorth7","XD_Rape1","XD_RapeBlossom1","XD_Reed1","XD_Reed2","XD_Reed3","XD_Reed4","XD_Rock1","XD_Rock2","XD_Rock3","XD_Rock4","XD_Rock5","XD_Rock6","XD_Rock7","XD_RockDarkEvelance1","XD_RockDarkEvelance2","XD_RockDarkEvelance3","XD_RockDarkEvelance4","XD_RockDarkEvelance5","XD_RockDarkEvelance6","XD_RockDarkEvelance7","XD_RockDarkMoor1","XD_RockDarkMoor2","XD_RockDarkMoor3","XD_RockDarkMoor4","XD_RockDarkMoor5","XD_RockDarkMoor6","XD_RockDarkMoor7","XD_RockDestroyableMedium1","XD_RockGrass2","XD_RockGrass3","XD_RockGrass4","XD_RockGrass5","XD_RockKhakiBright1","XD_RockKhakiBright2","XD_RockKhakiBright3","XD_RockKhakiBright4","XD_RockKhakiBright5","XD_RockKhakiBright6","XD_RockKhakiBright7","XD_RockKhakiMedium1","XD_RockKhakiMedium2","XD_RockKhakiMedium3","XD_RockKhakiMedium4","XD_RockKhakiMedium5","XD_RockKhakiMedium6","XD_RockKhakiMedium7","XD_RockMedium1","XD_RockMedium2","XD_RockMedium3","XD_RockMedium4","XD_RockMedium5","XD_RockMedium6","XD_RockMedium7","XD_RockNorth1","XD_RockNorth2","XD_RockNorth3","XD_RockNorth4","XD_RockTideland1","XD_RockTideland2","XD_RockTideland3","XD_RockTideland4","XD_RockTideland5","XD_RockTideland6","XD_RockTideland7","XD_RockTidelandGreen1","XD_RockTidelandGreen2","XD_RockTidelandGreen3","XD_RockTidelandGreen4","XD_RockTidelandGreen5","XD_RuinFragment1","XD_RuinFragment2","XD_RuinFragment3","XD_RuinFragment4","XD_RuinFragment5","XD_RuinFragment6","XD_RuinHouse1","XD_RuinHouse2","XD_RuinMonastery1","XD_RuinMonastery2","XD_RuinResidence1","XD_RuinResidence2","XD_RuinSmallTower1","XD_RuinSmallTower2","XD_RuinSmallTower3","XD_RuinSmallTower4","XD_RuinTower1","XD_RuinTower2","XD_RuinWall1","XD_RuinWall2","XD_RuinWall3","XD_RuinWall4","XD_RuinWall5","XD_RuinWall6","XD_ScriptEntity","XD_Signpost1","XD_Signpost2","XD_Signpost3","XD_SingnalFireOff","XD_SingnalFireOn","XD_SnowBarrier1","XD_Sparkles","XD_StandartePlayerColor","XD_Stone1","XD_StonePit1","XD_Stone_BlockPath","XD_Sulfur1","XD_SulfurPit1","XD_Sunflower1","XD_Sunflower2","XD_Sunflower3","XD_Sunflower4","XD_TemplarAltar","XD_Tomb1","XD_Tomb2","XD_Tomb3","XD_Tomb4","XD_Tomb5","XD_Tomb6","XD_Tomb7","XD_Tomb8","XD_Torch","XD_Tree1","XD_Tree1_small","XD_Tree2","XD_Tree2_small","XD_Tree3","XD_Tree3_small","XD_Tree4","XD_Tree5","XD_Tree6","XD_Tree7","XD_Tree8","XD_TreeEvelance1","XD_TreeMoor1","XD_TreeMoor2","XD_TreeMoor3","XD_TreeMoor4","XD_TreeMoor5","XD_TreeMoor6","XD_TreeMoor7","XD_TreeMoor8","XD_TreeMoor9","XD_TreeNorth1","XD_TreeNorth2","XD_TreeNorth3","XD_TreeStump1","XD_VillageCenter","XD_WallCorner","XD_WallDistorted","XD_WallStraight","XD_WallStraightGate","XD_WallStraightGate_Closed","XD_WaterLily1","XD_WaterLily2","XD_WaterPlant1","XD_WaterPlant2","XD_Waterfall1","XD_Waterfall2","XD_Waterfall3","XD_Waterfall4","XD_Waterfall5","XD_Willow1","XD_WoodenFence01","XD_WoodenFence02","XD_WoodenFence03","XD_WoodenFence04","XD_WoodenFence05","XD_WoodenFence06","XD_WoodenFence07","XD_WoodenFence08","XD_WoodenFence09","XD_WoodenFence10","XD_WoodenFence11","XD_WoodenFence12","XD_WoodenFence13","XD_WoodenFence14","XD_WoodenFence15","XD_WoodenFence16"]]
+        ]
+    },
+    
+    "Reward_CreateGroup": {
+        "Description": "Ersetzt eine Skriptentität mit einer Gruppe von Soldaten. Der Leader übernimmt den Skriptnamen.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["StringSelect", "Typname des Entity", ["CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4"]]
+        ]
+    },
+    
+    "Reward_CreateEffect": {
+        "Description": "Erstellt einen Effekt an der Position und weist ihm einen Namen zu.",
+        "Parameter":   [
+            ["StringInput", "Bezeichner des Effekt", []],
+            ["ScriptName", "Position auf der Map", []],
+            ["StringSelect", "Typname des Entity", ["FXBuildingSmoke","FXBuildingSmokeLarge","FXBuildingSmokeMedium","FXCannonFire","FXChopTree","FXChopTreeDead","FXChopTreeInWinter","FXCrushBuilding","FXDarioFear","FXDestroyTree","FXDie","FXDieHero","FXExplosion","FXExplosionPilgrim","FXExplosionShrapnel","FXExtractStone","FXFire","FXFireLo","FXFireMedium","FXFireSmall","FXKalaPoison","FXKerberosFear","FXLightning","FXMaryDemoralize","FXMaryPoison","FXNephilimFlowerDestroy","FXRain","FXSalimHeal","FXSnow","FXTemplarAltarEffect","FXTerrainPointer","FXWeathermachineFakeFX","FXYukiFireworksFear","FXYukiFireworksJoy"]]
+        ]
+    },
+    
+    "Reward_Resource": {
+        "Description": "Der Auftragnehmer erhält Rohstoffe in der angegebenen Menge.",
+        "Parameter":   [
+            ["StringSelect", "Typname des Rohstoff", ["Gold", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Menge an Rohstoffen", []]
+        ]
+    },
+    
+    "Reward_CreateMarker": {
+        "Description": "Erzeugt einen Minimap Marker an der angegebenen Position.",
+        "Parameter":   [
+            ["StringSelect", "Markierungstyp", ["StaticFriendly", "StaticNeutral", "StaticEnemy", "PulseFriendly", "PulseNeutral", "PulseEnemy"]],
+            ["ScriptName", "Position auf der Map", []]
+        ]
+    },
+    
+    "Reward_DestroyMarker": {
+        "Description": "Entfernt einen Minimap Marker an der Position.",
+        "Parameter":   [
+            ["ScriptName", "Position auf der Map", []]
+        ]
+    },
+    
+    "Reward_RevealArea": {
+        "Description": "Deckt ein Gebiet um das angegebene Gebietszentrum dauerhaft auf.",
+        "Parameter":   [
+            ["StringInput", "Gebietszentrum", []],
+            ["NumberInput", "Größe des Bereich", []]
+        ]
+    },
+    
+    "Reward_MoveAndVanish": {
+        "Description": "Bewegt ein Entity zu einer Zielposition und tauscht es am Zielort mit einem XD_ScriptEntity aus. Das neue Entity übernimmt Skriptnamen, Orientierung und Besitzer.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["StringInput", "Zielposition", []]
+        ]
+    },
+    
+    "Reward_OpenResourceSale": {
+        "Description": "Initalisiert einen Händler, der bis zu 4 verschiedene Rohstoffe ankauft. Jeder Rohstoff wird zu 1000 Talern verkauft. Die Menge an Rohstoffen ist veränderlich.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["StringSelect", "Warentyp von Angebot 1", ["-", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Anzahl der Angebote", []],
+            ["StringSelect", "Warentyp von Angebot 2", ["-", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Anzahl der Angebote", []],
+            ["StringSelect", "Warentyp von Angebot 3", ["-", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Anzahl der Angebote", []],
+            ["StringSelect", "Warentyp von Angebot 4", ["-", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Anzahl der Angebote", []]
+        ]
+    },
+    
+    "Reward_OpenResourcePurchase": {
+        "Description": "Initalisiert einen Händler, der bis zu 4 verschiedene Rohstoffe verkauft. Es werden immer 1000 Einheiten zu einem veränderlichen Preis eingekauft.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["StringSelect", "Warentyp von Angebot 1", ["-", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Anzahl der Angebote", []],
+            ["StringSelect", "Warentyp von Angebot 2", ["-", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Anzahl der Angebote", []],
+            ["StringSelect", "Warentyp von Angebot 3", ["-", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Anzahl der Angebote", []],
+            ["StringSelect", "Warentyp von Angebot 4", ["-", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Anzahl der Angebote", []]
+        ]
+    },
+    
+    "Reward_OpenMercenaryMerchant": {
+        "Description": "Initalisiert ein Söldnerposten, der bis zu 4 Angebote unterbreitet. Söldner werden immer für Taler angeworben.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["StringSelect", "Soldatentyp von Angebot 1", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["NumberInput", "Kosten in Taler", []],
+            ["NumberInput", "Anzahl der Angebote", []],
+            ["StringSelect", "Soldatentyp von Angebot 2", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["NumberInput", "Kosten in Taler", []],
+            ["NumberInput", "Anzahl der Angebote", []],
+            ["StringSelect", "Soldatentyp von Angebot 3", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["NumberInput", "Kosten in Taler", []],
+            ["NumberInput", "Anzahl der Angebote", []],
+            ["StringSelect", "Soldatentyp von Angebot 4", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["NumberInput", "Kosten in Taler", []],
+            ["NumberInput", "Anzahl der Angebote", []]
+        ]
+    },
+    
+    "Reward_CloseMerchant": {
+        "Description": "Deaktiviert den Händler mit dem angegebenen Skriptnamen.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []]
+        ]
+    },
+    
+    "Reward_AI_CreateAIPlayer": {
+        "Description": "Aktiviert einen KI-Spieler und setzt sein Technologielevel.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["NumberSelect", "Technologielevel", ["1", "2", "3", "4"]]
+        ]
+    },
+    
+    "Reward_AI_CreateArmy": {
+        "Description": "Erstellt eine Armee, deren Mitglieder von dem KI-Spieler ausgebildet werdenh. Die Armee patrolliert zwischen allen <u>PlayerX_PatrolPointY</u>. Die Armee greift alle <u>PlayerX_AttackTargetY</u> selbstständig an.",
+        "Parameter":   [
+            ["StringInput", "Name der Armee", []],
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["NumberSelect", "Stärke der Armee", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["ScriptName", "Position auf der Map", []],
+            ["NumberInput", "Aktionsradius", []],
+            ["StringSelect", "Armeetyp", ["City", "BlackKnight", "Bandit", "Barbarian", "Nephilim"]]
+        ]
+    },
+    
+    "Reprisal_MapScriptFunction": {
+        "Description": "Führt eine Funktion als Strafe für einen Fehlschlag aus.",
+        "Parameter":   [
+            ["StringInput", "Funktion im Kartenskript", []]
+        ]
+    },
+    
+    "Reprisal_Defeat": {
+        "Description": "Der Auftragnehmer verliert das Spiel.",
+        "Parameter":   []
+    },
+    
+    "Reprisal_Victory": {
+        "Description": "Der Auftragnehmer gewinnt das Spiel.",
+        "Parameter":   []
+    },
+    
+    "Reprisal_Briefing": {
+        "Description": "Startet das Briefing als Belohnung des Quest.",
+        "Parameter":   [
+            ["BriefingName", "Name des Briefings", []]
+        ]
+    },
+    
+    "Reprisal_ChangePlayer": {
+        "Description": "Ändert den Besitzer des Entity.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
+    },
+    
+    "Reprisal_Message": {
+        "Description": "Zeigt eine Nachricht auf dem Bildschirm an.",
+        "Parameter":   [
+            ["MessageInput", "Text der Nachricht", []]
+        ]
+    },
+    
+    "Reprisal_DestroyEntity": {
+        "Description": "Zerstört das Entity mit dem angegebenen Skriptnamen.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []]
+        ]
+    },
+    
+    "Reprisal_DestroyEffect": {
+        "Description": "Zerstört den Effekt mit dem angegebenen Effektnamen.",
+        "Parameter":   [
+            ["StringInput", "Bezeichner des Effekt", []]
+        ]
+    },
+    
+    "Reprisal_Diplomacy": {
+        "Description": "Ändert den Diplomatiestatus zweier Parteien.",
+        "Parameter":   [
+            ["NumberSelect", "Ersten Spieler wählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["NumberSelect", "Zweiten Spieler wählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringSelect", "Diplomatiestatus", ["Neutral", "Hostile", "Friendly"]]
+        ]
+    },
+    
+    "Reprisal_RemoveQuest": {
+        "Description": "Entfernt die Beschreibung des Quests aus dem Auftragsbuch.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reprisal_QuestSucceed": {
+        "Description": "Beendet den angegebenen Quest erfolgreich.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reprisal_QuestFail": {
+        "Description": "Lässt den angegebenen Quest fehlschlagen.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reprisal_QuestInterrupt": {
+        "Description": "Unterbricht den angegebenen Quest ohne ein Resultat.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reprisal_QuestActivate": {
+        "Description": "Aktiviert den angegebenen Quest, sodass er ausgelöst werden kann.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reprisal_QuestRestart": {
+        "Description": "Setzt einen Quest zurück und aktiviert ihn erneut.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reprisal_QuestRestartForceActive": {
+        "Description": "Setzt einen Quest zurück und löst ihn sofort aus.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Reprisal_Technology": {
+        "Description": "Ändert den Status der Technologie für den Auftragnehmer.",
+        "Parameter":   [
+            ["StringSelect", "Typname der Technologie", ["GT_Alchemy","GT_Alloying","GT_Architecture","GT_Binocular","GT_ChainBlock","GT_Chemistry","GT_Construction","GT_GearWheel","GT_Library","GT_Literacy","GT_Matchlock","GT_Mathematics","GT_Mercenaries","GT_Metallurgy","GT_Printing","GT_PulledBarrel","GT_StandingArmy","GT_Strategies","GT_Tactics","GT_Trading","T_BetterChassis","T_BetterTrainingArchery","T_BetterTrainingBarracks","T_BlisteringCannonballs","T_BodkinArrow","T_BookKeeping","T_ChainBardingArmor","T_ChainMailArmor","T_CityGuard","T_EnhancedGunPowder","T_FleeceArmor","T_FleeceLinedLeatherArmor","T_Fletching","T_IronCasting","T_LeadShot","T_LeatherArcherArmor","T_LeatherMailArmor","T_Loom","T_Masonry","T_MasterOfSmithery","T_PaddedArcherArmor","T_PlateMailArmor","T_Shoeing","T_Shoes","T_Sights","T_SoftArcherArmor","T_SpinningWheel","T_TownGuard","T_Tracking","T_Turnery","T_UpgradeBow1","T_UpgradeBow2","T_UpgradeBow3","T_UpgradeHeavyCavalry1","T_UpgradeLightCavalry1","T_UpgradeRifle1","T_UpgradeSpear1","T_UpgradeSpear2","T_UpgradeSpear3","T_UpgradeSword1","T_UpgradeSword2","T_UpgradeSword3","T_WeatherForecast","T_WoodAging","UP1_Alchemist","UP1_Archery","UP1_Bank","UP1_Barracks","UP1_Blacksmith","UP1_Brickworks","UP1_Claymine","UP1_Farm","UP1_Foundry","UP1_GunsmithWorkshop","UP1_Headquarter","UP1_Ironmine","UP1_Market","UP1_Monastery","UP1_Residence","UP1_Sawmill","UP1_Stables","UP1_StoneMason","UP1_Stonemine","UP1_Sulfurmine","UP1_Tavern","UP1_Tower","UP1_University","UP1_Village","UP2_Blacksmith","UP2_Claymine","UP2_Farm","UP2_Headquarter","UP2_Ironmine","UP2_Monastery","UP2_Residence","UP2_Stonemine","UP2_Sulfurmine","UP2_Tower","UP2_Village"]],
+            ["StringSelect", "Technologiestatus", ["Researched", "Allowed", "Forbidden"]]
+        ]
+    },
+    
+    "Reprisal_ConcealArea": {
+        "Description": "Verdunkelt das (künstlich) aufgedeckte Gebiet um das Entity.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []]
+        ]
+    },
+    
+    "Reprisal_Move": {
+        "Description": "Bewegt das Entity zum Zielpunkt.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["StringInput", "Zielposition", []]
+        ]
+    },
+    
+    "Trigger_MapScriptFunction": {
+        "Description": "Definiert eine Funktion als Auslöser für einen Quest. Gibt die Funktion true zurück, wird der Quest ausgelöst.",
+        "Parameter":   [
+            ["StringInput", "Funktion im Kartenskript", []]
+        ]
+    },
+    
+    "Trigger_NeverTriggered": {
+        "Description": "Der Quest wird niemals ausgelöst.",
+        "Parameter":   []
+    },
+    
+    "Trigger_Time": {
+        "Description": "Wartet x Sekunden vom Spielstart an und löst anschließend aus.",
+        "Parameter":   [
+            ["NumberInput", "Wartezeit in Sekunden", []]
+        ]
+    },
+    
+    "Trigger_Diplomacy": {
+        "Description": "Startet den Quest, sobald der Auftragnehmer eine bestimmte diplomatische Haltung zu einer Partei einnimmt.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringSelect", "Diplomatiestatus", ["Neutral", "Hostile", "Friendly"]]
+        ]
+    },
+    
+    "Trigger_Briefing": {
+        "Description": "Startet den Quest sobald ein Briefing des angegebenen Quest beendet ist. Der Typ des Briefings kann gesetzt oder ignoriert werden.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []],
+            ["StringSelect", "Name des Quest", ["Any", "Success", "Failure"]]
+        ]
+    },
+    
+    "Trigger_BriefingSuccess": {
+        "Description": "Startet den Quest sobald das Erfolgs-Briefing des angegebenen Quest beendet ist. Ein Erfolgs-Briefing startet nur, wenn sein Quest erfolgreich ist.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Trigger_BriefingFailure": {
+        "Description": "Startet den Quest sobald das Niederlage-Briefing des angegebenen Quest beendet ist. Ein Niederlage-Briefing startet nur, wenn sein Quest fehlschlägt.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    
+    "Trigger_Payday": {
+        "Description": "Startet den Quest am Zahltag des Auftraggebers.",
+        "Parameter":   []
+    },
+    
+    "Trigger_EntityDestroyed": {
+        "Description": "Startet den Quest wenn ein Entity von der Spielwelt verschwindet.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []]
+        ]
+    },
+    
+    "Trigger_WeatherState": {
+        "Description": "Startet den Quest, sobald ein bestimmter Wetterstatus aktiv ist.",
+        "Parameter":   [
+            ["StringSelect", "Benötigter Wetterstatus", ["Summer", "Rain", "Winter"]]
+        ]
+    },
+    
+    "Trigger_QuestAndQuest": {
+        "Description": "Startet den Quest, sobald zwei andere Quests das gleiche Resultat haben.",
+        "Parameter":   [
+            ["StringInput", "Name erster Quest", []],
+            ["StringInput", "Name zweiter Quest", []],
+            ["StringSelect", "Questresultat", ["Success", "Failure", "Interrupted", "Undecided"]]
+        ]
+    },
+    
+    "Trigger_QuestOrQuest": {
+        "Description": "Startet den Quest, sobald der eine oder der andere Quest das Resultat hat.",
+        "Parameter":   [
+            ["StringInput", "Name erster Quest", []],
+            ["StringInput", "Name zweiter Quest", []],
+            ["StringSelect", "Questresultat", ["Success", "Failure", "Interrupted", "Undecided"]]
+        ]
+    },
+    
+    "Trigger_QuestXorQuest": {
+        "Description": "Startet den Quest, wenn genau einer der Quests das Resultat hat.",
+        "Parameter":   [
+            ["StringInput", "Name erster Quest", []],
+            ["StringInput", "Name zweiter Quest", []],
+            ["StringSelect", "Questresultat", ["Success", "Failure", "Interrupted", "Undecided"]]
+        ]
+    },
+    
+    "Trigger_QuestSuccess": {
+        "Description": "Startet den Quest X Sekunden nachdem ein anderer Quest erfolgreich abgeschlossen wurde.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []],
+            ["NumberInput", "Wartezeit in Sekunden", []]
+        ]
+    },
+    
+    "Trigger_QuestFailure": {
+        "Description": "Startet den Quest X Sekunden nachdem ein anderer Quest fehlgeschlagen ist.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []],
+            ["NumberInput", "Wartezeit in Sekunden", []]
+        ]
+    },
+    
+    "Trigger_QuestOver": {
+        "Description": "Startet den Quest X Sekunden nachdem ein anderer Quest beendet ist (egal wie).",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []],
+            ["NumberInput", "Wartezeit in Sekunden", []]
+        ]
+    },
+    
+    "Trigger_QuestInterrupted": {
+        "Description": "Startet den Quest X Sekunden nachdem ein anderer Quest angebrochen wurde.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []],
+            ["NumberInput", "Wartezeit in Sekunden", []]
+        ]
+    },
+    
+    "Trigger_QuestActive": {
+        "Description": "Startet den Quest X Sekunden nachdem ein anderer Quest aktiv geworden ist.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []],
+            ["NumberInput", "Wartezeit in Sekunden", []]
+        ]
+    },
+    
+    "Trigger_QuestNotTriggered": {
+        "Description": "Startet den Quest X Sekunden solange ein anderer Quest inaktiv ist.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []],
+            ["NumberInput", "Wartezeit in Sekunden", []]
+        ]
+    },
+    
+    
+    
+    "Goal_WinQuest": {
+        "Description": "Der Auftragnehmer muss einen anderen Auftrag erfolgreich abschließen. Schlägt der Auftrag fehl, wird dieses Ziel fehlschlagen.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+    "Goal_DestroyPlayer": {
+        "Description": "Das angegebene Hauptquartier eines Spielers muss zerstört werden. Das Ziel ist erfüllt, sobald dies geschieht. Nach Erfüllung des Ziels, werden automatisch alle Siedler und Gebäude des angegebenen Spielers zerstört.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringInput", "Skriptname des Hauptquartiers", []]
+        ]
+    },
+    "Goal_CustomVariable": {
+        "Description": "Das Ziel ist erreicht, sobald eine benutzerdefinierte Variable einen bestimmten Wert hat.",
+        "Parameter":   [
+            ["StringInput", "Name der Variable", []],
+            ["StringSelect", "Vergleichsoperation", ["==", "~=", "<=", "<", ">", ">="]],
+            ["NumberInput", "Zu vergleichender Wert", []]
+        ]
+    },
+    "Reprisal_SetVulnerablity": {
+        "Description": "Macht das angegebene Entity verwundbar oder unverwundbar.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["BooleanSelect", "Entity verwundbar", []]
+        ]
+    },
+    "Reprisal_CustomVariable": {
+        "Description": "Der Wert einer benutzerdefinierten Variable wird verändert.",
+        "Parameter":   [
+            ["StringInput", "Name der Variable", []],
+            ["StringSelect", "Rechenoperation", ["=", "+", "-", "*", "/", "%", "^"]],
+            ["NumberInput", "Opperand der Rechnung", []]
+        ]
+    },
+    "Reward_SetVulnerablity": {
+        "Description": "Macht das angegebene Entity verwundbar oder unverwundbar.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["BooleanSelect", "Entity verwundbar", []]
+        ]
+    },
+    "Reward_AI_EnableArmyAttack": {
+        "Description": "Deaktiviert oder aktiviert Angriffe auf Zielpositionen durch die angegebene Armee.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringInput", "Name der Armee", []],
+            ["BooleanSelect", "Armee greift an", []]
+        ]
+    },
+    "Reward_AI_EnableArmyPatrol": {
+        "Description": "Deaktiviert oder aktiviert Patrolien zwischen Wegpunkten durch die angegebene Armee.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringInput", "Name der Armee", []],
+            ["BooleanSelect", "Armee patrolliert", []]
+        ]
+    },
+    "Reward_AI_CreateSpawnArmy": {
+        "Description": "Erstellt eine Armee, deren Mitglieder gespawnt werden, solange der Lebensfaden existiert. Die Armee patrolliert zwischen allen <u>PlayerX_PatrolPointY</u>. Die Armee greift alle <u>PlayerX_AttackTargetY</u> selbstständig an.",
+        "Parameter":   [
+            ["StringInput", "Name der Armee", []],
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["ScriptName", "Lebensfaden", []],
+            ["NumberSelect", "Stärke der Armee", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["ScriptName", "Position auf der Map", []],
+            ["NumberInput", "Aktionsradius", []],
+            ["NumberInput", "Sekunden bis Respawn", []],
+            ["StringSelect", "Typname Battalion 1", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Typname Battalion 2", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Typname Battalion 3", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Typname Battalion 4", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Typname Battalion 5", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Typname Battalion 6", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]]
+        ]
+    },
+    "Reward_CustomVariable": {
+        "Description": "Der Wert einer benutzerdefinierten Variable wird verändert.",
+        "Parameter":   [
+            ["StringInput", "Name der Variable", []],
+            ["StringSelect", "Rechenoperation", ["=", "+", "-", "*", "/", "%", "^"]],
+            ["NumberInput", "Opperand der Rechnung", []]
+        ]
+    },
+    "Trigger_CustomVariable": {
+        "Description": "Der Auftrag wird gestartet, wenn eine benutzerdefinierte Variable einen bestimmten Wert hat.",
+        "Parameter":   [
+            ["StringInput", "Name der Variable", []],
+            ["StringSelect", "Vergleichsoperation", ["==", "~=", "<=", "<", ">", ">="]],
+            ["NumberInput", "Zu vergleichender Wert", []]
+        ]
+    },
+    "Goal_MultipleChoiceSelection": {
+        "Description": "Fragt das Ergebnis einer Entscheidung in einem Briefing ab. Wird die falsche Entscheidung getroffen, schlägt das Behavior fehlt. <br><b>Tipp:</p> In versteckten Quests nutzen.",
+        "Parameter":   [
+            ["ChoiceName", "Multiple-Choice-Auswahl", []],
+            ["NumberSelect", "Akzeptierte Antwort", ["1", "2"]]
+        ]
+    }
+}

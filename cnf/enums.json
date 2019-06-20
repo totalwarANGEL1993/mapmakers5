@@ -1,0 +1,38 @@
+{
+  "WeatherSets": [
+    "SetupEvelanceWeatherGfxSet",
+    "SetupHighlandWeatherGfxSet",
+    "SetupMediterraneanWeatherGfxSet",
+    "SetupMoorWeatherGfxSet",
+    "SetupNormalWeatherGfxSet",
+    "SetupSteppeWeatherGfxSet"
+  ],
+
+  "PlayerColors": [
+    "DEFAULT_COLOR",
+    "PLAYER_COLOR",
+    "ENEMY_COLOR1",
+    "ENEMY_COLOR2",
+    "EVIL_GOVERNOR_COLOR",
+    "FRIENDLY_COLOR1",
+    "FRIENDLY_COLOR2",
+    "FRIENDLY_COLOR3",
+    "KERBEROS_COLOR",
+    "NEPHILIM_COLOR",
+    "NPC_COLOR",
+    "ROBBERS_COLOR"
+  ],
+
+  "DiplomacyStates": [
+    "Neutral",
+    "Hostile",
+    "Friendly"
+  ],
+
+  "QuestTypes": [
+    "MAINQUEST_OPEN",
+    "MAINQUEST_CLOSED",
+    "SUBQUEST_OPEN",
+    "SUBQUEST_CLOSED"
+  ],
+}

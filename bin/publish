@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "START OF DEPLOYMENT"
+echo ""
+
+mkdir -p var
+cd var
+
+echo "rename jar..."
+mv mapmaker-s5.jar QuestSystemBehavior.jar
+echo "done!"
+
+echo "copy lib..."
+mkdir -p lua/orthus/lua
+cp -r ../lua/orthus/lua/qsb lua/orthus/lua
+cp ../lua/mainmapscript.lua lua/mainmapscript.lua
+cp ../lua/mapscript.lua lua/mapscript.lua
+echo "done!"
+
+echo "copy cnf..."
+cp -r ../cnf cnf
+echo "done!"
+
+echo "copy bin..."
+cp -r ../bin bin
+echo "done!"
+
+echo ""
+echo "FINISHED DEPLOYMENT"
