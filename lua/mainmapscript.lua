@@ -83,9 +83,19 @@ function CreateQuests()
             table.insert(Behaviors, _G[CurrentBehaviorName](unpack(CurrentBehaviorData)));
         end
 
+        local Description;
+        if v.Visible then
+            Description = {
+                Title = v.Title,
+                Text  = v.Text,
+                Type  = _G[v.Type],
+                Info  = 1
+            }
+        end
+
         CreateQuest {
             Name        = v.Name,
-            Description = v.Description,
+            Description = Description,
             Receiver    = v.Receiver,
             Time        = v.Time,
 
