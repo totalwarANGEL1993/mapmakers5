@@ -7,7 +7,6 @@ import twa.siedelwood.s5.mapmaker.model.data.quest.QuestCollection;
 import twa.siedelwood.s5.mapmaker.model.meta.ConfigurationBehaviorModel;
 import twa.siedelwood.s5.mapmaker.model.meta.ConfigurationParamaterModel;
 import twa.siedelwood.s5.mapmaker.service.config.BehaviorPrototypeService;
-import twa.siedelwood.s5.mapmaker.service.script.BriefingBuilderService;
 import twa.siedelwood.s5.mapmaker.view.ViewPanel;
 import twa.siedelwood.s5.mapmaker.view.swing.component.dialog.EnterValueDialog;
 import twa.siedelwood.s5.mapmaker.view.swing.component.input.InputComponent;
@@ -413,7 +412,6 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
      */
     private boolean checkQuestName(String value) {
         ApplicationController controller = ApplicationController.getInstance();
-        BriefingBuilderService builder = BriefingBuilderService.getInstance();
         if (value.length() < 1 && !Pattern.matches("^[a-zA-Z0-9_]+$", value)) {
             controller.getMessageService().displayErrorMessage(
                     "Ungültiger Name",

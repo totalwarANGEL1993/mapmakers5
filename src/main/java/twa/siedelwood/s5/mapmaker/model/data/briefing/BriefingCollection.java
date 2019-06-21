@@ -5,11 +5,13 @@ import lombok.Data;
 import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
-import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 /**
  * Collection of briefings
@@ -111,5 +113,43 @@ public class BriefingCollection {
             namesVector.add(b.getName());
         }
         return namesVector;
+    }
+
+    public void sort() {
+        Collections.sort(briefings, Comparator.comparing(Briefing::getName));
+    }
+
+    public boolean validateName(String name) {
+        if (name.length() < 1 && !Pattern.matches("^[a-zA-Z0-9_]+$", name)) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean doesBriefingNameExist(String name) {
+        for (Briefing b : briefings) {
+            if (b.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean doesChoicePageNameExist(String name, Briefing briefing) {
+        for (BriefingPage p : briefing.getPages()) {
+            if (p.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean doesPageNameExist(String name, Briefing briefing) {
+        for (BriefingPage p : briefing.getPages()) {
+            if (p.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

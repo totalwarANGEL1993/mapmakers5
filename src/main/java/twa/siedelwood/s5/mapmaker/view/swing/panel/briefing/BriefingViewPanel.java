@@ -8,9 +8,7 @@ import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingDialogPage;
 import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingPage;
 import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingPageTypes;
 import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingSepertorPage;
-import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
 import twa.siedelwood.s5.mapmaker.model.data.quest.QuestCollection;
-import twa.siedelwood.s5.mapmaker.service.script.BriefingBuilderService;
 import twa.siedelwood.s5.mapmaker.view.ViewPanel;
 import twa.siedelwood.s5.mapmaker.view.swing.component.dialog.EnterValueDialog;
 import twa.siedelwood.s5.mapmaker.view.swing.component.dialog.ListSelectValueDialog;
@@ -79,8 +77,10 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                     Briefing newBriefing = briefing.clone();
                     newBriefing.setName(getValue());
                     briefingCollection.add(newBriefing);
-                    briefingGroup.addSelectableBriefing(newBriefing.getName());
-                    briefingGroup.setSelectedBriefing(newBriefing.getName());
+                    briefingCollection.sort();
+                    briefingGroup.clearSelection();
+                    briefingGroup.setSelectableBriefings(briefingCollection.toNamesVector());
+                    briefingGroup.setSelectedBriefing(getValue());
                 }
             };
             dialog.initDialog();
@@ -102,10 +102,14 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                     if (!checkBriefingName(getValue())) {
                         return;
                     }
-                    QuestCollection questCollection = ApplicationController.getInstance().getCurrentProject().getQuestCollection();
-                    briefingGroup.replaceSelectableBriefing(getValue(), briefing.getName());
                     String oldName = briefing.getName();
                     briefing.setName(getValue());
+                    briefingCollection.sort();
+                    briefingGroup.clearSelection();
+                    briefingGroup.setSelectableBriefings(briefingCollection.toNamesVector());
+                    briefingGroup.setSelectedBriefing(getValue());
+
+                    QuestCollection questCollection = ApplicationController.getInstance().getCurrentProject().getQuestCollection();
                     questCollection.replaceBriefingNameInReferencingQuests(oldName, getValue());
                 }
             };
@@ -159,9 +163,11 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 if (!checkBriefingName(getValue())) {
                     return;
                 }
-                BriefingBuilderService builder = BriefingBuilderService.getInstance();
-                Briefing newBriefing = builder.createBriefing(briefingCollection, getValue());
-                briefingGroup.addSelectableBriefing(newBriefing.getName());
+                Briefing newBriefing = new Briefing(getValue());
+                briefingCollection.add(newBriefing);
+                briefingCollection.sort();
+                briefingGroup.clearSelection();
+                briefingGroup.setSelectableBriefings(briefingCollection.toNamesVector());
                 briefingGroup.setSelectedBriefing(newBriefing.getName());
             }
         };
@@ -176,8 +182,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
      */
     private boolean checkBriefingName(String name) {
         ApplicationController controller = ApplicationController.getInstance();
-        BriefingBuilderService builder = BriefingBuilderService.getInstance();
-        if (!builder.validateName(name)) {
+        if (!briefingCollection.validateName(name)) {
             controller.getMessageService().displayErrorMessage(
                     "Ungültiger Name",
                     "Der angegebene Name ist ungültig oder zu kurz! Möglicher Weise ist er zu kurz oder enthält verbotene Zeichen.",
@@ -186,7 +191,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
             return false;
         }
 
-        if (builder.doesBriefingNameExist(name, controller.getSelectableValueService().getBriefingNames())) {
+        if (briefingCollection.doesBriefingNameExist(name)) {
             controller.getMessageService().displayErrorMessage(
                     "Duplikat",
                     "Es existiert bereits ein Briefing mit dem angegebenen Namen! Bitte wähle einen anderen Namen für das Briefing aus.",
@@ -529,8 +534,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
      */
     private boolean checkPageName(String name, Briefing briefing, boolean isChoicePage) {
         ApplicationController controller = ApplicationController.getInstance();
-        BriefingBuilderService builder = BriefingBuilderService.getInstance();
-        if (!builder.validateName(name)) {
+        if (!briefingCollection.validateName(name)) {
             controller.getMessageService().displayErrorMessage(
                 "Ungültiger Name",
                 "Der angegebene Name ist ungültig oder zu kurz! Möglicher Weise enthält er verbotene Zeichen.",
@@ -540,7 +544,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
         }
 
         if (isChoicePage) {
-            if (builder.doesChoicePageNameExist(name, briefingCollection)) {
+            if (briefingCollection.doesChoicePageNameExist(name, briefing)) {
                 controller.getMessageService().displayErrorMessage(
                         "Duplikat",
                         "Der Name einer Entscheidung kann im Projekt nur einmalig vergeben werden!",
@@ -550,7 +554,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
             }
         }
         else {
-            if (builder.doesPageNameExist(name, briefing)) {
+            if (briefingCollection.doesPageNameExist(name, briefing)) {
                 controller.getMessageService().displayErrorMessage(
                         "Duplikat",
                         "Es existiert bereits eine Seite mit dem angegebenen Namen! Bitte wähle einen anderen Namen für die Seite aus.",

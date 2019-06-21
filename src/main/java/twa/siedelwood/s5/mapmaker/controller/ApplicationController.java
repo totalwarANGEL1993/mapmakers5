@@ -357,8 +357,16 @@ public class ApplicationController {
             mapScriptBuilder.setMapData(currentProject.getMapData());
             mapScriptBuilder.setQuests(currentProject.getQuestCollection());
             mapScriptBuilder.setBriefings(currentProject.getBriefingCollection());
-            String content = mapScriptBuilder.replaceTokensInMapscript("lua/mainmapscript.lua");
 
+            String infoContent = mapScriptBuilder.replaceMapDescriptionInInfoFile(
+                mapFolder + "/info.xml",
+                currentProject.getMapData().getMapName(),
+                currentProject.getMapData().getMapDescription()
+            );
+            Files.delete(Paths.get(mapFolder + "/info.xml"));
+            Files.write(Paths.get(mapFolder + "/info.xml"), infoContent.getBytes(Charset.forName("UTF-8")), StandardOpenOption.CREATE);
+
+            String content = mapScriptBuilder.replaceTokensInMapscript("lua/mainmapscript.lua");
             String mainScriptPath = localMapPath + ".unpacked/maps/externalmap/mainmapscript.lua";
             Files.delete(Paths.get(mainScriptPath));
             Files.write(Paths.get(mainScriptPath), content.getBytes(Charset.forName("UTF-8")), StandardOpenOption.CREATE);

@@ -14,6 +14,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * This class replaces the tokens inside the internal and external map script
@@ -33,6 +34,42 @@ public class MapScriptBuilder
 	private BriefingCollection briefings;
 
 	private MapData mapData;
+
+	/**
+	 * Overwrites the map name and the map description if set.
+	 * @param filepath Path to info.xml
+	 * @param name Map name
+	 * @param desc Map description
+	 * @return New file content
+	 */
+	public String replaceMapDescriptionInInfoFile(final String filepath, String name, String desc) {
+		List<String> lines;
+		try
+		{
+			lines = Files.readAllLines(Paths.get(filepath), Charset.forName("UTF-8"));
+			final StringBuilder info = new StringBuilder();
+			for (int i = 0; i < lines.size(); i++)
+			{
+				String lineToAppend = lines.get(i);
+				// Name
+				if (name != null && !name.equals("") && Pattern.matches("^.*<Name>.*</Name>.*$", lineToAppend)) {
+					lineToAppend = lineToAppend.replaceAll("^.*<Name>.*</Name>.*$", "<Name>" +name+ "</Name>");
+				}
+				// Description
+				if (desc != null && !desc.equals("") && Pattern.matches("^.*<Desc>.*</Desc>.*$", lineToAppend)) {
+					lineToAppend = lineToAppend.replaceAll("^.*<Desc>.*</Desc>.*$", "<Desc>" +desc+ "</Desc>");
+				}
+				info.append(lineToAppend).append("\n");
+			}
+			return info.toString();
+		}
+		catch (final IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	/**
 	 * Loads a template and replaces all tokens with the appropriate contents.
