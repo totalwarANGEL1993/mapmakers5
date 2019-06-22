@@ -8,6 +8,8 @@ cd var
 
 echo "rename jar..."
 mv mapmaker-s5.jar QuestSystemBehavior.jar
+cp ../bin/QuestSystemBehavior.bat ./QuestSystemBehavior.bat
+cp ../bin/QuestSystemBehavior ./QuestSystemBehavior
 echo "done!"
 
 echo "copy lib..."

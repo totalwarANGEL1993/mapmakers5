@@ -3,7 +3,9 @@ package twa.siedelwood.s5.mapmaker.view.swing.panel.briefing;
 import twa.siedelwood.s5.mapmaker.controller.ApplicationController;
 import twa.siedelwood.s5.mapmaker.model.data.briefing.Briefing;
 import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingCollection;
+import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingPage;
 import twa.siedelwood.s5.mapmaker.model.meta.ConfigurationProjectModel;
+import twa.siedelwood.s5.mapmaker.view.swing.component.renderer.BriefingPageCellRenderer;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -19,7 +21,7 @@ import java.util.Vector;
 
 public class BriefingEditPagePanel extends JPanel implements ActionListener, ListSelectionListener, MouseListener {
     private JLabel pagesInfo;
-    private JList<String> pagesList;
+    private JList<BriefingPage> pagesList;
     private JScrollPane scrollPane;
     private JButton[] buttons;
     protected int height = 590;
@@ -99,6 +101,7 @@ public class BriefingEditPagePanel extends JPanel implements ActionListener, Lis
         add(pagesInfo);
 
         pagesList = new JList<>();
+        pagesList.setCellRenderer(new BriefingPageCellRenderer());
         pagesList.setFont(new Font("Arial", Font.PLAIN, 12));
         pagesList.addListSelectionListener(this);
         pagesList.addMouseListener(this);
@@ -136,7 +139,7 @@ public class BriefingEditPagePanel extends JPanel implements ActionListener, Lis
      *
      * @param data
      */
-    public void setPages(Vector<String> data) {
+    public void setPages(Vector<BriefingPage> data) {
         pagesList.setListData(data);
     }
 
@@ -161,7 +164,7 @@ public class BriefingEditPagePanel extends JPanel implements ActionListener, Lis
      * @return
      */
     public String getSelectedPage() {
-        return pagesList.getSelectedValue();
+        return pagesList.getSelectedValue().getName();
     }
 
     /**

@@ -51,7 +51,7 @@ public class BriefingChoicePage implements BriefingPage {
 
     @Override
     public String toString() {
-        return toJson().toJson();
+        return name;
     }
 
     @Override

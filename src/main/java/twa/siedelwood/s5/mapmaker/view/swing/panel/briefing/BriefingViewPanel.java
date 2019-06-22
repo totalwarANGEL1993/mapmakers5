@@ -209,10 +209,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
         if (briefingCollection != null) {
             currentSelectedBriefing = briefingGroup.getSelectedBriefingIndex();
             if (currentSelectedBriefing != -1) {
-                Vector<String> pageNames = new Vector<>();
-                for (BriefingPage page : briefingCollection.getBriefings().get(currentSelectedBriefing).getPages()) {
-                    pageNames.add(page.getName());
-                }
+                Vector<BriefingPage> pageNames = new Vector<>(briefingCollection.getBriefings().get(currentSelectedBriefing).getPages());
                 setPages(pageNames);
             }
         }
@@ -328,9 +325,9 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
             if (pageList.size() >= currentSelectedPage) {
                 Collections.swap(pageList, currentSelectedPage, currentSelectedPage-1);
                 currentSelectedPage = currentSelectedPage -1;
-                Vector<String> data = briefing.toPageNamesVector();
-                setPages(data);
-                pageGroup.setSelectedPage(data.get(currentSelectedPage));
+                Vector<BriefingPage> data = briefing.toPageVector();
+                setPages(briefing.toPageVector());
+                pageGroup.setSelectedPage(data.get(currentSelectedPage).getName());
             }
         }
     }
@@ -345,9 +342,9 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
             if (pageList.size() > currentSelectedPage+1) {
                 Collections.swap(pageList, currentSelectedPage, currentSelectedPage +1);
                 currentSelectedPage = currentSelectedPage +1;
-                Vector<String> data = briefing.toPageNamesVector();
+                Vector<BriefingPage> data = briefing.toPageVector();
                 setPages(data);
-                pageGroup.setSelectedPage(data.get(currentSelectedPage));
+                pageGroup.setSelectedPage(data.get(currentSelectedPage).getName());
             }
         }
     }
@@ -384,7 +381,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                         break;
                 }
                 briefing.addPage(newPage);
-                Vector<String> data = briefing.toPageNamesVector();
+                Vector<BriefingPage> data = briefing.toPageVector();
                 setPages(data);
                 pageGroup.setSelectedPage(newPage.getName());
             }
@@ -411,7 +408,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                     BriefingPage newPage = page.clone();
                     newPage.setName(getValue());
                     briefing.addPage(newPage);
-                    pageGroup.setPages(briefing.toPageNamesVector());
+                    pageGroup.setPages(briefing.toPageVector());
                     pageGroup.setSelectedPage(newPage.getName());
                 }
             };
@@ -439,7 +436,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
 
                     String oldName = page.getName();
                     page.setName(getValue());
-                    pageGroup.setPages(briefing.toPageNamesVector());
+                    pageGroup.setPages(briefing.toPageVector());
                     pageGroup.setSelectedPage(page.getName());
                     renamePageReferences(getValue(), oldName);
                     questCollection.replacePageNameInReferencingQuests(oldName, getValue());
@@ -485,7 +482,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 }
                 String pageName = briefing.getName();
                 briefing.removePage(currentSelectedPage);
-                pageGroup.setPages(briefing.toPageNamesVector());
+                pageGroup.setPages(briefing.toPageVector());
                 pageGroup.setSelectedPageIndex(0);
                 renamePageReferences(pageName, "INVALID_PAGE");
             }
@@ -600,7 +597,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
      * Sets the list of selectable pages
      * @param data Page names
      */
-    public void setPages(Vector<String> data) {
+    public void setPages(Vector<BriefingPage> data) {
         pageGroup.setPages(data);
     }
 

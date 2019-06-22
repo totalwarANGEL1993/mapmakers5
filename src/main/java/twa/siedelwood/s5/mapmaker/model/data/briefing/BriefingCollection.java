@@ -5,6 +5,7 @@ import lombok.Data;
 import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
+import twa.siedelwood.s5.mapmaker.controller.ApplicationConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -120,7 +121,7 @@ public class BriefingCollection {
     }
 
     public boolean validateName(String name) {
-        if (name.length() < 1 && !Pattern.matches("^[a-zA-Z0-9_]+$", name)) {
+        if (name.length() < 1 && !Pattern.matches(ApplicationConstants.DEFAULT_NAME_REGEX, name)) {
             return false;
         }
         return true;

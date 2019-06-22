@@ -92,7 +92,6 @@ public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel {
      * Returns which color has been selected in the combo box.
      * @param playerID Player id
      * @param idx Index
-     * @return Index of selected color
      */
     public void setSelectedColorIndex(int playerID, int idx) {
         if (playerID < 1 || playerID > 8) {
