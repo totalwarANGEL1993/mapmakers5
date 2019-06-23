@@ -380,6 +380,10 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                         newPage = new BriefingSepertorPage(pageName);
                         break;
                 }
+                // Ensure unique name
+                if (briefingCollection.doesPageNameExist(newPage.getName(), briefing)) {
+                    newPage.setName(newPage.getName() + "_1");
+                }
                 briefing.addPage(newPage);
                 Vector<BriefingPage> data = briefing.toPageVector();
                 setPages(data);

@@ -84,7 +84,7 @@ public class InputComponentIntegerField extends JPanel implements InputComponent
     public void insertUpdate(final DocumentEvent e)
     {
         if (e.getDocument().equals(value.getDocument())) {
-            value.setText(value.getText().replaceAll("[^\\d.]", ""));
+            value.setText(value.getText().replaceAll("\\D", ""));
             if (value.getText().startsWith("0") && value.getText().length() > 1) {
                 value.setText(value.getText().substring(1));
             }
@@ -98,7 +98,7 @@ public class InputComponentIntegerField extends JPanel implements InputComponent
     public void removeUpdate(final DocumentEvent e)
     {
         if (e.getDocument().equals(value.getDocument())) {
-            value.setText(value.getText().replaceAll("[^\\d.]", ""));
+            value.setText(value.getText().replaceAll("\\D", ""));
             if (value.getText().startsWith("0") && value.getText().length() > 1) {
                 value.setText(value.getText().substring(1));
             }
@@ -109,8 +109,11 @@ public class InputComponentIntegerField extends JPanel implements InputComponent
      * {@inheritDoc}
      */
     @Override
-    public void setValue(final String string)
+    public void setValue(String string)
     {
+        if (string.equals("")) {
+            string = "0";
+        }
         value.setText(string);
     }
 
@@ -121,7 +124,7 @@ public class InputComponentIntegerField extends JPanel implements InputComponent
     public void changedUpdate(final DocumentEvent e)
     {
         if (e.getDocument().equals(value.getDocument())) {
-            value.setText(value.getText().replaceAll("[^\\d.]", ""));
+            value.setText(value.getText().replaceAll("\\D", ""));
             if (value.getText().startsWith("0") && value.getText().length() > 1) {
                 value.setText(value.getText().substring(1));
             }
@@ -140,7 +143,6 @@ public class InputComponentIntegerField extends JPanel implements InputComponent
         add(description);
 
         value = new JNumberTextField();
-        value.setText("0");
         value.setFont(new Font("Arial", Font.PLAIN, 12));
         value.setBounds(2, 17, w - 20, 20);
         value.build();
