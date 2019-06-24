@@ -34,7 +34,13 @@ function InitDiplomacy()
     for k, v in pairs(Global_MapConfigurationData.Players) do
         for i= 1, table.getn(v.Diplomacy), 1 do
             if v.Diplomacy[i][1] ~= k then
-                Logic.SetDiplomacyState(k, v.Diplomacy[i][1], v.Diplomacy[i][2]);
+                local DiplomacyStateName = "Neutral";
+                if (v.Diplomacy[i][2] == 2) then
+                    DiplomacyStateName = "Friendly";
+                elseif (v.Diplomacy[i][2] == 3) then
+                    DiplomacyStateName = "Hostile";
+                end
+                _G["Set" ..DiplomacyStateName](k, v.Diplomacy[i][1]);
             end
         end
         if v.Name ~= "" then

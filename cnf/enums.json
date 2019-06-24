@@ -29,9 +29,9 @@
   ],
 
   "DiplomacyStates": [
+    "Friendly",
     "Neutral",
-    "Hostile",
-    "Friendly"
+    "Hostile"
   ],
 
   "QuestTypes": [

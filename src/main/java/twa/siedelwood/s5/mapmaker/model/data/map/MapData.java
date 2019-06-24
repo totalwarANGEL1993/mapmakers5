@@ -41,7 +41,7 @@ public class MapData {
         for (int i=0; i<8; i++) {
             List<Diplomacy> diplomacyList = new ArrayList<>();
             for (int j=0; j<8; j++) {
-                diplomacyList.add(new Diplomacy(j+1, 0));
+                diplomacyList.add(new Diplomacy(j+1, 1));
             }
             players.add(new Player("", "DEFAULT_COLOR", diplomacyList));
         }

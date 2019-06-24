@@ -14,7 +14,7 @@ import twa.lib.typesavejson.models.JsonObject;
 @EqualsAndHashCode
 public class Diplomacy {
     private int target = 1;
-    private int state = 0;
+    private int state = 2;
 
     @Override
     public String toString() {

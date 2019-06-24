@@ -242,9 +242,9 @@ public class ApplicationController {
                     String color = ((JsonArray) colorSettings.get(i)).get(1).getStringValue();
                     String name = ((JsonArray) diplomacySettings.get(i)).get(0).getStringValue();
                     List<Diplomacy> diplomacy = Arrays.asList(
-                        new Diplomacy(1, 0), new Diplomacy(2, 0), new Diplomacy(3, 0),
-                        new Diplomacy(4, 0), new Diplomacy(5, 0), new Diplomacy(6, 0),
-                        new Diplomacy(7, 0), new Diplomacy(8, 0)
+                        new Diplomacy(1, 1), new Diplomacy(2, 1), new Diplomacy(3, 1),
+                        new Diplomacy(4, 1), new Diplomacy(5, 1), new Diplomacy(6, 1),
+                        new Diplomacy(7, 1), new Diplomacy(8, 1)
                     );
                     players.add(new Player(name, color, diplomacy));
                 }
