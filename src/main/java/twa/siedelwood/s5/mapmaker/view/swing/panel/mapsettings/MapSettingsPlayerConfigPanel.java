@@ -4,6 +4,8 @@ import twa.siedelwood.s5.mapmaker.model.data.map.MapData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 /**
@@ -16,6 +18,7 @@ public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel {
     private JLabel[] playerColorLabel;
     private JTextField[] playerName;
     private JComboBox<String>[] playerColor;
+    private JPanel[] playerColorIcon;
 
     /**
      * Constructor
@@ -143,6 +146,7 @@ public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel {
         playerColorLabel = new JLabel[8];
         playerName = new JTextField[8];
         playerColor = new JComboBox[8];
+        playerColorIcon = new JPanel[8];
 
         int y = 45;
         for (int i=0; i<8; i++) {
@@ -158,7 +162,11 @@ public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel {
             add(playerColorLabel[i]);
             playerColor[i] = new JComboBox<>();
             playerColor[i].setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+            playerColor[i].addActionListener(this);
             add(playerColor[i]);
+            playerColorIcon[i] = new JPanel(null);
+            playerColorIcon[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            add(playerColorIcon[i]);
             playerName[i] = new JTextField();
             add(playerName[i]);
 
@@ -183,7 +191,8 @@ public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel {
             if (nameX > 320) nameX = 320;
 
             playerColorLabel[i].setBounds(nameX + 15, y+20, 200, 20);
-            playerColor[i].setBounds(nameX + 15, y+40, 200, 20);
+            playerColorIcon[i].setBounds(nameX + 205, y+40, 20, 20);
+            playerColor[i].setBounds(nameX + 15, y+40, 180, 20);
 
             playerNameLabel[i].setBounds(10, y+20, nameX, 20);
             playerName[i].setBounds(10, y+40, nameX, 20);
@@ -192,5 +201,77 @@ public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel {
         }
 
         super.updatePanelSize(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        super.actionPerformed(e);
+
+        for (int i=0; i<8; i++) {
+            if (e.getSource() == playerColor[i]) {
+                onComboboxValueChanged(playerColor[i], playerColorIcon[i]);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param stringJComboBox
+     * @param jPanel
+     */
+    private void onComboboxValueChanged(JComboBox<String> stringJComboBox, JPanel jPanel) {
+        Color bgColor = new Color(255, 255, 255, 255);
+        String value = (String) stringJComboBox.getSelectedItem();
+        switch (value) {
+            case "ENEMY_COLOR1":
+                bgColor = new Color(230, 230, 230);
+                break;
+            case "ENEMY_COLOR2":
+                bgColor = new Color(252, 164, 39);
+                break;
+            case "ENEMY_COLOR3":
+                bgColor = new Color(255, 79, 200);
+                break;
+            case "NEPHILIM_COLOR":
+                bgColor = new Color(226, 0, 0);
+                break;
+            case "FRIENDLY_COLOR1":
+                bgColor = new Color(235, 255, 53);
+                break;
+            case "FRIENDLY_COLOR2":
+                bgColor = new Color(0, 235, 209);
+                break;
+            case "FRIENDLY_COLOR3":
+                bgColor = new Color(255, 150, 214);
+                break;
+            case "FARMER_COLOR":
+                bgColor = new Color(115, 209, 65);
+                break;
+            case "KERBEROS_COLOR":
+                bgColor = new Color(255, 150, 214);
+                break;
+            case "MERCENARY_COLOR":
+                bgColor = new Color(135, 135, 135);
+                break;
+            case "EVIL_GOVERNOR_COLOR":
+                bgColor = new Color(0, 140, 2);
+                break;
+            case "NPC_COLOR":
+                bgColor = new Color(184, 182, 90);
+                break;
+            case "PLAYER_COLOR":
+                bgColor = new Color(15, 64, 255);
+                break;
+            case "ROBBERS_COLOR":
+                bgColor = new Color(57, 57, 57);
+                break;
+            case "SAINT_COLOR":
+                bgColor = new Color(139, 223, 255);
+                break;
+            case "TRADER_COLOR":
+                bgColor = new Color(184, 184, 184);
+                break;
+        }
+        jPanel.setBackground(bgColor);
     }
 }
