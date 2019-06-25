@@ -145,10 +145,10 @@ public class BriefingEditPagePanel extends JPanel implements ActionListener, Lis
 
     /**
      *
-     * @param pageName
+     * @param page
      */
-    public void setSelectedPage(String pageName) {
-        pagesList.setSelectedValue(pageName, true);
+    public void setSelectedPage(BriefingPage page) {
+        pagesList.setSelectedValue(page, true);
     }
 
     /**
@@ -163,8 +163,8 @@ public class BriefingEditPagePanel extends JPanel implements ActionListener, Lis
      *
      * @return
      */
-    public String getSelectedPage() {
-        return pagesList.getSelectedValue().getName();
+    public BriefingPage getSelectedPage() {
+        return pagesList.getSelectedValue();
     }
 
     /**
