@@ -327,7 +327,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 currentSelectedPage = currentSelectedPage -1;
                 Vector<BriefingPage> data = briefing.toPageVector();
                 setPages(briefing.toPageVector());
-                pageGroup.setSelectedPage(data.get(currentSelectedPage).getName());
+                pageGroup.setSelectedPage(data.get(currentSelectedPage));
             }
         }
     }
@@ -336,7 +336,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
      * The user moved the page down
      */
     private void onPageDownClicked() {
-        if (currentSelectedPage < briefingCollection.getBriefings().size() -1) {
+        if (currentSelectedPage < briefingCollection.get(currentSelectedBriefing).getPages().size() -1) {
             Briefing briefing = briefingCollection.getBriefings().get(currentSelectedBriefing);
             ArrayList<BriefingPage> pageList = (ArrayList<BriefingPage>) briefing.getPages();
             if (pageList.size() > currentSelectedPage+1) {
@@ -344,7 +344,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 currentSelectedPage = currentSelectedPage +1;
                 Vector<BriefingPage> data = briefing.toPageVector();
                 setPages(data);
-                pageGroup.setSelectedPage(data.get(currentSelectedPage).getName());
+                pageGroup.setSelectedPage(data.get(currentSelectedPage));
             }
         }
     }
@@ -387,7 +387,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 briefing.addPage(newPage);
                 Vector<BriefingPage> data = briefing.toPageVector();
                 setPages(data);
-                pageGroup.setSelectedPage(newPage.getName());
+                pageGroup.setSelectedPage(newPage);
             }
         };
         dialog.initDialog();
@@ -413,7 +413,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                     newPage.setName(getValue());
                     briefing.addPage(newPage);
                     pageGroup.setPages(briefing.toPageVector());
-                    pageGroup.setSelectedPage(newPage.getName());
+                    pageGroup.setSelectedPage(newPage);
                 }
             };
             dialog.initDialog();
@@ -441,7 +441,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                     String oldName = page.getName();
                     page.setName(getValue());
                     pageGroup.setPages(briefing.toPageVector());
-                    pageGroup.setSelectedPage(page.getName());
+                    pageGroup.setSelectedPage(page);
                     renamePageReferences(getValue(), oldName);
                     questCollection.replacePageNameInReferencingQuests(oldName, getValue());
                 }
@@ -607,17 +607,17 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
 
     /**
      * Sets the selected page by name
-     * @param pageName Page name
+     * @param page Page name
      */
-    public void setSelectedPage(String pageName) {
-        pageGroup.setSelectedPage(pageName);
+    public void setSelectedPage(BriefingPage page) {
+        pageGroup.setSelectedPage(page);
     }
 
     /**
      * Returns the selected page name
      * @return Page name
      */
-    public String getSelectedPage() {
+    public BriefingPage getSelectedPage() {
         return pageGroup.getSelectedPage();
     }
 
