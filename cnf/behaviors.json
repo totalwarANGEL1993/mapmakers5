@@ -746,7 +746,7 @@
         "Description": "Startet den Quest sobald ein Briefing des angegebenen Quest beendet ist. Der Typ des Briefings kann gesetzt oder ignoriert werden.",
         "Parameter":   [
             ["QuestName", "Name des Quest", []],
-            ["StringSelect", "Name des Quest", ["Any", "Success", "Failure"]]
+            ["StringSelect", "Typ des Briefings", ["Any", "Success", "Failure"]]
         ]
     },
     
