@@ -21,7 +21,7 @@ public class MapData {
 
     private String mapDescription = "";
 
-    private String weatherSet = "NormalWeatherGfxSet";
+    private String weatherSet = "SetupNormalWeatherGfxSet";
 
     private boolean checkQuests = true;
 

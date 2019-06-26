@@ -90,6 +90,7 @@ public class QuestDefaultBehaviorPropertiesDialog extends ListSelectValueDialog 
                         names = ApplicationController.getInstance().getCurrentProject().getBriefingCollection().getAllChoicePageNames();
                         component = inputComponentFactory.getFromParameterData(width - 10, h, paramaterModel, names);
                         components.add(component);
+                        break;
                     case "ValueName":
                         names = ApplicationController.getInstance().getCurrentProject().getQuestCollection().getAllCustomVariableNames();
                         component = inputComponentFactory.getFromParameterData(width - 10, h, paramaterModel, names);

@@ -372,7 +372,8 @@ public class ApplicationController {
 
             String content = mapScriptBuilder.replaceTokensInMapscript("lua/mainmapscript.lua");
             String mainScriptPath = localMapPath + ".unpacked/maps/externalmap/mainmapscript.lua";
-            Files.delete(Paths.get(mainScriptPath));
+            if (new File(mainScriptPath).exists())
+                Files.delete(Paths.get(mainScriptPath));
             Files.write(Paths.get(mainScriptPath), content.getBytes(Charset.forName("UTF-8")), StandardOpenOption.CREATE);
 
             String mapScriptSrc = getWorkingDirectory() + "/mapscript.lua";
