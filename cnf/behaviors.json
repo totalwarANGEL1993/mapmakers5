@@ -209,7 +209,7 @@
     "Goal_CustomVariable": {
         "Description": "Das Ziel ist erreicht, sobald eine benutzerdefinierte Variable einen bestimmten Wert hat.",
         "Parameter":   [
-            ["StringInput", "Name der Variable", []],
+            ["ValueName", "Name der Variable", []],
             ["StringSelect", "Vergleichsoperation", ["==", "~=", "<=", "<", ">", ">="]],
             ["NumberInput", "Zu vergleichender Wert", []]
         ]
@@ -546,7 +546,7 @@
     "Reward_CustomVariable": {
         "Description": "Der Wert einer benutzerdefinierten Variable wird verändert.",
         "Parameter":   [
-            ["StringInput", "Name der Variable", []],
+            ["ValueName", "Name der Variable", []],
             ["StringSelect", "Rechenoperation", ["=", "+", "-", "*", "/", "%", "^"]],
             ["NumberInput", "Opperand der Rechnung", []]
         ]
@@ -700,7 +700,7 @@
     "Reprisal_CustomVariable": {
         "Description": "Der Wert einer benutzerdefinierten Variable wird verändert.",
         "Parameter":   [
-            ["StringInput", "Name der Variable", []],
+            ["ValueName", "Name der Variable", []],
             ["StringSelect", "Rechenoperation", ["=", "+", "-", "*", "/", "%", "^"]],
             ["NumberInput", "Opperand der Rechnung", []]
         ]
@@ -861,7 +861,7 @@
     "Trigger_CustomVariable": {
         "Description": "Der Auftrag wird gestartet, wenn eine benutzerdefinierte Variable einen bestimmten Wert hat.",
         "Parameter":   [
-            ["StringInput", "Name der Variable", []],
+            ["ValueName", "Name der Variable", []],
             ["StringSelect", "Vergleichsoperation", ["==", "~=", "<=", "<", ">", ">="]],
             ["NumberInput", "Zu vergleichender Wert", []]
         ]

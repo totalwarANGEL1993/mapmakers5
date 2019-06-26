@@ -5,7 +5,6 @@ import twa.siedelwood.s5.mapmaker.model.data.map.MapData;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
 
 /**

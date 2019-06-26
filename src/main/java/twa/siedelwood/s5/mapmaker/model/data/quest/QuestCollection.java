@@ -47,6 +47,21 @@ public class QuestCollection {
         return questsArray;
     }
 
+    public Vector<String> getAllCustomVariableNames() {
+        Vector<String> customVariables = new Vector<>();
+        for (Quest quest : questList) {
+            for (QuestBehavior behavior : quest.getBehaviorList()) {
+                if (behavior.getName().contains("CustomVariable")) {
+                    String varName = behavior.getParameter(1);
+                    if (varName != null && !varName.equals("") && !customVariables.contains(varName)) {
+                        customVariables.add(varName);
+                    }
+                }
+            }
+        }
+        return customVariables;
+    }
+
     public Vector<String> getQuestsReferencingBriefing(Briefing briefing) {
         return findQuestsReferencingValueInBehaviors(briefing.getName(), new Vector<>(questList));
     }

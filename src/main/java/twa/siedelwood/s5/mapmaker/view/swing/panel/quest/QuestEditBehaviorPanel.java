@@ -1,5 +1,6 @@
 package twa.siedelwood.s5.mapmaker.view.swing.panel.quest;
 
+import twa.siedelwood.s5.mapmaker.model.data.quest.QuestBehavior;
 import twa.siedelwood.s5.mapmaker.view.swing.component.renderer.BehaviorCellRenderer;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ import java.util.Vector;
 
 public class QuestEditBehaviorPanel extends JPanel implements ActionListener, ListSelectionListener, MouseListener {
     private JLabel behaviorInfo;
-    private JList<String> behaviorList;
+    private JList<QuestBehavior> behaviorList;
     private JScrollPane scrollPane;
     private JButton[] buttons;
     private int height;
@@ -109,16 +110,16 @@ public class QuestEditBehaviorPanel extends JPanel implements ActionListener, Li
      *
      * @param data
      */
-    public void setBehaviors(Vector<String> data) {
+    public void setBehaviors(Vector<QuestBehavior> data) {
         behaviorList.setListData(data);
     }
 
     /**
      *
-     * @param pageName
+     * @param behavior
      */
-    public void setSelectedBehavior(String pageName) {
-        behaviorList.setSelectedValue(pageName, true);
+    public void setSelectedBehavior(QuestBehavior behavior) {
+        behaviorList.setSelectedValue(behavior, true);
     }
 
     /**
@@ -134,7 +135,7 @@ public class QuestEditBehaviorPanel extends JPanel implements ActionListener, Li
      *
      * @return
      */
-    public String getSelectedBehavior() {
+    public QuestBehavior getSelectedBehavior() {
         return behaviorList.getSelectedValue();
     }
 

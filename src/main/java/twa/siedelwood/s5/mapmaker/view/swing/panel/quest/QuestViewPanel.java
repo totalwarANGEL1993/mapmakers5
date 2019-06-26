@@ -191,10 +191,10 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
                     Quest quest = questCollection.get(currentSelectedQuest);
                     QuestBehavior behavior = new QuestBehavior();
                     behavior.setParameters(parameters);
-                    int idx = quest.getBehaviorList().size();
                     quest.getBehaviorList().add(behavior);
-                    behaviorGroup.setBehaviors(quest.getBehaviorNames());
-                    behaviorGroup.setSelectedBehaviorIndex(idx);
+                    quest.sort();
+                    behaviorGroup.setBehaviors(new Vector<>(quest.getBehaviorList()));
+                    behaviorGroup.setSelectedBehavior(behavior);
                     onBehaviorSelectionChanged();
 
                     if (parameters.size() > 1) {
@@ -223,7 +223,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             QuestBehavior behavior = quest.getBehaviorList().get(currentSelectedBehavior);
             int idx = quest.getBehaviorList().size();
             quest.getBehaviorList().add(behavior.clone());
-            behaviorGroup.setBehaviors(quest.getBehaviorNames());
+            behaviorGroup.setBehaviors(new Vector<>(quest.getBehaviorList()));
             behaviorGroup.setSelectedBehaviorIndex(idx);
             onBehaviorSelectionChanged();
         }
@@ -244,7 +244,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             if (result == 0) {
                 int selected = currentSelectedBehavior;
                 quest.getBehaviorList().remove(selected);
-                behaviorGroup.setBehaviors(quest.getBehaviorNames());
+                behaviorGroup.setBehaviors(new Vector<>(quest.getBehaviorList()));
                 if (quest.getBehaviorList().size() > 0) {
                     if (selected > 0) {
                         selected--;
@@ -267,7 +267,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             questsGroup.updateQuestProperties(questCollection.get(currentSelectedQuest));
             questsGroup.onQuestVisibilityChanged();
             Quest quest = questCollection.get(currentSelectedQuest);
-            behaviorGroup.setBehaviors(quest.getBehaviorNames());
+            behaviorGroup.setBehaviors(new Vector<>(quest.getBehaviorList()));
         }
         else {
             currentSelectedQuest = -1;
