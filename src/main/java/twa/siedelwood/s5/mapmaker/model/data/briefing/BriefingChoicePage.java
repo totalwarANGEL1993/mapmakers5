@@ -51,7 +51,7 @@ public class BriefingChoicePage implements BriefingPage {
 
     @Override
     public String toString() {
-        return toJson().toJson();
+        return name;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class BriefingChoicePage implements BriefingPage {
         return String.format(
             "    local %s = ASMC(\"%s\",\"%s\",\"%s\",\"%s\",%b,%s,%b,%b,\"%s\",\"%s\",\"%s\",\"%s\");",
             name, name, entity, title, text, dialogCamera, (action.equals("") ? "nil" : action), showSky, hideFoW,
-            firstSelectPage, firstSelectText, secondSelectPage, secondSelectText
+                firstSelectText, firstSelectPage, secondSelectText, secondSelectPage
         );
     }
 

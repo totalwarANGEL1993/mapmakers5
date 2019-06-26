@@ -1,5 +1,6 @@
 package twa.siedelwood.s5.mapmaker.view.swing.panel.quest;
 
+import twa.siedelwood.s5.mapmaker.controller.ApplicationConstants;
 import twa.siedelwood.s5.mapmaker.controller.ApplicationController;
 import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
 import twa.siedelwood.s5.mapmaker.model.data.quest.QuestBehavior;
@@ -7,7 +8,6 @@ import twa.siedelwood.s5.mapmaker.model.data.quest.QuestCollection;
 import twa.siedelwood.s5.mapmaker.model.meta.ConfigurationBehaviorModel;
 import twa.siedelwood.s5.mapmaker.model.meta.ConfigurationParamaterModel;
 import twa.siedelwood.s5.mapmaker.service.config.BehaviorPrototypeService;
-import twa.siedelwood.s5.mapmaker.service.script.BriefingBuilderService;
 import twa.siedelwood.s5.mapmaker.view.ViewPanel;
 import twa.siedelwood.s5.mapmaker.view.swing.component.dialog.EnterValueDialog;
 import twa.siedelwood.s5.mapmaker.view.swing.component.input.InputComponent;
@@ -413,8 +413,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
      */
     private boolean checkQuestName(String value) {
         ApplicationController controller = ApplicationController.getInstance();
-        BriefingBuilderService builder = BriefingBuilderService.getInstance();
-        if (value.length() < 1 && !Pattern.matches("^[a-zA-Z0-9_]+$", value)) {
+        if (value.length() < 1 && !Pattern.matches(ApplicationConstants.DEFAULT_NAME_REGEX, value)) {
             controller.getMessageService().displayErrorMessage(
                     "Ungültiger Name",
                     "Der angegebene Name ist ungültig oder zu kurz! Möglicher Weise ist enthält er verbotene Zeichen.",

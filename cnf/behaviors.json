@@ -60,15 +60,15 @@
     "Goal_Protect": {
         "Description": "Eine Entität muss beschützt werden.",
         "Parameter":   [
-            ["StringInput", "Zu beschützendes Entity", []]
+            ["ScriptName", "Zu beschützendes Entity", []]
         ]
     },
     
     "Goal_EntityDistance": {
         "Description": "Zwischen zwei Entitäten muss eine bestimmte Entfernung erreicht werden.",
         "Parameter":   [
-            ["StringInput", "Erstes Entity", []],
-            ["StringInput", "Zweites Entity", []],
+            ["ScriptName", "Erstes Entity", []],
+            ["ScriptName", "Zweites Entity", []],
             ["NumberInput", "Entfernung", []],
             ["StringSelect", "Relation festlegen", [">=", "<"]]
         ]
@@ -131,7 +131,7 @@
             ["NumberSelect", "Ausbaustufe der Burg", ["1", "2"]]
         ]
     },
-    
+
     "Goal_NPC": {
         "Description": "Ein NPC muss durch einen Helden antgesprochen werden. Optional kann ein bestimmter Held vorgegeben werden. Wird dann der falsche Held geschickt, wird die Nachricht für falsche Helden angezeigt.",
         "Parameter":   [
@@ -140,7 +140,7 @@
             ["MessageInput", "Nachricht falscher Held", []]
         ]
     },
-    
+
     "Goal_DestroyType": {
         "Description": "Der Auftragnehmer muss eine Anzahl an Entities des Typs eines anderen Spielers zerstören.",
         "Parameter":   [
@@ -158,7 +158,7 @@
             ["NumberInput", "Benötigte Menge", []]
         ]
     },
-    
+
     "Goal_Tribute": {
         "Description": "Der Auftragnehmer muss einen Tribut entrichten.",
         "Parameter":   [
@@ -167,14 +167,14 @@
             ["MessageInput", "Nachricht des Tribut", []]
         ]
     },
-    
+
     "Goal_WeatherState": {
         "Description": "Das Wetter muss auf den entsprechenden Wettertyp geändert werden.",
         "Parameter":   [
             ["StringSelect", "Benötigter Wetterstatus", ["Summer", "Rain", "Winter"]]
         ]
     },
-    
+
     "Goal_BuyOffer": {
         "Description": "Das Angebot eines Händlers muss in einer bestimmten Menge wahrgenommen werden.",
         "Parameter":   [
@@ -183,13 +183,49 @@
             ["NumberInput", "Menge an Transaktionen", []]
         ]
     },
-    
+
     "Goal_DestroyAllPlayerUnits": {
         "Description": "Alle Einheiten und Gebäude eines Spielers müssen vernichtet werden.",
         "Parameter":   [
             ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
         ]
     },
+
+    "Goal_WinQuest": {
+        "Description": "Der Auftragnehmer muss einen anderen Auftrag erfolgreich abschließen. Schlägt der Auftrag fehl, wird dieses Ziel fehlschlagen.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+
+    "Goal_DestroyPlayer": {
+        "Description": "Das angegebene Hauptquartier eines Spielers muss zerstört werden. Das Ziel ist erfüllt, sobald dies geschieht. Nach Erfüllung des Ziels, werden automatisch alle Siedler und Gebäude des angegebenen Spielers zerstört.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["ScriptName", "Skriptname des Hauptquartiers", []]
+        ]
+    },
+
+    "Goal_CustomVariable": {
+        "Description": "Das Ziel ist erreicht, sobald eine benutzerdefinierte Variable einen bestimmten Wert hat.",
+        "Parameter":   [
+            ["StringInput", "Name der Variable", []],
+            ["StringSelect", "Vergleichsoperation", ["==", "~=", "<=", "<", ">", ">="]],
+            ["NumberInput", "Zu vergleichender Wert", []]
+        ]
+    },
+
+    "Goal_MultipleChoiceSelection": {
+        "Description": "Fragt das Ergebnis einer Entscheidung in einem Briefing ab. Wird die falsche Entscheidung getroffen, schlägt das Behavior fehlt. <br><b>Tipp:</p> In versteckten Quests nutzen.",
+        "Parameter":   [
+            ["ChoiceName", "Multiple-Choice-Auswahl", []],
+            ["NumberSelect", "Akzeptierte Antwort", ["1", "2"]]
+        ]
+    },
+
+
+
+
     
     "Reward_MapScriptFunction": {
         "Description": "Führt eine Funktion als Belohnung für einen erfolgreichen Abschluss aus.",
@@ -277,7 +313,7 @@
     "Reward_QuestInterrupt": {
         "Description": "Unterbricht den angegebenen Quest ohne ein Resultat.",
         "Parameter":   [
-            ["StringInput", "Name des Quest", []]
+            ["QuestName", "Name des Quest", []]
         ]
     },
     
@@ -376,7 +412,7 @@
     "Reward_RevealArea": {
         "Description": "Deckt ein Gebiet um das angegebene Gebietszentrum dauerhaft auf.",
         "Parameter":   [
-            ["StringInput", "Gebietszentrum", []],
+            ["ScriptName", "Gebietszentrum", []],
             ["NumberInput", "Größe des Bereich", []]
         ]
     },
@@ -385,7 +421,7 @@
         "Description": "Bewegt ein Entity zu einer Zielposition und tauscht es am Zielort mit einem XD_ScriptEntity aus. Das neue Entity übernimmt Skriptnamen, Orientierung und Besitzer.",
         "Parameter":   [
             ["ScriptName", "Skriptname des Entity", []],
-            ["StringInput", "Zielposition", []]
+            ["ScriptName", "Zielposition", []]
         ]
     },
     
@@ -464,6 +500,61 @@
             ["StringSelect", "Armeetyp", ["City", "BlackKnight", "Bandit", "Barbarian", "Nephilim"]]
         ]
     },
+
+
+    "Reward_SetVulnerablity": {
+        "Description": "Macht das angegebene Entity verwundbar oder unverwundbar.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["BooleanSelect", "Entity verwundbar", []]
+        ]
+    },
+    "Reward_AI_EnableArmyAttack": {
+        "Description": "Deaktiviert oder aktiviert Angriffe auf Zielpositionen durch die angegebene Armee.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringInput", "Name der Armee", []],
+            ["BooleanSelect", "Armee greift an", []]
+        ]
+    },
+    "Reward_AI_EnableArmyPatrol": {
+        "Description": "Deaktiviert oder aktiviert Patrolien zwischen Wegpunkten durch die angegebene Armee.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringInput", "Name der Armee", []],
+            ["BooleanSelect", "Armee patrolliert", []]
+        ]
+    },
+    "Reward_AI_CreateSpawnArmy": {
+        "Description": "Erstellt eine Armee, deren Mitglieder gespawnt werden, solange der Lebensfaden existiert. Die Armee patrolliert zwischen allen <u>PlayerX_PatrolPointY</u>. Die Armee greift alle <u>PlayerX_AttackTargetY</u> selbstständig an.",
+        "Parameter":   [
+            ["StringInput", "Name der Armee", []],
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["ScriptName", "Lebensfaden", []],
+            ["NumberSelect", "Stärke der Armee", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["ScriptName", "Position auf der Map", []],
+            ["NumberInput", "Aktionsradius", []],
+            ["NumberInput", "Sekunden bis Respawn", []],
+            ["StringSelect", "Typname Battalion 1", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Typname Battalion 2", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Typname Battalion 3", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Typname Battalion 4", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Typname Battalion 5", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Typname Battalion 6", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]]
+        ]
+    },
+    "Reward_CustomVariable": {
+        "Description": "Der Wert einer benutzerdefinierten Variable wird verändert.",
+        "Parameter":   [
+            ["StringInput", "Name der Variable", []],
+            ["StringSelect", "Rechenoperation", ["=", "+", "-", "*", "/", "%", "^"]],
+            ["NumberInput", "Opperand der Rechnung", []]
+        ]
+    },
+
+
+
+
     
     "Reprisal_MapScriptFunction": {
         "Description": "Führt eine Funktion als Strafe für einen Fehlschlag aus.",
@@ -598,6 +689,26 @@
             ["StringInput", "Zielposition", []]
         ]
     },
+
+    "Reprisal_SetVulnerablity": {
+        "Description": "Macht das angegebene Entity verwundbar oder unverwundbar.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["BooleanSelect", "Entity verwundbar", []]
+        ]
+    },
+    "Reprisal_CustomVariable": {
+        "Description": "Der Wert einer benutzerdefinierten Variable wird verändert.",
+        "Parameter":   [
+            ["StringInput", "Name der Variable", []],
+            ["StringSelect", "Rechenoperation", ["=", "+", "-", "*", "/", "%", "^"]],
+            ["NumberInput", "Opperand der Rechnung", []]
+        ]
+    },
+
+
+
+
     
     "Trigger_MapScriptFunction": {
         "Description": "Definiert eine Funktion als Auslöser für einen Quest. Gibt die Funktion true zurück, wird der Quest ausgelöst.",
@@ -617,6 +728,11 @@
             ["NumberInput", "Wartezeit in Sekunden", []]
         ]
     },
+
+    "Trigger_AlwaysActive": {
+        "Description": "Löst einen Quest sofort aus.",
+        "Parameter":   []
+    },
     
     "Trigger_Diplomacy": {
         "Description": "Startet den Quest, sobald der Auftragnehmer eine bestimmte diplomatische Haltung zu einer Partei einnimmt.",
@@ -630,7 +746,7 @@
         "Description": "Startet den Quest sobald ein Briefing des angegebenen Quest beendet ist. Der Typ des Briefings kann gesetzt oder ignoriert werden.",
         "Parameter":   [
             ["QuestName", "Name des Quest", []],
-            ["StringSelect", "Name des Quest", ["Any", "Success", "Failure"]]
+            ["StringSelect", "Typ des Briefings", ["Any", "Success", "Failure"]]
         ]
     },
     
@@ -670,8 +786,8 @@
     "Trigger_QuestAndQuest": {
         "Description": "Startet den Quest, sobald zwei andere Quests das gleiche Resultat haben.",
         "Parameter":   [
-            ["StringInput", "Name erster Quest", []],
-            ["StringInput", "Name zweiter Quest", []],
+            ["QuestName", "Name erster Quest", []],
+            ["QuestName", "Name zweiter Quest", []],
             ["StringSelect", "Questresultat", ["Success", "Failure", "Interrupted", "Undecided"]]
         ]
     },
@@ -679,8 +795,8 @@
     "Trigger_QuestOrQuest": {
         "Description": "Startet den Quest, sobald der eine oder der andere Quest das Resultat hat.",
         "Parameter":   [
-            ["StringInput", "Name erster Quest", []],
-            ["StringInput", "Name zweiter Quest", []],
+            ["QuestName", "Name erster Quest", []],
+            ["QuestName", "Name zweiter Quest", []],
             ["StringSelect", "Questresultat", ["Success", "Failure", "Interrupted", "Undecided"]]
         ]
     },
@@ -688,8 +804,8 @@
     "Trigger_QuestXorQuest": {
         "Description": "Startet den Quest, wenn genau einer der Quests das Resultat hat.",
         "Parameter":   [
-            ["StringInput", "Name erster Quest", []],
-            ["StringInput", "Name zweiter Quest", []],
+            ["QuestName", "Name erster Quest", []],
+            ["QuestName", "Name zweiter Quest", []],
             ["StringSelect", "Questresultat", ["Success", "Failure", "Interrupted", "Undecided"]]
         ]
     },
@@ -741,107 +857,13 @@
             ["NumberInput", "Wartezeit in Sekunden", []]
         ]
     },
-    
-    
-    
-    "Goal_WinQuest": {
-        "Description": "Der Auftragnehmer muss einen anderen Auftrag erfolgreich abschließen. Schlägt der Auftrag fehl, wird dieses Ziel fehlschlagen.",
-        "Parameter":   [
-            ["QuestName", "Name des Quest", []]
-        ]
-    },
-    "Goal_DestroyPlayer": {
-        "Description": "Das angegebene Hauptquartier eines Spielers muss zerstört werden. Das Ziel ist erfüllt, sobald dies geschieht. Nach Erfüllung des Ziels, werden automatisch alle Siedler und Gebäude des angegebenen Spielers zerstört.",
-        "Parameter":   [
-            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
-            ["StringInput", "Skriptname des Hauptquartiers", []]
-        ]
-    },
-    "Goal_CustomVariable": {
-        "Description": "Das Ziel ist erreicht, sobald eine benutzerdefinierte Variable einen bestimmten Wert hat.",
-        "Parameter":   [
-            ["StringInput", "Name der Variable", []],
-            ["StringSelect", "Vergleichsoperation", ["==", "~=", "<=", "<", ">", ">="]],
-            ["NumberInput", "Zu vergleichender Wert", []]
-        ]
-    },
-    "Reprisal_SetVulnerablity": {
-        "Description": "Macht das angegebene Entity verwundbar oder unverwundbar.",
-        "Parameter":   [
-            ["ScriptName", "Skriptname des Entity", []],
-            ["BooleanSelect", "Entity verwundbar", []]
-        ]
-    },
-    "Reprisal_CustomVariable": {
-        "Description": "Der Wert einer benutzerdefinierten Variable wird verändert.",
-        "Parameter":   [
-            ["StringInput", "Name der Variable", []],
-            ["StringSelect", "Rechenoperation", ["=", "+", "-", "*", "/", "%", "^"]],
-            ["NumberInput", "Opperand der Rechnung", []]
-        ]
-    },
-    "Reward_SetVulnerablity": {
-        "Description": "Macht das angegebene Entity verwundbar oder unverwundbar.",
-        "Parameter":   [
-            ["ScriptName", "Skriptname des Entity", []],
-            ["BooleanSelect", "Entity verwundbar", []]
-        ]
-    },
-    "Reward_AI_EnableArmyAttack": {
-        "Description": "Deaktiviert oder aktiviert Angriffe auf Zielpositionen durch die angegebene Armee.",
-        "Parameter":   [
-            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
-            ["StringInput", "Name der Armee", []],
-            ["BooleanSelect", "Armee greift an", []]
-        ]
-    },
-    "Reward_AI_EnableArmyPatrol": {
-        "Description": "Deaktiviert oder aktiviert Patrolien zwischen Wegpunkten durch die angegebene Armee.",
-        "Parameter":   [
-            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
-            ["StringInput", "Name der Armee", []],
-            ["BooleanSelect", "Armee patrolliert", []]
-        ]
-    },
-    "Reward_AI_CreateSpawnArmy": {
-        "Description": "Erstellt eine Armee, deren Mitglieder gespawnt werden, solange der Lebensfaden existiert. Die Armee patrolliert zwischen allen <u>PlayerX_PatrolPointY</u>. Die Armee greift alle <u>PlayerX_AttackTargetY</u> selbstständig an.",
-        "Parameter":   [
-            ["StringInput", "Name der Armee", []],
-            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
-            ["ScriptName", "Lebensfaden", []],
-            ["NumberSelect", "Stärke der Armee", ["1", "2", "3", "4", "5", "6", "7", "8"]],
-            ["ScriptName", "Position auf der Map", []],
-            ["NumberInput", "Aktionsradius", []],
-            ["NumberInput", "Sekunden bis Respawn", []],
-            ["StringSelect", "Typname Battalion 1", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
-            ["StringSelect", "Typname Battalion 2", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
-            ["StringSelect", "Typname Battalion 3", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
-            ["StringSelect", "Typname Battalion 4", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
-            ["StringSelect", "Typname Battalion 5", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
-            ["StringSelect", "Typname Battalion 6", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]]
-        ]
-    },
-    "Reward_CustomVariable": {
-        "Description": "Der Wert einer benutzerdefinierten Variable wird verändert.",
-        "Parameter":   [
-            ["StringInput", "Name der Variable", []],
-            ["StringSelect", "Rechenoperation", ["=", "+", "-", "*", "/", "%", "^"]],
-            ["NumberInput", "Opperand der Rechnung", []]
-        ]
-    },
+
     "Trigger_CustomVariable": {
         "Description": "Der Auftrag wird gestartet, wenn eine benutzerdefinierte Variable einen bestimmten Wert hat.",
         "Parameter":   [
             ["StringInput", "Name der Variable", []],
             ["StringSelect", "Vergleichsoperation", ["==", "~=", "<=", "<", ">", ">="]],
             ["NumberInput", "Zu vergleichender Wert", []]
-        ]
-    },
-    "Goal_MultipleChoiceSelection": {
-        "Description": "Fragt das Ergebnis einer Entscheidung in einem Briefing ab. Wird die falsche Entscheidung getroffen, schlägt das Behavior fehlt. <br><b>Tipp:</p> In versteckten Quests nutzen.",
-        "Parameter":   [
-            ["ChoiceName", "Multiple-Choice-Auswahl", []],
-            ["NumberSelect", "Akzeptierte Antwort", ["1", "2"]]
         ]
     }
 }

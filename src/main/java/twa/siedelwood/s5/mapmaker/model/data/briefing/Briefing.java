@@ -133,12 +133,8 @@ public class Briefing {
         return briefing;
     }
 
-    public Vector<String> toPageNamesVector() {
-        Vector<String> namesVector = new Vector<>();
-        for (BriefingPage p : pages) {
-            namesVector.add(p.getName());
-        }
-        return namesVector;
+    public Vector<BriefingPage> toPageVector() {
+        return new Vector<>(pages);
     }
 
     public Vector<String> getPageNamesOfType(BriefingPageTypes type) {

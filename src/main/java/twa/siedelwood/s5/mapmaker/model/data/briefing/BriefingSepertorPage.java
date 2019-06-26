@@ -43,6 +43,11 @@ public class BriefingSepertorPage implements BriefingPage {
     }
 
     @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
     public String toLua() {
         return "AP();";
     }

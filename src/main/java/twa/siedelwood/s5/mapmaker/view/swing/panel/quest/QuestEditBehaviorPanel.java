@@ -1,5 +1,7 @@
 package twa.siedelwood.s5.mapmaker.view.swing.panel.quest;
 
+import twa.siedelwood.s5.mapmaker.view.swing.component.renderer.BehaviorCellRenderer;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -36,6 +38,7 @@ public class QuestEditBehaviorPanel extends JPanel implements ActionListener, Li
         add(behaviorInfo);
 
         behaviorList = new JList<>();
+        behaviorList.setCellRenderer(new BehaviorCellRenderer());
         behaviorList.setFont(new Font("Arial", Font.PLAIN, 12));
         behaviorList.addListSelectionListener(this);
         behaviorList.addMouseListener(this);
@@ -152,7 +155,7 @@ public class QuestEditBehaviorPanel extends JPanel implements ActionListener, Li
      */
     public void updatePanelSize(Component reference) {
         int width = reference.getWidth() - 10;
-        height = (int) (reference.getHeight() * 0.4) -10;
+        height = (int) (reference.getHeight() * 0.4) -30;
 
         setSize(width, height);
         behaviorInfo.setBounds(10, 20, width -20, 45);

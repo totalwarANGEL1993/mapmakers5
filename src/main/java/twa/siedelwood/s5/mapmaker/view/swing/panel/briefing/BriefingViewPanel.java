@@ -8,9 +8,7 @@ import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingDialogPage;
 import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingPage;
 import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingPageTypes;
 import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingSepertorPage;
-import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
 import twa.siedelwood.s5.mapmaker.model.data.quest.QuestCollection;
-import twa.siedelwood.s5.mapmaker.service.script.BriefingBuilderService;
 import twa.siedelwood.s5.mapmaker.view.ViewPanel;
 import twa.siedelwood.s5.mapmaker.view.swing.component.dialog.EnterValueDialog;
 import twa.siedelwood.s5.mapmaker.view.swing.component.dialog.ListSelectValueDialog;
@@ -79,8 +77,10 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                     Briefing newBriefing = briefing.clone();
                     newBriefing.setName(getValue());
                     briefingCollection.add(newBriefing);
-                    briefingGroup.addSelectableBriefing(newBriefing.getName());
-                    briefingGroup.setSelectedBriefing(newBriefing.getName());
+                    briefingCollection.sort();
+                    briefingGroup.clearSelection();
+                    briefingGroup.setSelectableBriefings(briefingCollection.toNamesVector());
+                    briefingGroup.setSelectedBriefing(getValue());
                 }
             };
             dialog.initDialog();
@@ -102,10 +102,14 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                     if (!checkBriefingName(getValue())) {
                         return;
                     }
-                    QuestCollection questCollection = ApplicationController.getInstance().getCurrentProject().getQuestCollection();
-                    briefingGroup.replaceSelectableBriefing(getValue(), briefing.getName());
                     String oldName = briefing.getName();
                     briefing.setName(getValue());
+                    briefingCollection.sort();
+                    briefingGroup.clearSelection();
+                    briefingGroup.setSelectableBriefings(briefingCollection.toNamesVector());
+                    briefingGroup.setSelectedBriefing(getValue());
+
+                    QuestCollection questCollection = ApplicationController.getInstance().getCurrentProject().getQuestCollection();
                     questCollection.replaceBriefingNameInReferencingQuests(oldName, getValue());
                 }
             };
@@ -159,9 +163,11 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 if (!checkBriefingName(getValue())) {
                     return;
                 }
-                BriefingBuilderService builder = BriefingBuilderService.getInstance();
-                Briefing newBriefing = builder.createBriefing(briefingCollection, getValue());
-                briefingGroup.addSelectableBriefing(newBriefing.getName());
+                Briefing newBriefing = new Briefing(getValue());
+                briefingCollection.add(newBriefing);
+                briefingCollection.sort();
+                briefingGroup.clearSelection();
+                briefingGroup.setSelectableBriefings(briefingCollection.toNamesVector());
                 briefingGroup.setSelectedBriefing(newBriefing.getName());
             }
         };
@@ -176,8 +182,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
      */
     private boolean checkBriefingName(String name) {
         ApplicationController controller = ApplicationController.getInstance();
-        BriefingBuilderService builder = BriefingBuilderService.getInstance();
-        if (!builder.validateName(name)) {
+        if (!briefingCollection.validateName(name)) {
             controller.getMessageService().displayErrorMessage(
                     "Ungültiger Name",
                     "Der angegebene Name ist ungültig oder zu kurz! Möglicher Weise ist er zu kurz oder enthält verbotene Zeichen.",
@@ -186,7 +191,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
             return false;
         }
 
-        if (builder.doesBriefingNameExist(name, controller.getSelectableValueService().getBriefingNames())) {
+        if (briefingCollection.doesBriefingNameExist(name)) {
             controller.getMessageService().displayErrorMessage(
                     "Duplikat",
                     "Es existiert bereits ein Briefing mit dem angegebenen Namen! Bitte wähle einen anderen Namen für das Briefing aus.",
@@ -204,10 +209,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
         if (briefingCollection != null) {
             currentSelectedBriefing = briefingGroup.getSelectedBriefingIndex();
             if (currentSelectedBriefing != -1) {
-                Vector<String> pageNames = new Vector<>();
-                for (BriefingPage page : briefingCollection.getBriefings().get(currentSelectedBriefing).getPages()) {
-                    pageNames.add(page.getName());
-                }
+                Vector<BriefingPage> pageNames = new Vector<>(briefingCollection.getBriefings().get(currentSelectedBriefing).getPages());
                 setPages(pageNames);
             }
         }
@@ -323,8 +325,8 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
             if (pageList.size() >= currentSelectedPage) {
                 Collections.swap(pageList, currentSelectedPage, currentSelectedPage-1);
                 currentSelectedPage = currentSelectedPage -1;
-                Vector<String> data = briefing.toPageNamesVector();
-                setPages(data);
+                Vector<BriefingPage> data = briefing.toPageVector();
+                setPages(briefing.toPageVector());
                 pageGroup.setSelectedPage(data.get(currentSelectedPage));
             }
         }
@@ -334,13 +336,13 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
      * The user moved the page down
      */
     private void onPageDownClicked() {
-        if (currentSelectedPage < briefingCollection.getBriefings().size() -1) {
+        if (currentSelectedPage < briefingCollection.get(currentSelectedBriefing).getPages().size() -1) {
             Briefing briefing = briefingCollection.getBriefings().get(currentSelectedBriefing);
             ArrayList<BriefingPage> pageList = (ArrayList<BriefingPage>) briefing.getPages();
             if (pageList.size() > currentSelectedPage+1) {
                 Collections.swap(pageList, currentSelectedPage, currentSelectedPage +1);
                 currentSelectedPage = currentSelectedPage +1;
-                Vector<String> data = briefing.toPageNamesVector();
+                Vector<BriefingPage> data = briefing.toPageVector();
                 setPages(data);
                 pageGroup.setSelectedPage(data.get(currentSelectedPage));
             }
@@ -378,10 +380,14 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                         newPage = new BriefingSepertorPage(pageName);
                         break;
                 }
+                // Ensure unique name
+                if (briefingCollection.doesPageNameExist(newPage.getName(), briefing)) {
+                    newPage.setName(newPage.getName() + "_1");
+                }
                 briefing.addPage(newPage);
-                Vector<String> data = briefing.toPageNamesVector();
+                Vector<BriefingPage> data = briefing.toPageVector();
                 setPages(data);
-                pageGroup.setSelectedPage(newPage.getName());
+                pageGroup.setSelectedPage(newPage);
             }
         };
         dialog.initDialog();
@@ -406,8 +412,8 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                     BriefingPage newPage = page.clone();
                     newPage.setName(getValue());
                     briefing.addPage(newPage);
-                    pageGroup.setPages(briefing.toPageNamesVector());
-                    pageGroup.setSelectedPage(newPage.getName());
+                    pageGroup.setPages(briefing.toPageVector());
+                    pageGroup.setSelectedPage(newPage);
                 }
             };
             dialog.initDialog();
@@ -434,8 +440,8 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
 
                     String oldName = page.getName();
                     page.setName(getValue());
-                    pageGroup.setPages(briefing.toPageNamesVector());
-                    pageGroup.setSelectedPage(page.getName());
+                    pageGroup.setPages(briefing.toPageVector());
+                    pageGroup.setSelectedPage(page);
                     renamePageReferences(getValue(), oldName);
                     questCollection.replacePageNameInReferencingQuests(oldName, getValue());
                 }
@@ -480,7 +486,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 }
                 String pageName = briefing.getName();
                 briefing.removePage(currentSelectedPage);
-                pageGroup.setPages(briefing.toPageNamesVector());
+                pageGroup.setPages(briefing.toPageVector());
                 pageGroup.setSelectedPageIndex(0);
                 renamePageReferences(pageName, "INVALID_PAGE");
             }
@@ -529,8 +535,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
      */
     private boolean checkPageName(String name, Briefing briefing, boolean isChoicePage) {
         ApplicationController controller = ApplicationController.getInstance();
-        BriefingBuilderService builder = BriefingBuilderService.getInstance();
-        if (!builder.validateName(name)) {
+        if (!briefingCollection.validateName(name)) {
             controller.getMessageService().displayErrorMessage(
                 "Ungültiger Name",
                 "Der angegebene Name ist ungültig oder zu kurz! Möglicher Weise enthält er verbotene Zeichen.",
@@ -540,7 +545,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
         }
 
         if (isChoicePage) {
-            if (builder.doesChoicePageNameExist(name, briefingCollection)) {
+            if (briefingCollection.doesChoicePageNameExist(name, briefing)) {
                 controller.getMessageService().displayErrorMessage(
                         "Duplikat",
                         "Der Name einer Entscheidung kann im Projekt nur einmalig vergeben werden!",
@@ -550,7 +555,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
             }
         }
         else {
-            if (builder.doesPageNameExist(name, briefing)) {
+            if (briefingCollection.doesPageNameExist(name, briefing)) {
                 controller.getMessageService().displayErrorMessage(
                         "Duplikat",
                         "Es existiert bereits eine Seite mit dem angegebenen Namen! Bitte wähle einen anderen Namen für die Seite aus.",
@@ -596,23 +601,23 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
      * Sets the list of selectable pages
      * @param data Page names
      */
-    public void setPages(Vector<String> data) {
+    public void setPages(Vector<BriefingPage> data) {
         pageGroup.setPages(data);
     }
 
     /**
      * Sets the selected page by name
-     * @param pageName Page name
+     * @param page Page name
      */
-    public void setSelectedPage(String pageName) {
-        pageGroup.setSelectedPage(pageName);
+    public void setSelectedPage(BriefingPage page) {
+        pageGroup.setSelectedPage(page);
     }
 
     /**
      * Returns the selected page name
      * @return Page name
      */
-    public String getSelectedPage() {
+    public BriefingPage getSelectedPage() {
         return pageGroup.getSelectedPage();
     }
 

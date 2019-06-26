@@ -7,6 +7,7 @@ public interface BriefingPage {
     BriefingPageTypes getType();
     Json toJson();
     String toLua();
+    String toString();
     BriefingPage clone();
 
     String getName();

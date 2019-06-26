@@ -147,6 +147,13 @@ public class BriefingSelectBriefingPanel extends JPanel implements ActionListene
     /**
      *
      */
+    public void clearSelection() {
+        briefingSelection.setSelectedIndex(-1);
+    }
+
+    /**
+     *
+     */
     public String getSelectedBriefing() {
         return (String) briefingSelection.getSelectedItem();
     }

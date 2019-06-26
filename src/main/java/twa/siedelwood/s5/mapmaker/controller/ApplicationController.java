@@ -19,9 +19,9 @@ import twa.siedelwood.s5.mapmaker.model.data.quest.QuestBehavior;
 import twa.siedelwood.s5.mapmaker.model.data.quest.QuestCollection;
 import twa.siedelwood.s5.mapmaker.model.meta.ConfigurationProjectModel;
 import twa.siedelwood.s5.mapmaker.service.config.BehaviorPrototypeService;
+import twa.siedelwood.s5.mapmaker.service.config.SelectableValueService;
 import twa.siedelwood.s5.mapmaker.service.map.MapLoader;
 import twa.siedelwood.s5.mapmaker.service.message.MessageService;
-import twa.siedelwood.s5.mapmaker.service.config.SelectableValueService;
 import twa.siedelwood.s5.mapmaker.service.script.MapScriptBuilder;
 import twa.siedelwood.s5.mapmaker.view.swing.frame.WindowFrame;
 import twa.siedelwood.s5.mapmaker.view.swing.frame.WorkbenchWindowFrame;
@@ -31,7 +31,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
@@ -40,7 +39,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
+ * The main application controller
  */
 @Data
 public class ApplicationController {
@@ -127,9 +126,9 @@ public class ApplicationController {
     }
 
     /**
-     *
-     * @param projectName
-     * @param projectDescription
+     * Creates a new HoK project.
+     * @param projectName Project name
+     * @param projectDescription Description of project
      */
     public void createProject(String projectName, String projectDescription) throws ApplicationException {
         try {
@@ -161,7 +160,7 @@ public class ApplicationController {
     }
 
     /**
-     *
+     * Imports a project file from the pitifull old programm.
      */
     public void importLegacyProjectFile() throws ApplicationException {
         if (legacyProject != null) {
@@ -243,9 +242,9 @@ public class ApplicationController {
                     String color = ((JsonArray) colorSettings.get(i)).get(1).getStringValue();
                     String name = ((JsonArray) diplomacySettings.get(i)).get(0).getStringValue();
                     List<Diplomacy> diplomacy = Arrays.asList(
-                        new Diplomacy(1, 0), new Diplomacy(2, 0), new Diplomacy(3, 0),
-                        new Diplomacy(4, 0), new Diplomacy(5, 0), new Diplomacy(6, 0),
-                        new Diplomacy(7, 0), new Diplomacy(8, 0)
+                        new Diplomacy(1, 1), new Diplomacy(2, 1), new Diplomacy(3, 1),
+                        new Diplomacy(4, 1), new Diplomacy(5, 1), new Diplomacy(6, 1),
+                        new Diplomacy(7, 1), new Diplomacy(8, 1)
                     );
                     players.add(new Player(name, color, diplomacy));
                 }
@@ -260,12 +259,17 @@ public class ApplicationController {
     }
 
     /**
-     *
+     * Saves a project
+     * @throws ApplicationException
      */
     public void saveProject() throws ApplicationException {
         internalSaveProject();
     }
 
+    /**
+     * Saves a project
+     * @throws ApplicationException
+     */
     public void internalSaveProject() throws ApplicationException {
         if (currentProject != null) {
             try {
@@ -281,7 +285,7 @@ public class ApplicationController {
     }
 
     /**
-     *
+     * Loads a project.
      */
     public void loadProject(File project) throws ApplicationException {
         try {
@@ -301,7 +305,7 @@ public class ApplicationController {
     }
 
     /**
-     *
+     * Loads a project.
      */
     public void internalLoadProject() {
         SwingUtilities.invokeLater(new Thread(() -> {
@@ -341,7 +345,7 @@ public class ApplicationController {
     }
 
     /**
-     *
+     * Exports a project to a HoK map.
      */
     public void exportToArchive() {
         try {
@@ -357,8 +361,16 @@ public class ApplicationController {
             mapScriptBuilder.setMapData(currentProject.getMapData());
             mapScriptBuilder.setQuests(currentProject.getQuestCollection());
             mapScriptBuilder.setBriefings(currentProject.getBriefingCollection());
-            String content = mapScriptBuilder.replaceTokensInMapscript("lua/mainmapscript.lua");
 
+            String infoContent = mapScriptBuilder.replaceMapDescriptionInInfoFile(
+                mapFolder + "/info.xml",
+                currentProject.getMapData().getMapName(),
+                currentProject.getMapData().getMapDescription()
+            );
+            Files.delete(Paths.get(mapFolder + "/info.xml"));
+            Files.write(Paths.get(mapFolder + "/info.xml"), infoContent.getBytes(Charset.forName("UTF-8")), StandardOpenOption.CREATE);
+
+            String content = mapScriptBuilder.replaceTokensInMapscript("lua/mainmapscript.lua");
             String mainScriptPath = localMapPath + ".unpacked/maps/externalmap/mainmapscript.lua";
             Files.delete(Paths.get(mainScriptPath));
             Files.write(Paths.get(mainScriptPath), content.getBytes(Charset.forName("UTF-8")), StandardOpenOption.CREATE);
@@ -401,26 +413,26 @@ public class ApplicationController {
     }
 
     /**
-     *
+     * Project is closed
      */
     public void closeProject() {}
 
     /**
-     *
+     * Project is reverted
      */
     public void resetProject() {}
 
     /**
-     *
-     * @param selectedFile
+     * Sets the project HoK map
+     * @param selectedFile Map file
      */
     public void setMapArchive(File selectedFile) {
         mapArchive = selectedFile;
     }
 
     /**
-     *
-     * @param selectedFile
+     * Sets the legacy file
+     * @param selectedFile S5N file
      */
     public void setLegacyProjectFile(File selectedFile) {
         legacyProject = selectedFile;

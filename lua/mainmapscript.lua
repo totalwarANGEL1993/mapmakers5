@@ -4,6 +4,26 @@
 -- #    Author:   totalwarANGEL                                             # --
 -- ########################################################################## --
 
+gvPlayerColorMapping = {
+    ["DEFAULT_COLOR"] = -1,
+    ["PLAYER_COLOR"] = 1,
+    ["NEPHILIM_COLOR"] = 2,
+    ["FRIENDLY_COLOR1"] = 3,
+    ["FRIENDLY_COLOR2"] = 4,
+    ["ENEMY_COLOR2"] = 5,
+    ["MERCENARY_COLOR"] = 6,
+    ["ENEMY_COLOR3"] = 7,
+    ["FARMER_COLOR"] = 8,
+    ["EVIL_GOVERNOR_COLOR"] = 9,
+    ["TRADER_COLOR"] = 10,
+    ["NPC_COLOR"] = 11,
+    ["KERBEROS_COLOR"] = 12,
+    ["ENEMY_COLOR1"] = 13,
+    ["ROBBERS_COLOR"] = 14,
+    ["SAINT_COLOR"] = 15,
+    ["FRIENDLY_COLOR3"] = 16,
+};
+
 QUEST_ASSISTENT_MAP_SETTINGS_DATA
 
 --
@@ -14,7 +34,13 @@ function InitDiplomacy()
     for k, v in pairs(Global_MapConfigurationData.Players) do
         for i= 1, table.getn(v.Diplomacy), 1 do
             if v.Diplomacy[i][1] ~= k then
-                Logic.SetDiplomacyState(k, v.Diplomacy[i][1], v.Diplomacy[i][2]);
+                local DiplomacyStateName = "Neutral";
+                if (v.Diplomacy[i][2] == 2) then
+                    DiplomacyStateName = "Friendly";
+                elseif (v.Diplomacy[i][2] == 3) then
+                    DiplomacyStateName = "Hostile";
+                end
+                _G["Set" ..DiplomacyStateName](k, v.Diplomacy[i][1]);
             end
         end
         if v.Name ~= "" then
@@ -48,8 +74,8 @@ end
 --
 function InitPlayerColorMapping()
     for k, v in pairs(Global_MapConfigurationData.Players) do
-        if v.Color ~= "DEFAULT_COLOR" then
-            Display.SetPlayerColorMapping(k, _G[v.Color]);
+        if gvPlayerColorMapping[v.Color] and gvPlayerColorMapping[v.Color] ~= -1 then
+            Display.SetPlayerColorMapping(k, gvPlayerColorMapping[v.Color]);
         end
     end
 end
@@ -83,9 +109,19 @@ function CreateQuests()
             table.insert(Behaviors, _G[CurrentBehaviorName](unpack(CurrentBehaviorData)));
         end
 
+        local Description;
+        if v.Visible then
+            Description = {
+                Title = v.Title,
+                Text  = v.Text,
+                Type  = _G[v.Type],
+                Info  = 1
+            }
+        end
+
         CreateQuest {
             Name        = v.Name,
-            Description = v.Description,
+            Description = Description,
             Receiver    = v.Receiver,
             Time        = v.Time,
 

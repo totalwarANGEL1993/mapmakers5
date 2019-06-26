@@ -28,7 +28,7 @@ public class MapSettingsPlayerDiplomacyPanel extends MapSettingsBasePanel {
     public void loadMapData(MapData mapData) {
         for (int i=0; i<8; i++) {
             for (int j=0; j<8; j++) {
-                playerDiplomacy[i][j].setSelectedIndex(mapData.getPlayers().get(i).getDiplomacy().get(j).getState());
+                playerDiplomacy[i][j].setSelectedIndex(mapData.getPlayers().get(i).getDiplomacy().get(j).getState() -1);
             }
         }
     }
@@ -49,7 +49,7 @@ public class MapSettingsPlayerDiplomacyPanel extends MapSettingsBasePanel {
         if (p1 < 1 || p1 > 8 || p2 < 1 || p2 > 8) {
             return 0;
         }
-        return playerDiplomacy[p1-1][p2-1].getSelectedIndex();
+        return playerDiplomacy[p1-1][p2-1].getSelectedIndex() +1;
     }
 
     /**
@@ -106,8 +106,8 @@ public class MapSettingsPlayerDiplomacyPanel extends MapSettingsBasePanel {
 
                 playerDiplomacy[y][x] = new JComboBox();
                 playerDiplomacy[y][x].addItem("<html><span style=\"color: #fff893\">████</span></html>");
-                playerDiplomacy[y][x].addItem("<html><span style=\"color: #db6767\">████</span></html>");
                 playerDiplomacy[y][x].addItem("<html><span style=\"color: #a6e173\">████</span></html>");
+                playerDiplomacy[y][x].addItem("<html><span style=\"color: #db6767\">████</span></html>");
                 if (y == x) {
                     playerDiplomacy[y][x].setVisible(false);
                 }
