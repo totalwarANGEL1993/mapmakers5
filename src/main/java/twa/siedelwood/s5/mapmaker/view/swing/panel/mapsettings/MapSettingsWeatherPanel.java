@@ -10,16 +10,18 @@ import java.util.Vector;
  * Panel for configure the weather set.
  */
 public class MapSettingsWeatherPanel extends MapSettingsBasePanel {
-    private JLabel infoDesc;
+    private JLabel infoSet;
+    private JLabel infoRandomWeather;
 
     private JComboBox<String> weatherSets;
+    private JComboBox<String> randomizeWeather;
 
     /**
      * Constructor
      */
     public MapSettingsWeatherPanel() {
         super();
-        height = 110;
+        height = 150;
     }
 
     /**
@@ -34,6 +36,7 @@ public class MapSettingsWeatherPanel extends MapSettingsBasePanel {
      */
     public void loadMapData(MapData mapData) {
         weatherSets.setSelectedItem(mapData.getWeatherSet());
+        randomizeWeather.setSelectedIndex(mapData.isRandomizedWeather() ? 0 : 1);
     }
 
     /**
@@ -72,6 +75,22 @@ public class MapSettingsWeatherPanel extends MapSettingsBasePanel {
     }
 
     /**
+     * Returns if randomized weather is used.
+     * @return Random weather active
+     */
+    public boolean getUseRandomizedWeather() {
+        return randomizeWeather.getSelectedIndex() == 0;
+    }
+
+    /**
+     * Activates or deactivates randomized weather.
+     * @param active Random weather active
+     */
+    public void setUseRandomizedWeather(boolean active) {
+        randomizeWeather.setSelectedIndex(active ? 0 : 1);
+    }
+
+    /**
      * Sets the vertical offset of this panel.
      * @param height Offset in pixel
      */
@@ -88,16 +107,27 @@ public class MapSettingsWeatherPanel extends MapSettingsBasePanel {
         super.initPanel();
         setBorder(BorderFactory.createTitledBorder("Wetterset"));
 
-        infoDesc = new JLabel("<html>Das Wetterset bestimmt die Belichtungsverhältnisse im Spiel.</html>");
-        infoDesc.setFont(new Font("Arial", Font.PLAIN, 12));
-        infoDesc.setVerticalAlignment(JLabel.TOP);
-        infoDesc.setVerticalTextPosition(JLabel.TOP);
-        infoDesc.setBounds(10, 20, 450, 30);
-        add(infoDesc);
+        infoSet = new JLabel("<html>Das Wetterset bestimmt die Belichtungsverhältnisse im Spiel.</html>");
+        infoSet.setFont(new Font("Arial", Font.PLAIN, 12));
+        infoSet.setVerticalAlignment(JLabel.TOP);
+        infoSet.setVerticalTextPosition(JLabel.TOP);
+        add(infoSet);
 
         weatherSets = new JComboBox<>();
         weatherSets.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         add(weatherSets);
+
+        infoRandomWeather = new JLabel("<html>Aktiviere diese Option, wenn automatische Wetterwechsel für das ausgewählte Set generiert werden sollen.</html>");
+        infoRandomWeather.setFont(new Font("Arial", Font.PLAIN, 12));
+        infoRandomWeather.setVerticalAlignment(JLabel.TOP);
+        infoRandomWeather.setVerticalTextPosition(JLabel.TOP);
+        add(infoSet);
+
+        randomizeWeather = new JComboBox<>();
+        randomizeWeather.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        randomizeWeather.addItem("aktiv");
+        randomizeWeather.addItem("angeschaltet");
+        add(randomizeWeather);
     }
 
     /**
@@ -109,8 +139,10 @@ public class MapSettingsWeatherPanel extends MapSettingsBasePanel {
         int width = reference.getWidth();
 
         setBounds(0, yOffset, width -30, height);
-        infoDesc.setBounds(10, 20, width -50, 15);
+        infoSet.setBounds(10, 20, width -50, 15);
         weatherSets.setBounds(10, 40, 300, 25);
+        infoRandomWeather.setBounds(10, 60, width -50, 15);
+        randomizeWeather.setBounds(10, 80, 300, 25);
 
         super.updatePanelSize(this);
     }

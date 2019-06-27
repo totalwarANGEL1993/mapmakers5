@@ -218,6 +218,7 @@ public class ApplicationController {
                 MapData mapData = new MapData();
                 JsonObject mapSettings = (JsonObject) ((JsonArray) ((JsonObject) legacyProjectData.get(0)).get("Settings")).get(0);
                 mapData.setWeatherSet(mapSettings.get("Weather").getStringValue());
+                mapData.setRandomizedWeather(false);
 
                 JsonArray debugSettings = (JsonArray) mapSettings.get("Debug");
                 mapData.setCheckQuests(debugSettings.get(0).getBooleanValue());

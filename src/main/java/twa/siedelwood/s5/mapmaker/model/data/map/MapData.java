@@ -23,6 +23,8 @@ public class MapData {
 
     private String weatherSet = "SetupNormalWeatherGfxSet";
 
+    private boolean randomizedWeather = false;
+
     private boolean checkQuests = true;
 
     private boolean traceQuests = false;
@@ -70,6 +72,7 @@ public class MapData {
         lua += "    MapName = \"" +mapName+ "\",\n";
         lua += "    MapDescription = \"" +mapDescription+ "\",\n";
         lua += "    WeatherSet = \"" +weatherSet+ "\",\n";
+        lua += "    RandomizeWeather = " +randomizedWeather+ ",\n";
         lua += String.format("    Resources = {%d,%d,%d,%d,%d,%d,},\n", resources.get(0), resources.get(1), resources.get(2), resources.get(3), resources.get(4), resources.get(5));
         lua += String.format("    Debug = {%b,%b,%b,%b,},\n", checkQuests, useCheats, useShell, traceQuests);
 
@@ -97,6 +100,7 @@ public class MapData {
         result.put("MapName", mapName);
         result.put("MapDescription", mapDescription);
         result.put("WeatherSet", weatherSet);
+        result.put("RandomizeWeather", randomizedWeather);
         result.put("CheckQuests", checkQuests);
         result.put("TraceQuests", traceQuests);
         result.put("UseCheats", useCheats);
@@ -114,6 +118,7 @@ public class MapData {
         mapData.setMapName(source.get("MapName").getStringValue());
         mapData.setMapDescription(source.get("MapDescription").getStringValue());
         mapData.setWeatherSet(source.get("WeatherSet").getStringValue());
+        mapData.setRandomizedWeather(source.get("RandomizeWeather").getBooleanValue());
         mapData.setCheckQuests(source.get("CheckQuests").getBooleanValue());
         mapData.setTraceQuests(source.get("TraceQuests").getBooleanValue());
         mapData.setUseCheats(source.get("UseCheats").getBooleanValue());

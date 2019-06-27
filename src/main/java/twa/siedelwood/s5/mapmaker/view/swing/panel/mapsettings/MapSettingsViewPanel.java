@@ -222,6 +222,8 @@ public class MapSettingsViewPanel extends JPanel implements ViewPanel {
                 ApplicationController controller = ApplicationController.getInstance();
                 String set = mapWeatherPanel.getSelectedSet();
                 controller.getCurrentProject().getMapData().setWeatherSet(set);
+                boolean active = mapWeatherPanel.getUseRandomizedWeather();
+                controller.getCurrentProject().getMapData().setRandomizedWeather(active);
             }
         };
         mapWeatherPanel.initPanel();
