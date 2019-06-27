@@ -22,6 +22,7 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
     protected ProjectUpdateMapFilePanel updateMapFilePanel;
     protected ProjectListImportsPanel listImportsPanel;
     protected ProjectExportProjectPanel exportProjectPanel;
+    private File lastImportedFilePath;
 
     public ProjectViewPanel() {
         super();
@@ -83,6 +84,9 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
     protected void onFileAddToProject() throws PresentationException {
         try {
             JFileChooser chooser = new JFileChooser();
+            if (lastImportedFilePath != null) {
+                chooser.setCurrentDirectory(lastImportedFilePath);
+            }
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             chooser.removeChoosableFileFilter(chooser.getChoosableFileFilters()[0]);
             chooser.addChoosableFileFilter(new FileNameExtensionFilter("Lua-Skript", "lua", "luac"));
@@ -99,6 +103,7 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
                 Path src = Paths.get(chooser.getSelectedFile().getAbsolutePath());
                 Path dest = Paths.get(includes.getAbsolutePath() + "/" + chooser.getSelectedFile().getName());
                 Files.copy(src, dest, StandardCopyOption.REPLACE_EXISTING);
+                lastImportedFilePath = new File(chooser.getSelectedFile().getAbsolutePath()).getParentFile();
                 String fileName = chooser.getSelectedFile().getName();
                 if (!project.getIncludes().contains(fileName)) {
                     project.getIncludes().add(fileName);
