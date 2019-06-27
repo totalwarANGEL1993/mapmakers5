@@ -153,6 +153,7 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
                 ((JFrame) ApplicationController.getInstance().getWorkbenchWindow()).dispose();
                 ApplicationController.getInstance().setCurrentProject(null);
                 ApplicationController.getInstance().setWorkingDirectory(new File(System.getProperty("user.home") + "/MapMaker/workspace"));
+                ApplicationController.getInstance().setHomeDirectory(new File(System.getProperty("user.home") + "/MapMaker/workspace"));
                 QuestSystemBehavior.openProjectSelectionWindow();
             }
 
