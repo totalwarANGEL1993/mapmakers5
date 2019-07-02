@@ -7,8 +7,8 @@ import twa.siedelwood.s5.mapmaker.service.map.BBAToolMapLoader;
 import twa.siedelwood.s5.mapmaker.service.map.MapLoader;
 import twa.siedelwood.s5.mapmaker.service.script.MapScriptBuilder;
 import twa.siedelwood.s5.mapmaker.view.swing.SwingMessageService;
-import twa.siedelwood.s5.mapmaker.view.swing.frame.ProjectWindowFrame;
-import twa.siedelwood.s5.mapmaker.view.swing.frame.WorkbenchWindowFrame;
+import twa.siedelwood.s5.mapmaker.view.swing.component.frame.ProjectWindowFrame;
+import twa.siedelwood.s5.mapmaker.view.swing.component.frame.WorkbenchWindowFrame;
 
 import javax.swing.*;
 import java.io.File;

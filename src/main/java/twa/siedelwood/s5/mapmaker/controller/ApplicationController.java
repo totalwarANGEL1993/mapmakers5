@@ -23,8 +23,8 @@ import twa.siedelwood.s5.mapmaker.service.config.SelectableValueService;
 import twa.siedelwood.s5.mapmaker.service.map.MapLoader;
 import twa.siedelwood.s5.mapmaker.service.message.MessageService;
 import twa.siedelwood.s5.mapmaker.service.script.MapScriptBuilder;
-import twa.siedelwood.s5.mapmaker.view.swing.frame.WindowFrame;
-import twa.siedelwood.s5.mapmaker.view.swing.frame.WorkbenchWindowFrame;
+import twa.siedelwood.s5.mapmaker.view.swing.component.frame.WindowFrame;
+import twa.siedelwood.s5.mapmaker.view.swing.component.frame.WorkbenchWindowFrame;
 
 import javax.swing.*;
 import java.io.File;
