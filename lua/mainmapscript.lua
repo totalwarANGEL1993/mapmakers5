@@ -4,6 +4,20 @@
 -- #    Author:   totalwarANGEL                                             # --
 -- ########################################################################## --
 
+gvWeatherGenerator = {
+    ["SetupNormalWeatherGfxSet"]    = {RainProp = 55, SnowProp = 60},
+    ["SetupHighlandWeatherGfxSet"]  = {RainProp = 70, SnowProp = 70},
+    ["SetupMediteranWeatherGfxSet"] = {RainProp = 30, SnowProp = 10},
+    ["SetupEvelanceWeatherGfxSet"]  = {RainProp = 30, SnowProp = 10},
+    ["SetupSteppeWeatherGfxSet"]    = {RainProp = 15, SnowProp = 0},
+    ["SetupMoorWeatherGfxSet"]      = {RainProp = 85, SnowProp = 0},
+
+    MaxDuration  = 120,
+    MinDuration  = 30,
+    StatesAmount = 30,
+    LastState    = 1;
+};
+
 gvPlayerColorMapping = {
     ["DEFAULT_COLOR"] = -1,
     ["PLAYER_COLOR"] = 1,
@@ -81,12 +95,44 @@ function InitPlayerColorMapping()
 end
 
 --
+-- Erzeugt zufälliges Wetter für das ausgewählte Wetterset.
+--
+function GenerateWeather()
+    if Global_MapConfigurationData.RandomizeWeather then
+        local WeatherData = gvWeatherGenerator[Global_MapConfigurationData.WeatherSet];
+        for i= 1, gvWeatherGenerator.StatesAmount, 1 do
+            local Length = math.random(gvWeatherGenerator.MinDuration, gvWeatherGenerator.MaxDuration);
+            if i == 1 then
+                gvWeatherGenerator.LastState = 1;
+                AddPeriodicSummer(Length);
+            else 
+                if WeatherData.RainProp > 0 and math.random(1, 100) <= WeatherData.RainProp then
+                    if WeatherData.SnowProp > 0 and gvWeatherGenerator.LastState > 1 and math.random(1, 100) <= WeatherData.SnowProp then
+                        gvWeatherGenerator.LastState = 3;
+                        AddPeriodicWinter(Length);
+                    else
+                        gvWeatherGenerator.LastState = 2;
+                        AddPeriodicRain(Length);
+                    end
+                else
+                    gvWeatherGenerator.LastState = 1;
+                    AddPeriodicSummer(Length);
+                end
+            end
+        end
+    end
+end
+
+--
 -- Startet alle Prozesse, die zu Beginn der Mission aktiviert werden müssen.
 --
 function FirstMapAction()
     Score.Player[0] = {};
 	Score.Player[0]["buildings"] = 0;
-	Score.Player[0]["all"] = 0;
+    Score.Player[0]["all"] = 0;
+    
+    math.randomseed(XGUIEng.GetSystemTime());
+    GenerateWeather();
     
     QuestSystemBehavior:PrepareQuestSystem();
     if Global_MapConfigurationData.Debug[1] or Global_MapConfigurationData.Debug[2] or Global_MapConfigurationData.Debug[3] or Global_MapConfigurationData.Debug[4] then

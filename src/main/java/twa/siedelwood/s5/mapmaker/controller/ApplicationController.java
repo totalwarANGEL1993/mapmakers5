@@ -23,8 +23,8 @@ import twa.siedelwood.s5.mapmaker.service.config.SelectableValueService;
 import twa.siedelwood.s5.mapmaker.service.map.MapLoader;
 import twa.siedelwood.s5.mapmaker.service.message.MessageService;
 import twa.siedelwood.s5.mapmaker.service.script.MapScriptBuilder;
-import twa.siedelwood.s5.mapmaker.view.swing.frame.WindowFrame;
-import twa.siedelwood.s5.mapmaker.view.swing.frame.WorkbenchWindowFrame;
+import twa.siedelwood.s5.mapmaker.view.swing.component.frame.WindowFrame;
+import twa.siedelwood.s5.mapmaker.view.swing.component.frame.WorkbenchWindowFrame;
 
 import javax.swing.*;
 import java.io.File;
@@ -218,6 +218,7 @@ public class ApplicationController {
                 MapData mapData = new MapData();
                 JsonObject mapSettings = (JsonObject) ((JsonArray) ((JsonObject) legacyProjectData.get(0)).get("Settings")).get(0);
                 mapData.setWeatherSet(mapSettings.get("Weather").getStringValue());
+                mapData.setRandomizedWeather(false);
 
                 JsonArray debugSettings = (JsonArray) mapSettings.get("Debug");
                 mapData.setCheckQuests(debugSettings.get(0).getBooleanValue());
@@ -372,7 +373,8 @@ public class ApplicationController {
 
             String content = mapScriptBuilder.replaceTokensInMapscript("lua/mainmapscript.lua");
             String mainScriptPath = localMapPath + ".unpacked/maps/externalmap/mainmapscript.lua";
-            Files.delete(Paths.get(mainScriptPath));
+            if (new File(mainScriptPath).exists())
+                Files.delete(Paths.get(mainScriptPath));
             Files.write(Paths.get(mainScriptPath), content.getBytes(Charset.forName("UTF-8")), StandardOpenOption.CREATE);
 
             String mapScriptSrc = getWorkingDirectory() + "/mapscript.lua";

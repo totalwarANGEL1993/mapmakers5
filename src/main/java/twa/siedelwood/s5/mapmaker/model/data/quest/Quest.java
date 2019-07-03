@@ -7,6 +7,8 @@ import twa.lib.typesavejson.models.JsonArray;
 import twa.lib.typesavejson.models.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +45,10 @@ public class Quest implements Comparable<Quest>{
     @Override
     public int compareTo(Quest o) {
         return name.compareTo(o.getName());
+    }
+
+    public void sort() {
+        Collections.sort(behaviorList, Comparator.comparing(QuestBehavior::getName));
     }
 
     @Override

@@ -12,11 +12,11 @@ twa.siedelwood.s5.mapmaker.view
 twa.siedelwood.s5.mapmaker.view.swing
 twa.siedelwood.s5.mapmaker.view.swing.component
 twa.siedelwood.s5.mapmaker.view.swing.component.dialog
+twa.siedelwood.s5.mapmaker.view.swing.component.frame
 twa.siedelwood.s5.mapmaker.view.swing.component.input
+twa.siedelwood.s5.mapmaker.view.swing.component.panel.briefing
+twa.siedelwood.s5.mapmaker.view.swing.component.panel.mapsettings
+twa.siedelwood.s5.mapmaker.view.swing.component.panel.project
+twa.siedelwood.s5.mapmaker.view.swing.component.panel.quest
 twa.siedelwood.s5.mapmaker.view.swing.component.renderer
 twa.siedelwood.s5.mapmaker.view.swing.component.swing
-twa.siedelwood.s5.mapmaker.view.swing.frame
-twa.siedelwood.s5.mapmaker.view.swing.panel.briefing
-twa.siedelwood.s5.mapmaker.view.swing.panel.mapsettings
-twa.siedelwood.s5.mapmaker.view.swing.panel.project
-twa.siedelwood.s5.mapmaker.view.swing.panel.quest

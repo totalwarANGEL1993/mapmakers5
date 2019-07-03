@@ -49,7 +49,7 @@ public class BriefingSepertorPage implements BriefingPage {
 
     @Override
     public String toLua() {
-        return "AP();";
+        return "    AP();";
     }
 
     @Override

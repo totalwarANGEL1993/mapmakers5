@@ -2,6 +2,7 @@ package twa.siedelwood.s5.mapmaker.model.data.quest;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
@@ -15,6 +16,7 @@ import java.util.regex.Pattern;
  */
 @Data
 @AllArgsConstructor
+@EqualsAndHashCode
 public class QuestBehavior {
     List<String> parameters;
 
@@ -52,7 +54,7 @@ public class QuestBehavior {
 
     @Override
     public String toString() {
-        return toJson().toJson();
+        return parameters.get(0);
     }
 
     public Json toJson() {

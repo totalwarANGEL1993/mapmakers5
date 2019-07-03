@@ -244,10 +244,10 @@ public class BBAToolMapLoader implements MapLoader
      */
     protected String buildExecutionString(final String path)
     {
-        String exec = System.getProperty("user.dir") + "\\bin\\bba5.exe " + path + "";
+        String exec = System.getProperty("user.dir") + "\\bin\\bba5.exe \"" + path + "\"";
         if (!isWindows())
         {
-            exec = "wine " + System.getProperty("user.dir") + "/bin/bba5.exe " + path;
+            exec = "wine " + System.getProperty("user.dir") + "/bin/bba5.exe \"" + path + "\"";
         }
         System.out.println(exec);
         return exec;
