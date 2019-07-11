@@ -70,7 +70,7 @@
             ["ScriptName", "Erstes Entity", []],
             ["ScriptName", "Zweites Entity", []],
             ["NumberInput", "Entfernung", []],
-            ["StringSelect", "Relation festlegen", [">=", "<"]]
+            ["StringSelect", "Relation festlegen", ["<", ">="]]
         ]
     },
     
