@@ -2,6 +2,7 @@
 package twa.siedelwood.s5.mapmaker.service.map;
 
 import org.apache.commons.lang3.SystemUtils;
+import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
@@ -201,6 +203,7 @@ public class BBAToolMapLoader implements MapLoader
         } catch (Exception e) {
             throw new MapLoaderException(e);
         }
+        scriptNames.sort(Comparator.comparing(String::toLowerCase));
         return scriptNames;
     }
 

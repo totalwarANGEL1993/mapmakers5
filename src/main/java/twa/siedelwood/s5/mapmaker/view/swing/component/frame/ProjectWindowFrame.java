@@ -79,7 +79,7 @@ public class ProjectWindowFrame extends JFrame implements WindowFrame, ActionLis
         openProjectPanel.setBorder(BorderFactory.createTitledBorder("Projekt öffnen"));
         pane.add(openProjectPanel);
 
-        openProjectButton = new JButton("Project öffnen");
+        openProjectButton = new JButton("Projekt öffnen");
         openProjectButton.setBounds((openProjectPanel.getWidth()/2) -90, openProjectPanel.getHeight() -45, 180, 25);
         openProjectButton.addActionListener(this);
         openProjectPanel.add(openProjectButton);
