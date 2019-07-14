@@ -223,6 +223,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             QuestBehavior behavior = quest.getBehaviorList().get(currentSelectedBehavior);
             int idx = quest.getBehaviorList().size();
             quest.getBehaviorList().add(behavior.clone());
+            quest.sort();
             behaviorGroup.setBehaviors(new Vector<>(quest.getBehaviorList()));
             behaviorGroup.setSelectedBehaviorIndex(idx);
             onBehaviorSelectionChanged();
