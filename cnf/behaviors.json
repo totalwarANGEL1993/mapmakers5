@@ -509,6 +509,7 @@
             ["BooleanSelect", "Entity verwundbar", []]
         ]
     },
+
     "Reward_AI_EnableArmyAttack": {
         "Description": "Deaktiviert oder aktiviert Angriffe auf Zielpositionen durch die angegebene Armee.",
         "Parameter":   [
@@ -517,6 +518,7 @@
             ["BooleanSelect", "Armee greift an", []]
         ]
     },
+
     "Reward_AI_EnableArmyPatrol": {
         "Description": "Deaktiviert oder aktiviert Patrolien zwischen Wegpunkten durch die angegebene Armee.",
         "Parameter":   [
@@ -525,6 +527,7 @@
             ["BooleanSelect", "Armee patrolliert", []]
         ]
     },
+
     "Reward_AI_CreateSpawnArmy": {
         "Description": "Erstellt eine Armee, deren Mitglieder gespawnt werden, solange der Lebensfaden existiert. Die Armee patrolliert zwischen allen <u>PlayerX_PatrolPointY</u>. Die Armee greift alle <u>PlayerX_AttackTargetY</u> selbstständig an.",
         "Parameter":   [
@@ -543,12 +546,27 @@
             ["StringSelect", "Typname Battalion 6", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]]
         ]
     },
+
     "Reward_CustomVariable": {
         "Description": "Der Wert einer benutzerdefinierten Variable wird verändert.",
         "Parameter":   [
             ["ValueName", "Name der Variable", []],
             ["StringSelect", "Rechenoperation", ["=", "+", "-", "*", "/", "%", "^"]],
             ["NumberInput", "Opperand der Rechnung", []]
+        ]
+    },
+
+    "Reward_CloseGate": {
+        "Description": "Ersetzt ein offenes Palisaden- oder Mauertor mit einem geschlossenen.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []]
+        ]
+    },
+
+    "Reward_OpenGate": {
+        "Description": "Ersetzt ein geschlossenes Palisaden- oder Mauertor mit einem geöffneten.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []]
         ]
     },
 
@@ -703,6 +721,20 @@
             ["ValueName", "Name der Variable", []],
             ["StringSelect", "Rechenoperation", ["=", "+", "-", "*", "/", "%", "^"]],
             ["NumberInput", "Opperand der Rechnung", []]
+        ]
+    },
+
+    "Reprisal_CloseGate": {
+        "Description": "Ersetzt ein offenes Palisaden- oder Mauertor mit einem geschlossenen.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []]
+        ]
+    },
+
+    "Reprisal_OpenGate": {
+        "Description": "Ersetzt ein geschlossenes Palisaden- oder Mauertor mit einem geöffneten.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []]
         ]
     },
 
