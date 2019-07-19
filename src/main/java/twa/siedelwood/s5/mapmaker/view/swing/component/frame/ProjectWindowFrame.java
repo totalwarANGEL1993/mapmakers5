@@ -99,12 +99,15 @@ public class ProjectWindowFrame extends JFrame implements WindowFrame, ActionLis
         createProjectPanel.setBorder(BorderFactory.createTitledBorder("Projekt anlegen"));
         pane.add(createProjectPanel);
 
-        createProjectButton = new JButton("Project erstellen");
+        createProjectButton = new JButton("Projekt erstellen");
         createProjectButton.setBounds((createProjectPanel.getWidth()/2) -90, createProjectPanel.getHeight() -45, 180, 25);
         createProjectButton.addActionListener(this);
         createProjectPanel.add(createProjectButton);
 
-        JLabel createDesc = new JLabel("<html>Wähle ein Verzeichnis aus und erstelle ein neues Projekt. Dein Projekt benötigt einen Namen. Im Verzeichnis darf sich kein Ordner mit dem gleichen Namen befinden.</html>");
+        JLabel createDesc = new JLabel("" +
+            "<html>Wähle ein Verzeichnis aus und erstelle ein neues Projekt. Dein Projekt benötigt einen Namen. " +
+            "Im Verzeichnis darf sich kein Ordner mit dem gleichen Namen befinden.</html>"
+        );
         createDesc.setBounds(10, 25, createProjectPanel.getWidth() -20, 50);
         createDesc.setFont(new Font("Arial", Font.PLAIN, 12));
         createDesc.setVerticalAlignment(JLabel.TOP);

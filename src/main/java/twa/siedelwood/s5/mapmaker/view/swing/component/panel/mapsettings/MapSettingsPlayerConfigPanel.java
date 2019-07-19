@@ -247,10 +247,10 @@ public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel {
                 bgColor = new Color(115, 209, 65);
                 break;
             case "KERBEROS_COLOR":
-                bgColor = new Color(255, 150, 214);
+                bgColor = new Color(135, 135, 135);
                 break;
             case "MERCENARY_COLOR":
-                bgColor = new Color(135, 135, 135);
+                bgColor = new Color(178, 2, 255);
                 break;
             case "EVIL_GOVERNOR_COLOR":
                 bgColor = new Color(0, 140, 2);
