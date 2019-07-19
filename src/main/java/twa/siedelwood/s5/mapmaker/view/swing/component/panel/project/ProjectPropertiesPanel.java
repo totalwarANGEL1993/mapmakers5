@@ -12,6 +12,7 @@ public class ProjectPropertiesPanel extends JPanel implements ViewPanel, ActionL
     protected JButton closeProject;
     protected JButton saveProject;
     protected JButton resetProject;
+    protected JButton copyProject;
     protected JTextField infoTitle;
     protected JTextArea infoText;
     protected JScrollPane scrollPane;
@@ -67,6 +68,13 @@ public class ProjectPropertiesPanel extends JPanel implements ViewPanel, ActionL
     }
 
     /**
+     * Project is cloned
+     */
+    protected void onProjectCloned() {
+
+    }
+
+    /**
      * Initializes the panel
      */
     @Override
@@ -115,6 +123,10 @@ public class ProjectPropertiesPanel extends JPanel implements ViewPanel, ActionL
         resetProject.addActionListener(this);
         resetProject.setVisible(false);
         add(resetProject);
+
+        copyProject = new JButton("Klonen");
+        copyProject.addActionListener(this);
+        add(copyProject);
     }
 
     /**
@@ -134,6 +146,7 @@ public class ProjectPropertiesPanel extends JPanel implements ViewPanel, ActionL
         saveProject.setBounds(10, 160, 120, 25);
         closeProject.setBounds(140, 160, 120, 25);
         resetProject.setBounds(270, 160, 120, 25);
+        copyProject.setBounds(270, 160, 120, 25);
     }
 
     //// Unused ////
@@ -168,6 +181,9 @@ public class ProjectPropertiesPanel extends JPanel implements ViewPanel, ActionL
         }
         if (actionEvent.getSource() == resetProject) {
             onProjectReverted();
+        }
+        if (actionEvent.getSource() == copyProject) {
+            onProjectCloned();
         }
     }
 }

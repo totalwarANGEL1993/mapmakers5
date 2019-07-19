@@ -128,7 +128,7 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
 
                 ApplicationController controller = ApplicationController.getInstance();
 
-                int result = controller.getMessageService().displayConformDialog(
+                int result = controller.getMessageService().displayConfirmDialog(
                     "Projekt zurücksetzen", "Alle nicht gespeicherten Änderungen am Projekt werden zurückgesetzt!"
                 );
                 if (result == 0) {
@@ -139,10 +139,10 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
                     }
                     projectPanel.loadProjectData(controller.getCurrentProject());
                     mapPanel.loadMapData(controller.getCurrentProject().getMapData());
-                    // TODO reset quests
-                    // TODO reset briefings
+                    questPanel.loadQuestData(controller.getCurrentProject().getQuestCollection());
+                    briefingPanel.loadBriefingData(controller.getCurrentProject().getBriefingCollection());
                     controller.getMessageService().displayInfoMessage(
-                            "Zurückgesetzt", "Das Projekt wurde neu geladen. Alle nicht gespeicherten Änderungen wurden verworfen."
+                        "Zurückgesetzt", "Das Projekt wurde neu geladen. Alle nicht gespeicherten Änderungen wurden verworfen."
                     );
                 }
             }

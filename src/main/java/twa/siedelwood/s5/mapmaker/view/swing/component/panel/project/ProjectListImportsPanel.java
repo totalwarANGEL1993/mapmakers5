@@ -19,6 +19,7 @@ public class ProjectListImportsPanel extends JPanel implements ViewPanel, ListSe
     protected JScrollPane scrollPane;
     protected JButton addFile;
     protected JButton removeFile;
+    protected JButton reloadAll;
     protected JLabel description;
     protected int width;
     protected int height;
@@ -64,6 +65,11 @@ public class ProjectListImportsPanel extends JPanel implements ViewPanel, ListSe
     protected void onFileRemoveFromProject() {}
 
     /**
+     * Called when the user reloaded all imports.
+     */
+    protected void onReloadAllImportsForProject() {}
+
+    /**
      * Displays the tabPanel
      */
     @Override
@@ -94,6 +100,10 @@ public class ProjectListImportsPanel extends JPanel implements ViewPanel, ListSe
         removeFile = new JButton("Entfernen");
         removeFile.addActionListener(this);
         add(removeFile);
+
+        reloadAll = new JButton("Neu laden");
+        reloadAll.addActionListener(this);
+        add(reloadAll);
     }
 
     /**
@@ -112,6 +122,7 @@ public class ProjectListImportsPanel extends JPanel implements ViewPanel, ListSe
         scrollPane.setBounds(10, 50, width -20, height-95);
         addFile.setBounds(10, height-35, 120, 25);
         removeFile.setBounds(140, height -35, 120, 25);
+        reloadAll.setBounds(270, height -35, 120, 25);
     }
 
     //// Unused ////
@@ -148,6 +159,9 @@ public class ProjectListImportsPanel extends JPanel implements ViewPanel, ListSe
         }
         if (actionEvent.getSource() == removeFile) {
             onFileRemoveFromProject();
+        }
+        if (actionEvent.getSource() == reloadAll) {
+            onReloadAllImportsForProject();
         }
     }
 }

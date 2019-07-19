@@ -80,7 +80,7 @@ public class SwingMessageService<E extends Component> implements MessageService<
      * @return Result
      */
     @Override
-    public int displayConformDialog(String title, String text, E parent) {
+    public int displayConfirmDialog(String title, String text, E parent) {
         return JOptionPane.showConfirmDialog(parent, text, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
     }
 
@@ -91,7 +91,7 @@ public class SwingMessageService<E extends Component> implements MessageService<
      * @return Result
      */
     @Override
-    public int displayConformDialog(String title, String text) {
+    public int displayConfirmDialog(String title, String text) {
         return JOptionPane.showConfirmDialog(null, text, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
     }
 }

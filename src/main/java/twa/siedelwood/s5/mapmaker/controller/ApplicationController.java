@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
@@ -393,7 +394,8 @@ public class ApplicationController {
             mapLoaderService.add(qsbBasePath + "questsystem.lua", "maps/externalmap/qsb/questsystem.lua");
 
             for (String fileName : currentProject.getIncludes()) {
-                mapLoaderService.add(getWorkingDirectory() + "/inc/" +fileName, "maps/externalmap/inc/" +fileName);
+                File f = new File(fileName);
+                mapLoaderService.add(getWorkingDirectory() + "/inc/" +f.getName(), "maps/externalmap/inc/" +f.getName());
             }
 
             mapLoaderService.packMap();
@@ -411,6 +413,31 @@ public class ApplicationController {
                 "Export fehlgeschlagen",
                 "Das Projekt konnte nicht zu einem Kartenarchiv exportiert werden!"
             );
+        }
+    }
+
+    /**
+     *
+     * @param selectedFile
+     */
+    public void cloneProject(File selectedFile) throws ApplicationException {
+        try {
+            if (currentProject != null) {
+                String name = currentProject.getName();
+                File folder = new File(selectedFile.getAbsoluteFile() + "/" + name);
+                folder.mkdirs();
+
+                Files.write(Paths.get(folder.getAbsolutePath() + "/project.json"), currentProject.toJson().toJson().getBytes());
+                Files.write(Paths.get(folder.getAbsolutePath() + "/quests.json"), currentProject.getQuestCollection().toJson().toJson().getBytes());
+                Files.write(Paths.get(folder.getAbsolutePath() + "/briefings.json"), currentProject.getBriefingCollection().toJson().toJson().getBytes());
+                Files.write(Paths.get(folder.getAbsolutePath() + "/mapconfig.json"), currentProject.getMapData().toJson().toJson().getBytes());
+
+                Path source = Paths.get(workingDirectory.getAbsolutePath() + "/mapscript.lua");
+                Files.copy(source, Paths.get(folder.getAbsolutePath() + "/mapscript.lua"), StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
+        catch (Exception e) {
+            throw new ApplicationException(e);
         }
     }
 

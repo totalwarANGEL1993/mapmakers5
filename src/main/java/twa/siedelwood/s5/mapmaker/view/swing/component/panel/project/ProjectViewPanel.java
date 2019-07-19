@@ -1,7 +1,9 @@
 package twa.siedelwood.s5.mapmaker.view.swing.component.panel.project;
 
 import twa.siedelwood.s5.mapmaker.controller.ApplicationController;
+import twa.siedelwood.s5.mapmaker.controller.ApplicationException;
 import twa.siedelwood.s5.mapmaker.model.meta.ConfigurationProjectModel;
+import twa.siedelwood.s5.mapmaker.service.message.MessageService;
 import twa.siedelwood.s5.mapmaker.view.PresentationException;
 import twa.siedelwood.s5.mapmaker.view.ViewPanel;
 
@@ -13,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Collections;
 
 /**
  * Main panel of the project tab
@@ -42,6 +45,28 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
      * Project is reverted
      */
     protected void onProjectReverted() {}
+
+    /**
+     * Project is cloned
+     */
+    protected void onProjectCloned() {
+        JFileChooser chooser = new JFileChooser();
+        if (lastImportedFilePath != null) {
+            chooser.setCurrentDirectory(lastImportedFilePath);
+        }
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setDialogTitle("Speicherot auswählen");
+        if (chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            ApplicationController controller = ApplicationController.getInstance();
+            try {
+                controller.cloneProject(chooser.getSelectedFile());
+            }
+            catch (ApplicationException e) {
+                e.printStackTrace();
+                controller.getMessageService().displayErrorMessage("Fehler", "Das Projekt konnte nicht geklont werden!");
+            }
+        }
+    }
 
     /**
      * Project is closed
@@ -79,6 +104,28 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
     }
 
     /**
+     * User reloads all import files.
+     */
+    protected void onReloadAllImportsForProject() {
+        ApplicationController controller = ApplicationController.getInstance();
+        ConfigurationProjectModel project = controller.getCurrentProject();
+        File includes = new File(controller.getWorkingDirectory().getAbsoluteFile() + "/inc");
+
+        for (String path : project.getIncludes()) {
+            Path src = Paths.get(path);
+            Path dest = Paths.get(includes.getAbsolutePath() + "/" + src.toFile().getName());
+
+            try {
+                dest.toFile().mkdirs();
+                Files.copy(src, dest, StandardCopyOption.REPLACE_EXISTING);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * User want to add an include to the project.
      */
     protected void onFileAddToProject() throws PresentationException {
@@ -104,9 +151,10 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
                 Path dest = Paths.get(includes.getAbsolutePath() + "/" + chooser.getSelectedFile().getName());
                 Files.copy(src, dest, StandardCopyOption.REPLACE_EXISTING);
                 lastImportedFilePath = new File(chooser.getSelectedFile().getAbsolutePath()).getParentFile();
-                String fileName = chooser.getSelectedFile().getName();
-                if (!project.getIncludes().contains(fileName)) {
-                    project.getIncludes().add(fileName);
+                String filePath = chooser.getSelectedFile().getAbsolutePath().replaceAll("\\\\", "/");
+                if (!project.getIncludes().contains(filePath)) {
+                    project.getIncludes().add(filePath);
+                    Collections.sort(project.getIncludes());
                 }
                 listImportsPanel.loadProjectData(project);
             }
@@ -153,6 +201,11 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
             protected void onProjectSaved() {
                 ProjectViewPanel.this.onProjectSaved();
             }
+
+            @Override
+            protected void onProjectCloned() {
+                ProjectViewPanel.this.onProjectCloned();
+            }
         };
         currentProjectPanel.initPanel();
         add(currentProjectPanel);
@@ -184,6 +237,11 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
             @Override
             protected void onFileRemoveFromProject() {
                 ProjectViewPanel.this.onFileRemoveFromProject();
+            }
+
+            @Override
+            protected void onReloadAllImportsForProject() {
+                ProjectViewPanel.this.onReloadAllImportsForProject();
             }
         };
         listImportsPanel.initPanel();
