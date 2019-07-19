@@ -64,7 +64,7 @@ public interface MessageService<E> {
      * @return Selected option
      */
     @SuppressWarnings("unchecked")
-    int displayConformDialog(String title, String text, E parent);
+    int displayConfirmDialog(String title, String text, E parent);
 
     /**
      * Shows a confirmation screen with warning sign and returns the selected option.
@@ -73,5 +73,5 @@ public interface MessageService<E> {
      * @return Selected option
      */
     @SuppressWarnings("unchecked")
-    int displayConformDialog(String title, String text);
+    int displayConfirmDialog(String title, String text);
 }

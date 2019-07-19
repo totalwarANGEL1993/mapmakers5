@@ -126,7 +126,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
         if (thereAreBriefings()) {
             ApplicationController controller = ApplicationController.getInstance();
             Briefing briefing = briefingCollection.get(briefingGroup.getSelectedBriefingIndex());
-            int result = controller.getMessageService().displayConformDialog(
+            int result = controller.getMessageService().displayConfirmDialog(
                 "Briefing löschen",
                 "Soll das Briefing wirklich vollständig gelöscht werden?"
             );
@@ -466,7 +466,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                           " Entscheidungen müssen überarbeitet werden.";
             }
 
-            int result = controller.getMessageService().displayConformDialog(
+            int result = controller.getMessageService().displayConfirmDialog(
                 "Seite löschen",
                 "Soll diese Seite wirklich gelöscht werden?" +refText
             );

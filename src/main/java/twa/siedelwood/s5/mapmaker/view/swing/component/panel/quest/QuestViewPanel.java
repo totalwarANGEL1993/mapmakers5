@@ -238,7 +238,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             ApplicationController controller = ApplicationController.getInstance();
             Quest quest = questCollection.get(currentSelectedQuest);
             QuestBehavior behavior = quest.getBehaviorList().get(currentSelectedBehavior);
-            int result = controller.getMessageService().displayConformDialog(
+            int result = controller.getMessageService().displayConfirmDialog(
                 "Behavior löschen",
                 "Soll dieses Behavior wirklich aus dem Auftrag entfernt werden?"
             );
@@ -288,7 +288,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
         if (currentSelectedQuest != -1) {
             ApplicationController controller = ApplicationController.getInstance();
             Quest quest = questCollection.get(currentSelectedQuest);
-            int result = controller.getMessageService().displayConformDialog(
+            int result = controller.getMessageService().displayConfirmDialog(
                 "Auftrag löschen",
                 "Soll dieser Auftrag wirklich gelöscht werden?"
             );
