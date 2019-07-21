@@ -373,7 +373,8 @@
         "Description": "Ersetzt eine Skriptentität mit einer Gruppe von Soldaten. Der Leader übernimmt den Skriptnamen.",
         "Parameter":   [
             ["ScriptName", "Skriptname des Entity", []],
-            ["StringSelect", "Typname des Entity", ["CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4"]]
+            ["StringSelect", "Typname des Entity", ["CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4"]],
+            ["NumberInput", "Anzahl an Soldaten", []]
         ]
     },
     
