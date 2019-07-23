@@ -228,14 +228,17 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
     private void onBehaviorCopied() {
         if (currentSelectedBehavior != -1) {
             Quest quest = questCollection.get(currentSelectedQuest);
-            QuestBehavior behavior = quest.getBehaviorList().get(currentSelectedBehavior);
-            int idx = quest.getBehaviorList().size();
-            quest.getBehaviorList().add(behavior.clone());
+            QuestBehavior oldBehavior = quest.getBehaviorList().get(currentSelectedBehavior);
+            QuestBehavior newBehavior = oldBehavior.clone();
+            quest.getBehaviorList().add(newBehavior.clone());
             quest.sort();
+            int idx = currentSelectedBehavior;
             behaviorGroup.setBehaviors(new Vector<>(quest.getBehaviorList()));
-            behaviorGroup.setSelectedBehaviorIndex(idx);
             onBehaviorSelectionChanged();
-            openBehaviorProperties(behavior);
+            behaviorGroup.setSelectedBehaviorIndex(idx +1);
+            if (newBehavior.getParameters().size() > 1) {
+                openBehaviorProperties(quest.getBehaviorList().get(idx +1));
+            }
         }
     }
 
