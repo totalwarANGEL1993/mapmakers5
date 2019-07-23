@@ -227,91 +227,98 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
 
     /**
      * Opens the edit options if a page is double clicked.
-     *
-     * TODO: This is extremly nasty nested... :(
      */
     private void onPageDoubleClicked() {
         if (currentSelectedPage != -1) {
             Briefing briefing = briefingCollection.getBriefings().get(currentSelectedBriefing);
             BriefingPage page = briefing.getPage(currentSelectedPage);
-            if (page.getType() == BriefingPageTypes.TYPE_DIALOG) {
-                BriefingDialogPageProperties editDialog = new BriefingDialogPageProperties(page, null) {
-                    @Override
-                    protected void onEntitySelectClicked() {
-                        Vector<String> scriptNames = ApplicationController.getInstance().getSelectableValueService().getScriptNames();
-                        ListSelectValueDialog select = new ListSelectValueDialog(null, "Position auswählen") {
-                            @Override
-                            public void onConfirm() {
-                                super.onConfirm();
-                                String nameSelected = (getValue() != null) ? getValue() : page.getEntity();
-                                page.setEntity(nameSelected);
-                                entity.setText(nameSelected);
-                            }
-                        };
-                        select.initDialog();
-                        select.setValues(scriptNames);
-                        select.showDialog();
-                    }
-                };
-                editDialog.initDialog();
-                editDialog.showDialog();
-            }
-            if (page.getType() == BriefingPageTypes.TYPE_CHOICE) {
-                BriefingChoicePageProperties editDialog = new BriefingChoicePageProperties(page, null) {
-                    @Override
-                    protected void onEntitySelectClicked() {
-                        Vector<String> scriptNames = ApplicationController.getInstance().getSelectableValueService().getScriptNames();
-                        ListSelectValueDialog select = new ListSelectValueDialog(null, "Position auswählen") {
-                            @Override
-                            public void onConfirm() {
-                                super.onConfirm();
-                                String nameSelected = (getValue() != null) ? getValue() : page.getEntity();
-                                page.setEntity(nameSelected);
-                                entity.setText(nameSelected);
-                            }
-                        };
-                        select.initDialog();
-                        select.setValues(scriptNames);
-                        select.showDialog();
-                    }
+            openPageProperties(page, briefing);
+        }
+    }
 
-                    @Override
-                    public void onTargetOption2Clicked() {
-                        Vector<String> pageNames = briefing.getPageNamesOfType(BriefingPageTypes.TYPE_DIALOG);
-                        ListSelectValueDialog select = new ListSelectValueDialog(null, "Ziel auswählen") {
-                            @Override
-                            public void onConfirm() {
-                                super.onConfirm();
-                                String nameSelectedPage = getValue();
-                                page.setSecondSelectPage(nameSelectedPage);
-                                op2Target.setText(nameSelectedPage);
-                            }
-                        };
-                        select.initDialog();
-                        select.setValues(pageNames);
-                        select.showDialog();
-                    }
+    /**
+     * Opens the properties of the page at the index.
+     * @param page Page to edit
+     * @param briefing Briefing of page
+     */
+    private void openPageProperties(BriefingPage page, Briefing briefing) {
+        if (page.getType() == BriefingPageTypes.TYPE_DIALOG) {
+            BriefingDialogPageProperties editDialog = new BriefingDialogPageProperties(page, null) {
+                @Override
+                protected void onEntitySelectClicked() {
+                    Vector<String> scriptNames = ApplicationController.getInstance().getSelectableValueService().getScriptNames();
+                    ListSelectValueDialog select = new ListSelectValueDialog(null, "Position auswählen") {
+                        @Override
+                        public void onConfirm() {
+                            super.onConfirm();
+                            String nameSelected = (getValue() != null) ? getValue() : page.getEntity();
+                            page.setEntity(nameSelected);
+                            entity.setText(nameSelected);
+                        }
+                    };
+                    select.initDialog();
+                    select.setValues(scriptNames);
+                    select.showDialog();
+                }
+            };
+            editDialog.initDialog();
+            editDialog.showDialog();
+        }
+        if (page.getType() == BriefingPageTypes.TYPE_CHOICE) {
+            BriefingChoicePageProperties editDialog = new BriefingChoicePageProperties(page, null) {
+                @Override
+                protected void onEntitySelectClicked() {
+                    Vector<String> scriptNames = ApplicationController.getInstance().getSelectableValueService().getScriptNames();
+                    ListSelectValueDialog select = new ListSelectValueDialog(null, "Position auswählen") {
+                        @Override
+                        public void onConfirm() {
+                            super.onConfirm();
+                            String nameSelected = (getValue() != null) ? getValue() : page.getEntity();
+                            page.setEntity(nameSelected);
+                            entity.setText(nameSelected);
+                        }
+                    };
+                    select.initDialog();
+                    select.setValues(scriptNames);
+                    select.showDialog();
+                }
 
-                    @Override
-                    public void onTargetOption1Clicked() {
-                        Vector<String> pageNames = briefing.getPageNamesOfType(BriefingPageTypes.TYPE_DIALOG);
-                        ListSelectValueDialog select = new ListSelectValueDialog(null, "Ziel auswählen") {
-                            @Override
-                            public void onConfirm() {
-                                super.onConfirm();
-                                String nameSelectedPage = getValue();
-                                page.setFirstSelectPage(nameSelectedPage);
-                                op1Target.setText(nameSelectedPage);
-                            }
-                        };
-                        select.initDialog();
-                        select.setValues(pageNames);
-                        select.showDialog();
-                    }
-                };
-                editDialog.initDialog();
-                editDialog.showDialog();
-            }
+                @Override
+                public void onTargetOption2Clicked() {
+                    Vector<String> pageNames = briefing.getPageNamesOfType(BriefingPageTypes.TYPE_DIALOG);
+                    ListSelectValueDialog select = new ListSelectValueDialog(null, "Ziel auswählen") {
+                        @Override
+                        public void onConfirm() {
+                            super.onConfirm();
+                            String nameSelectedPage = getValue();
+                            page.setSecondSelectPage(nameSelectedPage);
+                            op2Target.setText(nameSelectedPage);
+                        }
+                    };
+                    select.initDialog();
+                    select.setValues(pageNames);
+                    select.showDialog();
+                }
+
+                @Override
+                public void onTargetOption1Clicked() {
+                    Vector<String> pageNames = briefing.getPageNamesOfType(BriefingPageTypes.TYPE_DIALOG);
+                    ListSelectValueDialog select = new ListSelectValueDialog(null, "Ziel auswählen") {
+                        @Override
+                        public void onConfirm() {
+                            super.onConfirm();
+                            String nameSelectedPage = getValue();
+                            page.setFirstSelectPage(nameSelectedPage);
+                            op1Target.setText(nameSelectedPage);
+                        }
+                    };
+                    select.initDialog();
+                    select.setValues(pageNames);
+                    select.showDialog();
+                }
+            };
+            editDialog.initDialog();
+            editDialog.showDialog();
         }
     }
 
@@ -388,6 +395,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 Vector<BriefingPage> data = briefing.toPageVector();
                 setPages(data);
                 pageGroup.setSelectedPage(newPage);
+                openPageProperties(newPage, briefing);
             }
         };
         dialog.initDialog();
@@ -414,6 +422,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                     briefing.addPage(newPage);
                     pageGroup.setPages(briefing.toPageVector());
                     pageGroup.setSelectedPage(newPage);
+                    openPageProperties(newPage, briefing);
                 }
             };
             dialog.initDialog();
