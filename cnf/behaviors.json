@@ -191,6 +191,15 @@
         ]
     },
 
+    "Goal_DestroyEnemiesInArea": {
+        "Description": "Alle Feinde des Spielers im beschriebenen Gebiet sollen ausgelöscht werden. <br><b>Hinweis</b>: Vorsicht mit Script Entities!",
+        "Parameter":   [
+            ["ScriptName", "Zentrum des Gebiets", []],
+            ["NumberInput", "Größe des Gebiets", []]
+        ]
+    },
+
+
     "Goal_WinQuest": {
         "Description": "Der Auftragnehmer muss einen anderen Auftrag erfolgreich abschließen. Schlägt der Auftrag fehl, wird dieses Ziel fehlschlagen.",
         "Parameter":   [
@@ -568,6 +577,15 @@
         "Description": "Ersetzt ein geschlossenes Palisaden- oder Mauertor mit einem geöffneten.",
         "Parameter":   [
             ["ScriptName", "Skriptname des Entity", []]
+        ]
+    },
+
+    "Reward_CreateChest": {
+        "Description": "Ersetzt das angegebene Entity mit einer Schatztruhe, welche die angegebene Menge an Rohstoffen enthält.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["StringSelect", "Rohstofftyp", ["Random", "Gold", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Menge an Rohstoffen", []]
         ]
     },
 
