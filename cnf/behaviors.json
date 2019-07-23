@@ -191,6 +191,15 @@
         ]
     },
 
+    "Goal_DestroyEnemiesInArea": {
+        "Description": "Alle Feinde des Spielers im beschriebenen Gebiet sollen ausgelöscht werden. <br><b>Hinweis</b>: Vorsicht mit Script Entities!",
+        "Parameter":   [
+            ["ScriptName", "Zentrum des Gebiets", []],
+            ["NumberInput", "Größe des Gebiets", []]
+        ]
+    },
+
+
     "Goal_WinQuest": {
         "Description": "Der Auftragnehmer muss einen anderen Auftrag erfolgreich abschließen. Schlägt der Auftrag fehl, wird dieses Ziel fehlschlagen.",
         "Parameter":   [
@@ -373,7 +382,8 @@
         "Description": "Ersetzt eine Skriptentität mit einer Gruppe von Soldaten. Der Leader übernimmt den Skriptnamen.",
         "Parameter":   [
             ["ScriptName", "Skriptname des Entity", []],
-            ["StringSelect", "Typname des Entity", ["CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4"]]
+            ["StringSelect", "Typname des Entity", ["CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4"]],
+            ["NumberInput", "Anzahl an Soldaten", []]
         ]
     },
     
@@ -459,16 +469,16 @@
         "Description": "Initalisiert ein Söldnerposten, der bis zu 4 Angebote unterbreitet. Söldner werden immer für Taler angeworben.",
         "Parameter":   [
             ["ScriptName", "Skriptname des Entity", []],
-            ["StringSelect", "Soldatentyp von Angebot 1", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Soldatentyp von Angebot 1", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_Scout","PU_Serf","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4","PU_Thief"]],
             ["NumberInput", "Kosten in Taler", []],
             ["NumberInput", "Anzahl der Angebote", []],
-            ["StringSelect", "Soldatentyp von Angebot 2", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Soldatentyp von Angebot 2", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_Scout","PU_Serf","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4","PU_Thief"]],
             ["NumberInput", "Kosten in Taler", []],
             ["NumberInput", "Anzahl der Angebote", []],
-            ["StringSelect", "Soldatentyp von Angebot 3", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Soldatentyp von Angebot 3", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_Scout","PU_Serf","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4","PU_Thief"]],
             ["NumberInput", "Kosten in Taler", []],
             ["NumberInput", "Anzahl der Angebote", []],
-            ["StringSelect", "Soldatentyp von Angebot 4", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4"]],
+            ["StringSelect", "Soldatentyp von Angebot 4", ["-", "CU_AggressiveWolf","CU_BanditLeaderBow1","CU_BanditLeaderSword1","CU_BanditLeaderSword2","CU_Barbarian_LeaderClub1","CU_Barbarian_LeaderClub2","CU_BlackKnight_LeaderMace1","CU_BlackKnight_LeaderMace2","CU_Evil_LeaderBearman1","CU_Evil_LeaderSkirmisher1","CU_VeteranCaptain","CU_VeteranLieutenant","CU_VeteranMajor","PU_LeaderBow1","PU_LeaderBow2","PU_LeaderBow3","PU_LeaderBow4","PU_LeaderCavalry1","PU_LeaderCavalry2","PU_LeaderHeavyCavalry1","PU_LeaderHeavyCavalry2","PU_LeaderPoleArm1","PU_LeaderPoleArm2","PU_LeaderPoleArm3","PU_LeaderPoleArm4","PU_LeaderRifle1","PU_LeaderRifle2","PU_Scout","PU_Serf","PU_LeaderSword1","PU_LeaderSword2","PU_LeaderSword3","PU_LeaderSword4","PV_Cannon1","PV_Cannon2","PV_Cannon3","PV_Cannon4","PU_Thief"]],
             ["NumberInput", "Kosten in Taler", []],
             ["NumberInput", "Anzahl der Angebote", []]
         ]
@@ -567,6 +577,15 @@
         "Description": "Ersetzt ein geschlossenes Palisaden- oder Mauertor mit einem geöffneten.",
         "Parameter":   [
             ["ScriptName", "Skriptname des Entity", []]
+        ]
+    },
+
+    "Reward_CreateChest": {
+        "Description": "Ersetzt das angegebene Entity mit einer Schatztruhe, welche die angegebene Menge an Rohstoffen enthält.",
+        "Parameter":   [
+            ["ScriptName", "Skriptname des Entity", []],
+            ["StringSelect", "Rohstofftyp", ["Random", "Gold", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Menge an Rohstoffen", []]
         ]
     },
 

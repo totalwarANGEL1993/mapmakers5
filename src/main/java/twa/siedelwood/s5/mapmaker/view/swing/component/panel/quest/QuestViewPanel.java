@@ -137,10 +137,10 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
     }
 
     /**
-     * The user opens the behavior properties
+     * Opens the properties of this behavior.
+     * @param behavior Behavior to open
      */
-    private void onBehaviorDoubleClicked() {
-        QuestBehavior behavior = questCollection.get(currentSelectedQuest).getBehaviorList().get(currentSelectedBehavior);
+    private void openBehaviorProperties(QuestBehavior behavior) {
         if (behavior != null && behavior.getParameters().size() > 1) {
             QuestDefaultBehaviorPropertiesDialog dialog = new QuestDefaultBehaviorPropertiesDialog(behavior) {
                 @Override
@@ -149,12 +149,12 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
                     for (InputComponent c : inputFields) {
                         if (c.getValue() == null || c.getValue().equals("")) {
                             if (!(c instanceof InputComponentMessageField)) {
-                                ApplicationController.getInstance().getMessageService().displayErrorMessage(
+                                ApplicationController.getInstance().getMessageService().displayWarningMessage(
                                     "Pflichtfelder ausfüllen",
                                     "Einige Felder wurden noch nicht mit einem Wert versehen! Alle Felder " +
-                                    "müssen mit einem Wert versehen werden!"
+                                    "sollten mit einem Wert versehen werden!"
                                 );
-                                return;
+                                break;
                             }
                         }
                     }
@@ -169,6 +169,14 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             dialog.initDialog();
             dialog.showDialog();
         }
+    }
+
+    /**
+     * The user opens the behavior properties
+     */
+    private void onBehaviorDoubleClicked() {
+        QuestBehavior behavior = questCollection.get(currentSelectedQuest).getBehaviorList().get(currentSelectedBehavior);
+        openBehaviorProperties(behavior);
     }
 
     /**
@@ -198,7 +206,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
                     onBehaviorSelectionChanged();
 
                     if (parameters.size() > 1) {
-                        onBehaviorDoubleClicked();
+                        openBehaviorProperties(behavior);
                     }
                 }
 
@@ -227,6 +235,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             behaviorGroup.setBehaviors(new Vector<>(quest.getBehaviorList()));
             behaviorGroup.setSelectedBehaviorIndex(idx);
             onBehaviorSelectionChanged();
+            openBehaviorProperties(behavior);
         }
     }
 

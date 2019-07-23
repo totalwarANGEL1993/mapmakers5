@@ -80,7 +80,7 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
         ApplicationController controller = ApplicationController.getInstance();
         ConfigurationProjectModel project = controller.getCurrentProject();
 
-        String infoText = currentProjectPanel.infoText.getText();
+        String infoText = currentProjectPanel.infoText.getText().replaceAll("\n", "{nl}");
         String infoTitle = currentProjectPanel.infoTitle.getText();
         String mapFile = updateMapFilePanel.currentMapFile.getText();
 
