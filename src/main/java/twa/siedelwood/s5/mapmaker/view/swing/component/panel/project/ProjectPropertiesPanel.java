@@ -27,7 +27,7 @@ public class ProjectPropertiesPanel extends JPanel implements ViewPanel, ActionL
      */
     public void loadProjectData(ConfigurationProjectModel project) {
         infoTitle.setText(project.getName());
-        infoText.setText(project.getDescription());
+        infoText.setText(project.getDescription().replaceAll("\\{nl\\}", "\n"));
     }
 
     /**
