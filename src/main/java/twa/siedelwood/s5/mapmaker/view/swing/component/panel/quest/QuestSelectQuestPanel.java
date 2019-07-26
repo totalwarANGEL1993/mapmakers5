@@ -203,10 +203,12 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         questDescription.setVisible(elementsEditable);
         questDescriptionLabel.setVisible(elementsEditable);
         questDescriptionScroll.setVisible(elementsEditable);
+        /*
         questReceiver.setVisible(elementsEditable);
         questReceiverLabel.setVisible(elementsEditable);
         questLimit.setVisible(elementsEditable);
         questLimitLabel.setVisible(elementsEditable);
+        */
     }
 
     /**
@@ -263,6 +265,8 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
             questVisibility.setSelectedIndex(quest.isVisible() ? 1 : 0);
             questVisibility.setEnabled(true);
             buttons[4].setEnabled(true);
+            questReceiver.setEnabled(true);
+            questLimit.setEnabled(true);
         }
         else {
             questType.setSelectedIndex(0);
@@ -273,6 +277,8 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
             questVisibility.setSelectedIndex(0);
             questVisibility.setEnabled(false);
             buttons[4].setEnabled(false);
+            questReceiver.setEnabled(false);
+            questLimit.setEnabled(false);
         }
         onQuestVisibilityChanged();
     }
@@ -302,16 +308,16 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         }
 
         int propertiesWidth = ((width * 0.5) -20 < 700) ? (int) (width * 0.5) -20 : 700;
-        questVisibilityLabel.setBounds(selectionWidth +20, 75, 200, 20);
-        questVisibility.setBounds(selectionWidth +20, 95, 180, 20);
-        buttons[4].setBounds(selectionWidth +20, 120, 130, 25);
+        buttons[4].setBounds(selectionWidth +20, 75, 130, 25);
+        questVisibilityLabel.setBounds(selectionWidth +20, 105, 200, 20);
+        questVisibility.setBounds(selectionWidth +20, 125, 180, 20);
 
-        questTypeLabel.setBounds(selectionWidth +20, 165, 200, 20);
-        questType.setBounds(selectionWidth +20, 185, 180, 20);
-        questReceiverLabel.setBounds(selectionWidth +20, 210, 200, 15);
-        questReceiver.setBounds(selectionWidth +20, 225, 180, 20);
-        questLimitLabel.setBounds(selectionWidth +20, 250, 200, 15);
-        questLimit.setBounds(selectionWidth +20, 265, 180, 20);
+        questReceiverLabel.setBounds(selectionWidth +20, 165, 200, 20);
+        questReceiver.setBounds(selectionWidth +20, 185, 180, 20);
+        questLimitLabel.setBounds(selectionWidth +20, 210, 200, 15);
+        questLimit.setBounds(selectionWidth +20, 225, 180, 20);
+        questTypeLabel.setBounds(selectionWidth +20, 250, 200, 15);
+        questType.setBounds(selectionWidth +20, 265, 180, 20);
         questTitleLabel.setBounds(selectionWidth +20, 290, 200, 15);
         questTitle.setBounds(selectionWidth +20, 305, propertiesWidth, 20);
         questDescriptionLabel.setBounds(selectionWidth +20, 330, 200, 15);
