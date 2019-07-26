@@ -40,111 +40,6 @@ gvPlayerColorMapping = {
 
 QUEST_ASSISTENT_MAP_SETTINGS_DATA
 
--- Begin extra 3 stuff ------------------------------------------------------ --
-
-localscript = {
-	-- extra 3 config
-	extra3config = {
-		-- set these to true if you want to load your own versions
-		doNotLoadMcbTrigger = false, --  trigger fix (functions as direct arguments, tables/functions as parameters, catching errors)
-		doNotLoadFramework2 = false, -- Utility for map loading / savegames, including autosaves
-		doNotLoadS5Hook = false, -- injects asm code to make C++ features accessible
-		doNotLoadMetatableFix = false, -- tool to make metatables savegame compartible
-		doNotLoadS5HookLoader = false, -- starts S5Hook at map start (cf. FirstMapAction) and after loading
-		doNotLoadMcbEMan = false, -- lib to manipulate entities / entitytypes based on S5Hook
-		doNotLoadMemoryManipulation = false,
-		doNotLoadMcbAnim = false, -- comfort to execut custom entity animations
-		doNotLoadInterfaceRescale = false, -- Loads a script to resize the interface correctly
-		doNotLoadBuildRotation = false, -- enables to place rotated buildings (requires dll inject)
-		doNotLoadWheelScroll = false, -- script support for scrolling with mouse wheel (requires dll inject)
-		doNotLoadWallBuild = false, -- support script to build walls
-		doNotLoadSerfBuildList = false, -- enables serfs to remember build/repair jobs
-		doNotLoadSyncedOptions = false, -- synchronized ruleselection screen
-		doNotLoadMpRuleset = false, -- mp ruleset
-		doNotLoadHQDefenses = false, -- script support for headquarter defenses
-		doNotLoadMcbTraderoute = false, -- tradecarts that drop their load when killed
-		doNotLoadMcbMarket = false, -- market rework that uses tradecarts
-		doNotLoadMcbWeather = false, -- random weather and multigfx sets
-		doNotLoadMcbRecruitment = false, -- single leader upgrade / recruitable CU leaders / find buttons fix / optional alternative recruitment
-		doNotLoadLuaTaskType = false, -- allows lua callback on invalid tasks (requires dll inject)
-		doNotLoadStatisticsManipulation = false, -- allows to manipulate game statistics (requires dll inject)
-		doNotLoadPolygon = false, -- simple polygons with point contain and distance tests
-		doNotLoadMcbBrief = false, -- briefing rework with better camera control and Umlaute string formatting
-		doNotLoadThiefGUI = false, -- adds invisibility progress bar and allows thieves to throw away ther stolen resources
-		doNotLoadMcbQuestGUI = false, -- quest gui rework
-		doNotLoadMcbTriggerExtHurtEntity = false, -- fixes LOGIC_EVENT_ENTITY_HURT_ENTITY trigger not being called if attacker is invalid
-		doNotLoadHurtProjectileFix = false, -- fixes cannon projectiles not caring about armor/damageclass
-		doNotLoadKeyTriggerHandle = false, -- allows multiple hook key triggers
-		doNotLoadCNetEventCallback = false, -- reading and writing of CNetEvents as callback
-	},
-	
-	-- sets player colors (call InitPlayerColorMapping if you change them after map start)
-	playerColors = {
-		[1] = 1,
-		[2] = 2,
-		[3] = 3,
-		[4] = 4,
-		[5] = 5,
-		[6] = 6,
-		[7] = 7,
-		[8] = 8,
-	},
-	
-	mcbMarketExits = nil, -- replace with a table of entities/positions to enable market rework
-	mcbRecruitmentNoFreeUpgradeOnResearch = false, -- set to true to disable auto troop upgrade on tech research
-	mcbBriefWaitForGUI = false, -- set to true if you want mcbBrief to wait for you to load a modified gui xml
-	mpSyncerTributePlayer = 8, -- player which mcbMPSyncer uses for sync tributes
-	
-	-- mp config: mpNumberOfPlayers=nil -> sp
-	mpNumberOfPlayers = nil,
-	mpRulesetConfig = nil, -- use a custom ruleset config
-};
-
-for k, v in pairs(Global_MapConfigurationData.Players) do
-    if gvPlayerColorMapping[v.Color] and gvPlayerColorMapping[v.Color] ~= -1 then
-        localscript.playerColors[k] = gvPlayerColorMapping[v.Color];
-    end
-end
-
-Script.Load(Folders.MapTools.."extra3loader.lua");
-
--- function that gets called after the map got loaded for the first time and all extra3 initializations are done.
-function localscript.fma()
-    Score.Player[0] = {};
-    Score.Player[0]["buildings"] = 0;
-    Score.Player[0]["all"] = 0;
-    GenerateWeather();
-    QuestSystemBehavior:PrepareQuestSystem();
-    if Global_MapConfigurationData.Debug[1] or Global_MapConfigurationData.Debug[2] or Global_MapConfigurationData.Debug[3] or Global_MapConfigurationData.Debug[4] then
-        QuestSystemDebug:Activate(unpack(Global_MapConfigurationData.Debug));
-    end
-    CreateQuests();
-    PreperationDone();
-end
-
--- function that gets called after the rule selection got closed (only if it got used)
-function localscript.onRuleSelectionClosed()
-	
-end
-
--- function that gets called after the peacetime is over (only if the mpruleset has a peacetime option)
-function localscript.onPeaceTimeEnd()
-	
-end
-
--- function that gets called when the mpSyncer is ready (all players connected) (immediately called in SP)
-function localscript.onSyncerReady()
-	
-end
-
--- function that gets called after the map got loaded, but before extra3 initialization is done.
--- use it to create leaders with troops and walls
-function localscript.fmaPreConfig()
-	
-end
-
--- End extra 3 stuff -------------------------------------------------------- --
-
 --
 -- Setzt die im Assistenten eingestellten diplomatischen Beziehungen für
 -- den menschlichen Spieler. Außerdem werden die Namen der Parteien gesetzt.
@@ -166,7 +61,6 @@ function InitDiplomacy()
             SetPlayerName(k, v.Name);
         end
     end
-	
 end
 
 --
@@ -177,56 +71,26 @@ function InitResources()
 end
 
 --
--- Setzt den Status von Technologien zu spielbeginn.
+-- Verbietet alle im Assistenten eingestellten Technologien.
 --
 function InitTechnologies()
-	
 end
 
 --
 -- Ruft das im Assistenten eingestellte Wetterset auf.
 --
 function InitWeatherGfxSets()
-    -- Extra 3
-    if mcbWeather then
-        local gfxnames = {
-            ["SetupNormalWeatherGfxSet"]    = mcbWeather.set.normal,
-            ["SetupHighlandWeatherGfxSet"]  = mcbWeather.set.highland,
-            ["SetupMediteranWeatherGfxSet"] = mcbWeather.set.mediterranean,
-            ["SetupEvelanceWeatherGfxSet"]  = mcbWeather.set.evelance,
-            ["SetupMoorWeatherGfxSet"]      = mcbWeather.set.moor,
-        };
-        mcbWeather.setGFXSet(gfxnames[Global_MapConfigurationData.WeatherSet] or mcbWeather.set.normal);
-    -- Extra 1/2
-    else
-        _G[Global_MapConfigurationData.WeatherSet]();
-    end
-end
-
----
--- Startet Wetterperioden zu Spielbeginn.
---
-function InitWeather()
+	_G[Global_MapConfigurationData.WeatherSet]();
 end
 
 --
--- Startet alle Prozesse, die zu Beginn der Mission aktiviert werden müssen.
+-- Setzt die Spielerfarben der Parteien fest.
 --
-if not gvKeyBindings_RotateBackCameraFlag then
-    function FirstMapAction()
-        Score.Player[0] = {};
-        Score.Player[0]["buildings"] = 0;
-        Score.Player[0]["all"] = 0;
-        
-        math.randomseed(XGUIEng.GetSystemTime());
-        GenerateWeather();
-        
-        QuestSystemBehavior:PrepareQuestSystem();
-        if Global_MapConfigurationData.Debug[1] or Global_MapConfigurationData.Debug[2] or Global_MapConfigurationData.Debug[3] or Global_MapConfigurationData.Debug[4] then
-            QuestSystemDebug:Activate(unpack(Global_MapConfigurationData.Debug));
+function InitPlayerColorMapping()
+    for k, v in pairs(Global_MapConfigurationData.Players) do
+        if gvPlayerColorMapping[v.Color] and gvPlayerColorMapping[v.Color] ~= -1 then
+            Display.SetPlayerColorMapping(k, gvPlayerColorMapping[v.Color]);
         end
-        CreateQuests();
-        PreperationDone();
     end
 end
 
@@ -241,7 +105,7 @@ function GenerateWeather()
             if i == 1 then
                 gvWeatherGenerator.LastState = 1;
                 AddPeriodicSummer(Length);
-            else 
+            else
                 if WeatherData.RainProp > 0 and math.random(1, 100) <= WeatherData.RainProp then
                     if WeatherData.SnowProp > 0 and gvWeatherGenerator.LastState > 1 and math.random(1, 100) <= WeatherData.SnowProp then
                         gvWeatherGenerator.LastState = 3;
@@ -258,6 +122,26 @@ function GenerateWeather()
         end
     end
 end
+
+--
+-- Startet alle Prozesse, die zu Beginn der Mission aktiviert werden müssen.
+--
+function FirstMapAction()
+    Score.Player[0] = {};
+	Score.Player[0]["buildings"] = 0;
+    Score.Player[0]["all"] = 0;
+
+    math.randomseed(XGUIEng.GetSystemTime());
+    GenerateWeather();
+
+    QuestSystemBehavior:PrepareQuestSystem();
+    if Global_MapConfigurationData.Debug[1] or Global_MapConfigurationData.Debug[2] or Global_MapConfigurationData.Debug[3] or Global_MapConfigurationData.Debug[4] then
+        QuestSystemDebug:Activate(unpack(Global_MapConfigurationData.Debug));
+    end
+    CreateQuests();
+    PreperationDone();
+end
+
 --
 -- Hier werden die im Assistenten angelegten Quests definiert und gestartet.
 --
@@ -270,6 +154,7 @@ function CreateQuests()
             local CurrentBehaviorName = table.remove(CurrentBehaviorData, 1);
             table.insert(Behaviors, _G[CurrentBehaviorName](unpack(CurrentBehaviorData)));
         end
+
         local Description;
         if v.Visible then
             Description = {
@@ -279,11 +164,13 @@ function CreateQuests()
                 Info  = 1
             }
         end
+
         CreateQuest {
             Name        = v.Name,
             Description = Description,
             Receiver    = v.Receiver,
             Time        = v.Time,
+
             unpack(Behaviors)
         };
     end
