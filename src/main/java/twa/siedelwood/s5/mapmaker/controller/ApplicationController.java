@@ -316,22 +316,7 @@ public class ApplicationController {
                     selectableValueService.setBriefingCollection(currentProject.getBriefingCollection());
                     selectableValueService.setQuestCollection(currentProject.getQuestCollection());
                     behaviorPrototypeService.load("cnf/behaviors.json");
-
-                    try {
-                        mapLoaderService.selectMap(currentProject.getMapFile());
-                        mapLoaderService.unpackMap();
-                        selectableValueService.setScriptNames(mapLoaderService.readScriptNames());
-                        mapLoaderService.removeMapFolder();
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                        getMessageService().displayErrorMessage(
-                            "Archivfehler",
-                            "Laden der Skriptnamen aus dem Kartenarchiv fehlgeschlagen! Möglicher Weise wurde " +
-                            " noch kein Archiv ausgewählt."
-                        );
-                    }
-
+                    internalReloadMapFile();
                     WorkbenchWindowFrame workbench = (WorkbenchWindowFrame) ApplicationController.getInstance().getWorkbenchWindow();
                     workbench.getProjectPanel().loadProjectData(currentProject);
                     workbench.getMapPanel().loadMapData(currentProject.getMapData());
@@ -344,6 +329,28 @@ public class ApplicationController {
                 }
             }
         }));
+    }
+
+    /**
+     * Loads the map archive of a project.
+     * @return Error occured
+     */
+    public boolean internalReloadMapFile() {
+        try {
+            mapLoaderService.selectMap(currentProject.getMapFile());
+            mapLoaderService.unpackMap();
+            selectableValueService.setScriptNames(mapLoaderService.readScriptNames());
+            mapLoaderService.removeMapFolder();
+        }
+        catch (Exception e) {
+            getMessageService().displayErrorMessage(
+                "Archivfehler",
+                "Laden der Skriptnamen aus dem Kartenarchiv fehlgeschlagen! Möglicher Weise wurde " +
+                " noch kein Archiv ausgewählt."
+            );
+            return false;
+        }
+        return true;
     }
 
     /**

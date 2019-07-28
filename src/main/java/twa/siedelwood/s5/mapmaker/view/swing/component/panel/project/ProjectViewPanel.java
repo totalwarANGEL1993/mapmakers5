@@ -210,7 +210,17 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
         currentProjectPanel.initPanel();
         add(currentProjectPanel);
 
-        updateMapFilePanel = new ProjectUpdateMapFilePanel();
+        updateMapFilePanel = new ProjectUpdateMapFilePanel() {
+            @Override
+            public void onSearchForNewMap() {
+                ProjectViewPanel.this.onSearchForNewMap();
+            }
+
+            @Override
+            public void onMapFileRealoaded() {
+                ProjectViewPanel.this.onMapFileRealoaded();
+            }
+        };
         updateMapFilePanel.initPanel();
         add(updateMapFilePanel);
 
@@ -246,6 +256,41 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
         };
         listImportsPanel.initPanel();
         add(listImportsPanel);
+    }
+
+    /**
+     * The user searches for a map archive
+     */
+    public void onSearchForNewMap() {
+        ApplicationController controller = ApplicationController.getInstance();
+        File map = new File(controller.getCurrentProject().getMapFile());
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.removeChoosableFileFilter(chooser.getChoosableFileFilters()[0]);
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Kartenarchiv","s5x"));
+        chooser.setDialogTitle("Kartenarchiv wählen");
+        if (map.exists()) {
+            chooser.setCurrentDirectory(map.getParentFile());
+        }
+        if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            String path = chooser.getSelectedFile().getAbsolutePath().replaceAll("\\\\", "/");
+            controller.getCurrentProject().setMapFile(path);
+            updateMapFilePanel.getCurrentMapFile().setText(path);
+        }
+    }
+
+    /**
+     * The user reloads the selected map archive
+     */
+    private void onMapFileRealoaded() {
+        ApplicationController controller = ApplicationController.getInstance();
+        if (controller.internalReloadMapFile()) {
+            controller.getMessageService().displayInfoMessage(
+                "Neu geladen",
+                "Das Kartenarchiv wurde neu geladen und Skriptnamen sind jetzt aktualisiert!"
+            );
+        }
     }
 
     /**
