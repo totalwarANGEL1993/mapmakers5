@@ -105,7 +105,7 @@ function GenerateWeather()
             if i == 1 then
                 gvWeatherGenerator.LastState = 1;
                 AddPeriodicSummer(Length);
-            else 
+            else
                 if WeatherData.RainProp > 0 and math.random(1, 100) <= WeatherData.RainProp then
                     if WeatherData.SnowProp > 0 and gvWeatherGenerator.LastState > 1 and math.random(1, 100) <= WeatherData.SnowProp then
                         gvWeatherGenerator.LastState = 3;
@@ -130,10 +130,10 @@ function FirstMapAction()
     Score.Player[0] = {};
 	Score.Player[0]["buildings"] = 0;
     Score.Player[0]["all"] = 0;
-    
+
     math.randomseed(XGUIEng.GetSystemTime());
     GenerateWeather();
-    
+
     QuestSystemBehavior:PrepareQuestSystem();
     if Global_MapConfigurationData.Debug[1] or Global_MapConfigurationData.Debug[2] or Global_MapConfigurationData.Debug[3] or Global_MapConfigurationData.Debug[4] then
         QuestSystemDebug:Activate(unpack(Global_MapConfigurationData.Debug));

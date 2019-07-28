@@ -13,12 +13,21 @@ import java.awt.event.ActionListener;
 public class ProjectUpdateMapFilePanel extends JPanel implements ViewPanel, ActionListener {
     protected JTextField currentMapFile;
     protected JButton currentMapButton;
+    protected JButton reloadButton;
     protected JLabel currentMapFileLabel;
     protected int width;
     protected int height;
 
     public ProjectUpdateMapFilePanel() {
         super();
+    }
+
+    /**
+     * Returns the textfield with the path of the current map archive.
+     * @return Text field
+     */
+    public JTextField getCurrentMapFile() {
+        return currentMapFile;
     }
 
     /**
@@ -32,19 +41,12 @@ public class ProjectUpdateMapFilePanel extends JPanel implements ViewPanel, Acti
     /**
      * The user searches for a map archive
      */
-    public void onSearchForNewMap() {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        chooser.removeChoosableFileFilter(chooser.getChoosableFileFilters()[0]);
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("Kartenarchiv","s5x"));
-        chooser.setDialogTitle("Kartenarchiv wählen");
-        if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            ApplicationController controller = ApplicationController.getInstance();
-            String path = chooser.getSelectedFile().getAbsolutePath().replaceAll("\\\\", "/");
-            controller.getCurrentProject().setMapFile(path);
-            currentMapFile.setText(path);
-        }
-    }
+    protected void onSearchForNewMap() {}
+
+    /**
+     * The user reloads the selected map archive
+     */
+    protected void onMapFileRealoaded() {}
 
     /**
      * Initalizes the panel
@@ -54,7 +56,7 @@ public class ProjectUpdateMapFilePanel extends JPanel implements ViewPanel, Acti
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Map-Datei tauschen"));
 
-        currentMapFileLabel = new JLabel("Tausche die Mapdatei aus, die mit dem Projekt verknüpft ist.");
+        currentMapFileLabel = new JLabel("Tausche die Mapdatei aus oder lade sie neu um Skriptnamen zu aktualisieren.");
         currentMapFileLabel.setFont(new Font("Arial", Font.PLAIN, 12));
         currentMapFileLabel.setVerticalAlignment(JLabel.TOP);
         currentMapFileLabel.setVerticalTextPosition(JLabel.TOP);
@@ -65,9 +67,13 @@ public class ProjectUpdateMapFilePanel extends JPanel implements ViewPanel, Acti
         currentMapFile.setEditable(false);
         add(currentMapFile);
 
-        currentMapButton = new JButton("Suchen");
+        currentMapButton = new JButton("Durchsuchen");
         currentMapButton.addActionListener(this);
         add(currentMapButton);
+
+        reloadButton = new JButton("Aktualisieren");
+        reloadButton.addActionListener(this);
+        add(reloadButton);
     }
 
     /**
@@ -84,6 +90,7 @@ public class ProjectUpdateMapFilePanel extends JPanel implements ViewPanel, Acti
         currentMapFileLabel.setBounds(10, 20, width-20, 15);
         currentMapFile.setBounds(10, 35, width-20, 20);
         currentMapButton.setBounds(10, 60, 120, 25);
+        reloadButton.setBounds(140, 60, 120, 25);
     }
 
     //// Unused ////
@@ -124,6 +131,9 @@ public class ProjectUpdateMapFilePanel extends JPanel implements ViewPanel, Acti
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == currentMapButton) {
             onSearchForNewMap();
+        }
+        if (e.getSource() == reloadButton) {
+            onMapFileRealoaded();
         }
     }
 }
