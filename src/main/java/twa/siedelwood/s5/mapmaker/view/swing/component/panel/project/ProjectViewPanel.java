@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Collections;
 
 /**
@@ -105,13 +106,27 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
 
     /**
      * User reloads all import files.
+     * This will remove all files that does not exist anymore.
      */
     protected void onReloadAllImportsForProject() {
         ApplicationController controller = ApplicationController.getInstance();
         ConfigurationProjectModel project = controller.getCurrentProject();
         File includes = new File(controller.getWorkingDirectory().getAbsoluteFile() + "/inc");
 
+        // Check files still existing
+        ArrayList<String> existingIncludes = new ArrayList<>();
         for (String path : project.getIncludes()) {
+            File file = new File(path);
+            if (file.exists()) {
+                existingIncludes.add(path);
+            }
+        }
+        project.getIncludes().clear();
+        project.getIncludes().addAll(existingIncludes);
+        listImportsPanel.loadProjectData(project);
+
+        // Reload import files
+        for (String path : existingIncludes) {
             Path src = Paths.get(path);
             Path dest = Paths.get(includes.getAbsolutePath() + "/" + src.toFile().getName());
 
