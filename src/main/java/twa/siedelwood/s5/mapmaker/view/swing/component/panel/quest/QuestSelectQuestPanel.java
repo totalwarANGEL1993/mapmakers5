@@ -55,7 +55,8 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         questInfo = new JLabel(
             "<html>Hier können Aufträge verwaltet werden. Du kannst Aufträge erstellen, kopieren," +
             " umbenennen und löschen. Die Eigenschhaften eines Auftrages werden bearbeitet," +
-            " in dem der Auftrag aus der Liste ausgewählt wird.</html>"
+            " in dem der Auftrag aus der Liste ausgewählt wird. Um Eigenschaften zu aktualisieren," +
+            " klicke auf \"Update\".</html>"
         );
         questInfo.setFont(new Font("Arial", Font.PLAIN, 12));
         questInfo.setVerticalAlignment(JLabel.TOP);

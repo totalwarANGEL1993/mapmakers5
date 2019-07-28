@@ -98,7 +98,7 @@ public class QuestCollection {
         List<QuestBehavior> behaviorList = new ArrayList<>();
         for (Quest q : questList) {
             for (QuestBehavior b : q.getBehaviorList()) {
-                if (b.getName().contains("Quest")) {
+                if (b.getName().contains("Quest") || b.getName().contains("Trigger_Briefing")) {
                     behaviorList.add(b);
                 }
             }
