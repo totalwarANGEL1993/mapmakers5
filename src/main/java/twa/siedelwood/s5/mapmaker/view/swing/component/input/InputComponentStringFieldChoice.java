@@ -169,7 +169,7 @@ public class InputComponentStringFieldChoice extends JPanel implements InputComp
         add(value);
 
         button = new JButton("...");
-        button.setBounds(w - 50, 17, 30, 20);
+        button.setBounds(w - 50, 17, 30, 19);
         button.addActionListener(this);
         add(button);
 

@@ -136,7 +136,7 @@ public class BriefingChoicePageProperties implements ConfirmDialog, ActionListen
         entity.setFont(new Font("Arial", Font.PLAIN, 12));
         dialog.add(entity);
         selEntity = new JButton("...");
-        selEntity.setBounds(360, 185, 30, 25);
+        selEntity.setBounds(360, 185, 30, 24);
         selEntity.addActionListener(this);
         dialog.add(selEntity);
 
@@ -192,7 +192,7 @@ public class BriefingChoicePageProperties implements ConfirmDialog, ActionListen
         op1Target.setFont(new Font("Arial", Font.PLAIN, 12));
         dialog.add(op1Target);
         selOp1 = new JButton("...");
-        selOp1.setBounds(360, 395, 30, 25);
+        selOp1.setBounds(360, 395, 30, 24);
         selOp1.addActionListener(this);
         dialog.add(selOp1);
 
@@ -212,7 +212,7 @@ public class BriefingChoicePageProperties implements ConfirmDialog, ActionListen
         op2Target.setFont(new Font("Arial", Font.PLAIN, 12));
         dialog.add(op2Target);
         selOp2 = new JButton("...");
-        selOp2.setBounds(360, 465, 30, 25);
+        selOp2.setBounds(360, 465, 30, 24);
         selOp2.addActionListener(this);
         dialog.add(selOp2);
 

@@ -90,12 +90,12 @@ public abstract class BasicConfirmDialog extends JDialog implements ConfirmDialo
 
         okButton = new JButton("Okay");
         okButton.addActionListener(this);
-        okButton.setBounds((width / 2) -120, height -75, 120, 25);
+        okButton.setBounds((width / 2) -120, height -75, 110, 25);
         add(okButton);
 
         cancelButton = new JButton("Abbrechen");
         cancelButton.addActionListener(this);
-        cancelButton.setBounds((width / 2) +10, height -75, 120, 25);
+        cancelButton.setBounds((width / 2) + 0, height -75, 110, 25);
         add(cancelButton);
 
         result = null;
