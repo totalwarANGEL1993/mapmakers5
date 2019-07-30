@@ -149,11 +149,11 @@ public class QuestCollection {
     }
 
     public String toLua() {
-        String lua = "    Global_QuestsToGenerate = {\n";
+        String lua = "Global_QuestsToGenerate = {\n";
         for (Quest q : questList) {
-            lua += "        " + q.toLua() + ",\n";
+            lua += "    " + q.toLua() + ",\n";
         }
-        lua += "    };\n";
+        lua += "};\n";
         return lua;
     }
 

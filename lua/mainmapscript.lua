@@ -142,11 +142,12 @@ function FirstMapAction()
     PreperationDone();
 end
 
+QUEST_ASSISTENT_GENERATED_QUESTS
+
 --
 -- Hier werden die im Assistenten angelegten Quests definiert und gestartet.
 --
 function CreateQuests()
-    QUEST_ASSISTENT_GENERATED_QUESTS
     for k, v in pairs(Global_QuestsToGenerate) do
         local Behaviors = {}
         for i= 1, table.getn(v), 1 do

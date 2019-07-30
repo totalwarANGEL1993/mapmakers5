@@ -391,7 +391,7 @@ public class ApplicationController {
 
             String qsbBasePath = "lua/orthus/lua/qsb/";
             mapLoaderService.selectMap(localMapPath + ".unpacked");
-            mapLoaderService.add(qsbBasePath + "information.lua", "maps/externalmap/qsb/information.lua");
+            mapLoaderService.add(qsbBasePath + "extraloader.lua", "maps/externalmap/qsb/extraloader.lua");
             mapLoaderService.add(qsbBasePath + "information_ex2.lua", "maps/externalmap/qsb/information_ex2.lua");
             mapLoaderService.add(qsbBasePath + "information_ex3.lua", "maps/externalmap/qsb/information_ex3.lua");
             mapLoaderService.add(qsbBasePath + "interaction.lua", "maps/externalmap/qsb/interaction.lua");
@@ -399,6 +399,7 @@ public class ApplicationController {
             mapLoaderService.add(qsbBasePath + "questbehavior.lua", "maps/externalmap/qsb/questbehavior.lua");
             mapLoaderService.add(qsbBasePath + "questdebug.lua", "maps/externalmap/qsb/questdebug.lua");
             mapLoaderService.add(qsbBasePath + "questsystem.lua", "maps/externalmap/qsb/questsystem.lua");
+            mapLoaderService.add(qsbBasePath + "treasure.lua", "maps/externalmap/qsb/treasure.lua");
 
             for (String fileName : currentProject.getIncludes()) {
                 File f = new File(fileName);

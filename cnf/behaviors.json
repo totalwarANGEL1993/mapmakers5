@@ -723,7 +723,7 @@
         "Description": "Bewegt das Entity zum Zielpunkt.",
         "Parameter":   [
             ["ScriptName", "Skriptname des Entity", []],
-            ["StringInput", "Zielposition", []]
+            ["ScriptName", "Zielposition", []]
         ]
     },
 
