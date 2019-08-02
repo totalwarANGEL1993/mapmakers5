@@ -315,7 +315,17 @@ public class ApplicationController {
                 try {
                     selectableValueService.setBriefingCollection(currentProject.getBriefingCollection());
                     selectableValueService.setQuestCollection(currentProject.getQuestCollection());
+
+                    // Load regular behavior
                     behaviorPrototypeService.load("cnf/behaviors.json");
+                    // Load custom behavior silently
+                    try {
+                        behaviorPrototypeService.load(workingDirectory.getAbsolutePath() + "/behaviors.json");
+                    }
+                    catch (Exception e) {
+                        System.err.println("Could not find custom behavior in project!");
+                    }
+
                     internalReloadMapFile();
                     WorkbenchWindowFrame workbench = (WorkbenchWindowFrame) ApplicationController.getInstance().getWorkbenchWindow();
                     workbench.getProjectPanel().loadProjectData(currentProject);
@@ -371,6 +381,7 @@ public class ApplicationController {
             mapScriptBuilder.setQuests(currentProject.getQuestCollection());
             mapScriptBuilder.setBriefings(currentProject.getBriefingCollection());
 
+            System.out.println("Assistent: rewriting map description...");
             String infoContent = mapScriptBuilder.replaceMapDescriptionInInfoFile(
                 mapFolder + "/info.xml",
                 currentProject.getMapData().getMapName(),
@@ -378,17 +389,34 @@ public class ApplicationController {
             );
             Files.delete(Paths.get(mapFolder + "/info.xml"));
             Files.write(Paths.get(mapFolder + "/info.xml"), infoContent.getBytes(Charset.forName("UTF-8")), StandardOpenOption.CREATE);
+            System.out.println("Assistent: Done!");
 
+            System.out.println("Assistent: Creating internal main script...");
             String content = mapScriptBuilder.replaceTokensInMapscript("lua/mainmapscript.lua");
             String mainScriptPath = localMapPath + ".unpacked/maps/externalmap/mainmapscript.lua";
             if (new File(mainScriptPath).exists())
                 Files.delete(Paths.get(mainScriptPath));
             Files.write(Paths.get(mainScriptPath), content.getBytes(Charset.forName("UTF-8")), StandardOpenOption.CREATE);
+            System.out.println("Assistent: Done!");
 
+            System.out.println("Assistent: Copy mapscript...");
             String mapScriptSrc = getWorkingDirectory() + "/mapscript.lua";
             String mapScriptDest = localMapPath + ".unpacked/maps/externalmap/mapscript.lua";
             Files.copy(Paths.get(mapScriptSrc), Paths.get(mapScriptDest), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Assistent: Done!");
 
+            try {
+                System.out.println("Assistent: Copy custom behavior...");
+                String behaviorsSrc = getWorkingDirectory() + "/behaviors.lua";
+                String behaviorsDest = localMapPath + ".unpacked/maps/externalmap/behaviors.lua";
+                Files.copy(Paths.get(behaviorsSrc), Paths.get(behaviorsDest), StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Assistent: Done!");
+            }
+            catch (Exception e) {
+                System.err.println("Could not find custom behavior in project!");
+            }
+
+            System.out.println("Assistent: Copy orthus library...");
             String qsbBasePath = "lua/orthus/lua/qsb/";
             mapLoaderService.selectMap(localMapPath + ".unpacked");
             mapLoaderService.add(qsbBasePath + "extraloader.lua", "maps/externalmap/qsb/extraloader.lua");
@@ -400,20 +428,26 @@ public class ApplicationController {
             mapLoaderService.add(qsbBasePath + "questdebug.lua", "maps/externalmap/qsb/questdebug.lua");
             mapLoaderService.add(qsbBasePath + "questsystem.lua", "maps/externalmap/qsb/questsystem.lua");
             mapLoaderService.add(qsbBasePath + "treasure.lua", "maps/externalmap/qsb/treasure.lua");
+            System.out.println("Assistent: Done!");
 
+            System.out.println("Assistent: Copy include files...");
             for (String fileName : currentProject.getIncludes()) {
                 File f = new File(fileName);
                 mapLoaderService.add(getWorkingDirectory() + "/inc/" +f.getName(), "maps/externalmap/inc/" +f.getName());
             }
+            System.out.println("Assistent: Done!");
 
+            System.out.println("Assistent: Creating archive...");
             mapLoaderService.packMap();
             mapLoaderService.removeMapFolder();
+            System.out.println("Assistent: Done!");
 
             getMessageService().displayInfoMessage(
                 "Projekt exportiert",
                 "<html>Das Projekt wurde als Kartenarchiv exportiert und im Projektverzeichnis gespeichert!" +
                 "<br><br>Verteichnis:<br><code>" +getWorkingDirectory()+ "<code></html>"
             );
+            System.out.println("Assistent: Project has been exported!");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -425,23 +459,35 @@ public class ApplicationController {
     }
 
     /**
-     *
-     * @param selectedFile
+     * Clonses the current project to another directory.
+     * @param selectedFile Destination
      */
     public void cloneProject(File selectedFile) throws ApplicationException {
         try {
             if (currentProject != null) {
                 String name = currentProject.getName();
                 File folder = new File(selectedFile.getAbsoluteFile() + "/" + name);
+                if (folder.exists()) {
+                    throw new ApplicationException("You cannot overwrite a project with it's clone!");
+                }
                 folder.mkdirs();
 
                 Files.write(Paths.get(folder.getAbsolutePath() + "/project.json"), currentProject.toJson().toJson().getBytes());
                 Files.write(Paths.get(folder.getAbsolutePath() + "/quests.json"), currentProject.getQuestCollection().toJson().toJson().getBytes());
                 Files.write(Paths.get(folder.getAbsolutePath() + "/briefings.json"), currentProject.getBriefingCollection().toJson().toJson().getBytes());
                 Files.write(Paths.get(folder.getAbsolutePath() + "/mapconfig.json"), currentProject.getMapData().toJson().toJson().getBytes());
+                try {
+                    Files.write(Paths.get(folder.getAbsolutePath() + "/behaviors.json"), currentProject.getMapData().toJson().toJson().getBytes());
+                }
+                catch (Exception e) {}
 
                 Path source = Paths.get(workingDirectory.getAbsolutePath() + "/mapscript.lua");
                 Files.copy(source, Paths.get(folder.getAbsolutePath() + "/mapscript.lua"), StandardCopyOption.REPLACE_EXISTING);
+                try {
+                    source = Paths.get(workingDirectory.getAbsolutePath() + "/behaviors.lua");
+                    Files.copy(source, Paths.get(folder.getAbsolutePath() + "/behaviors.lua"), StandardCopyOption.REPLACE_EXISTING);
+                }
+                catch (Exception e) {}
             }
         }
         catch (Exception e) {

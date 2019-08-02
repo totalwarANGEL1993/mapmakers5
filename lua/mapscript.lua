@@ -12,6 +12,7 @@ Script.Load(gvBasePath.. "qsb/questbehavior.lua");
 Script.Load(gvBasePath.. "qsb/extraloader.lua");
 
 -- Include main mapscript
+Script.Load(gvBasePath.. "behaviors.lua");
 Script.Load(gvBasePath.. "mainmapscript.lua");
 
 --

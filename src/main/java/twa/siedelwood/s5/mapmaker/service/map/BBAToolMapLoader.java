@@ -268,8 +268,9 @@ public class BBAToolMapLoader implements MapLoader
             System.out.println("MapLoader: Processing map...");
 
             final Process process = Runtime.getRuntime().exec(buildExecutionString(mapPath));
-            final InputStream is = process.getInputStream();
 
+            /*
+            final InputStream is = process.getInputStream();
             int size = 0;
             final byte[] buffer = new byte[1024];
             while ((size = is.read(buffer)) != -1)
@@ -277,14 +278,15 @@ public class BBAToolMapLoader implements MapLoader
                 System.out.write(buffer, 0, size);
             }
             process.waitFor();
+            */
 
-            if (process.exitValue() != 0)
+            if (process.waitFor() != 0)
             {
                 throw new MapLoaderException("MapLoader: Error while packing/unpacking a map!");
             }
             else
             {
-                System.out.println("Done!");
+                System.out.println("Maploader: Ready!");
             }
         }
         catch (final Exception e)

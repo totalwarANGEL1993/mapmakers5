@@ -40,10 +40,10 @@ public class ProjectExportProjectPanel extends JPanel implements ViewPanel, Acti
 
     @Override
     public void updatePanelSize(Component reference) {
-        width = reference.getWidth() -5;
+        width = reference.getWidth() -10;
         height = 70;
         setSize(width, height);
-        setLocation(0, 305);
+        setLocation(0, 330);
 
         exportLabel.setBounds(10, 20, width-20, 15);
         exportButton.setBounds(10, 35, 120, 25);

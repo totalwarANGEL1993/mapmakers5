@@ -82,7 +82,7 @@ public class ProjectPropertiesPanel extends JPanel implements ViewPanel, ActionL
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Aktuelles Projekt"));
 
-        JLabel infoDesc = new JLabel("Titel und Beschreibung des Projektes.");
+        JLabel infoDesc = new JLabel("Trage hier Titel und Beschreibung der Map ein. Leere Felder werden ignoriert.");
         infoDesc.setFont(new Font("Arial", Font.PLAIN, 12));
         infoDesc.setVerticalAlignment(JLabel.TOP);
         infoDesc.setVerticalTextPosition(JLabel.TOP);
@@ -104,7 +104,7 @@ public class ProjectPropertiesPanel extends JPanel implements ViewPanel, ActionL
         scrollPane.setVisible(true);
         add(scrollPane);
 
-        JLabel description = new JLabel("Hier kannst Du Dein Projekt speichern und schließen.");
+        JLabel description = new JLabel("Hier kannst Du das Projekt speichern, schließen, klonen und zurücksetzen.");
         description.setFont(new Font("Arial", Font.PLAIN, 12));
         description.setVerticalAlignment(JLabel.TOP);
         description.setVerticalTextPosition(JLabel.TOP);
@@ -121,7 +121,6 @@ public class ProjectPropertiesPanel extends JPanel implements ViewPanel, ActionL
 
         resetProject = new JButton("Reset");
         resetProject.addActionListener(this);
-        resetProject.setVisible(false);
         add(resetProject);
 
         copyProject = new JButton("Klonen");
@@ -135,8 +134,8 @@ public class ProjectPropertiesPanel extends JPanel implements ViewPanel, ActionL
      */
     @Override
     public void updatePanelSize(Component reference) {
-        final int width = reference.getWidth() -5;
-        final int height = 195;
+        final int width = reference.getWidth() -10;
+        final int height = 225;
         setSize(width, height);
         setLocation(0, 5);
 
@@ -144,9 +143,9 @@ public class ProjectPropertiesPanel extends JPanel implements ViewPanel, ActionL
         scrollPane.setBounds(10, 60, width-20, 75);
         infoText.setSize(width-20, 75);
         saveProject.setBounds(10, 160, 120, 25);
-        closeProject.setBounds(140, 160, 120, 25);
-        resetProject.setBounds(270, 160, 120, 25);
-        copyProject.setBounds(270, 160, 120, 25);
+        copyProject.setBounds(135, 160, 120, 25);
+        closeProject.setBounds(10, 190, 120, 25);
+        resetProject.setBounds(135, 190, 120, 25);
     }
 
     //// Unused ////
