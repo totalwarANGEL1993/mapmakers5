@@ -112,17 +112,17 @@ public class ProjectListImportsPanel extends JPanel implements ViewPanel, ListSe
      */
     @Override
     public void updatePanelSize(Component reference) {
-        width = reference.getWidth() -5;
-        height = reference.getHeight() - 410;
+        width = reference.getWidth() -10;
+        height = reference.getHeight() - 437;
         setSize(width, height);
-        setLocation(0, 380);
+        setLocation(0, 400);
 
         description.setBounds(10, 20, width -20, 30);
         list.setSize(width-20, height-95);
         scrollPane.setBounds(10, 50, width -20, height-95);
         addFile.setBounds(10, height-35, 120, 25);
-        removeFile.setBounds(140, height -35, 120, 25);
-        reloadAll.setBounds(270, height -35, 120, 25);
+        removeFile.setBounds(135, height -35, 120, 25);
+        reloadAll.setBounds(260, height -35, 120, 25);
     }
 
     //// Unused ////

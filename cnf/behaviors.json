@@ -117,6 +117,17 @@
             ["NumberInput", "Anzahl Battalione", []]
         ]
     },
+
+    "Goal_UnitsInArea": {
+        "Description": "In einem begrenzten Gebiet muss sich mindestens ein Entity der angegebenen Category befinden. Umgekehrt kann das Behavior auch genutzt werden um vorauszusetzen, dass keine Entities der Kategorie im Gebiet vorhanden sind.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringSelect", "Entitätskategorie", ["Barracks","Bow","Bridge","Cannon","CavalryHeavy","CavalryLight","ClaySupplier","DefendableBuilding","EvilLeader","Farm","GoldSupplier","Headquarters","IronSupplier","Leader","LongRange","Melee","Military","MilitaryBuilding","Residence","Rifle","Scout","Serf","Soldier","Spear","StoneSupplier","SulfurSupplier","Sword","Thief","VillageCenter","Wall","WoodSupplier","Worker","Workplace"]],
+            ["NumberInput", "Größe des Gebiets", []],
+            ["ScriptName", "Zentrum des Gebiets", []],
+            ["StringSelect", "Relation festlegen", [">=", "<"]]
+        ]
+    },
     
     "Goal_Technology": {
         "Description": "Der Auftragnehmer muss eine Technologie erforschen.",
@@ -723,7 +734,7 @@
         "Description": "Bewegt das Entity zum Zielpunkt.",
         "Parameter":   [
             ["ScriptName", "Skriptname des Entity", []],
-            ["StringInput", "Zielposition", []]
+            ["ScriptName", "Zielposition", []]
         ]
     },
 

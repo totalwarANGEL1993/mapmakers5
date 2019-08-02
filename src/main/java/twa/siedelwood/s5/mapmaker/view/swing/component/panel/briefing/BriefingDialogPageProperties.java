@@ -106,7 +106,7 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
         entity.setFont(new Font("Arial", Font.PLAIN, 12));
         dialog.add(entity);
         selEntity = new JButton("...");
-        selEntity.setBounds(360, 185, 30, 25);
+        selEntity.setBounds(360, 185, 30, 24);
         selEntity.addActionListener(this);
         dialog.add(selEntity);
 

@@ -45,7 +45,9 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
     /**
      * Project is reverted
      */
-    protected void onProjectReverted() {}
+    protected void onProjectReverted() {
+
+    }
 
     /**
      * Project is cloned
@@ -61,6 +63,9 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
             ApplicationController controller = ApplicationController.getInstance();
             try {
                 controller.cloneProject(chooser.getSelectedFile());
+                SwingUtilities.invokeLater(new Thread(() -> controller.getMessageService().displayInfoMessage(
+                    "Klon erstellt", "Eine Kopie des Projektes wurde erstellt."
+                )));
             }
             catch (ApplicationException e) {
                 e.printStackTrace();

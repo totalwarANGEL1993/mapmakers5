@@ -2,6 +2,7 @@ package twa.siedelwood.s5.mapmaker.model.meta;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonObject;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@EqualsAndHashCode
 public class ConfigurationBehaviorModel {
     private String type;
     private String description;

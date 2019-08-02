@@ -1,5 +1,7 @@
 package twa.siedelwood.s5.mapmaker.view.swing.component.frame;
 
+import twa.siedelwood.s5.mapmaker.controller.ApplicationController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -36,6 +38,7 @@ public abstract class BaseWindowFrame extends JFrame implements WindowFrame, Win
         setBounds(0, 0, baseW, baseH);
         addWindowListener(this);
         setMinimumSize(new Dimension(baseW, baseH));
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         tabPane = new JTabbedPane();
         tabPane.setVisible(true);
@@ -91,7 +94,13 @@ public abstract class BaseWindowFrame extends JFrame implements WindowFrame, Win
 
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-        System.exit(0);
+        ApplicationController controller = ApplicationController.getInstance();
+        int result = controller.getMessageService().displayConfirmDialog(
+            "Anwendung schließen", "Willst Du das Programm wirklich beenden?"
+        );
+        if (result == 0) {
+            System.exit(0);
+        }
     }
 
     @Override

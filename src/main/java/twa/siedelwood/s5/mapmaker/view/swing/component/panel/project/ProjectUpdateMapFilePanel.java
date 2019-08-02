@@ -82,15 +82,15 @@ public class ProjectUpdateMapFilePanel extends JPanel implements ViewPanel, Acti
      */
     @Override
     public void updatePanelSize(Component reference) {
-        width = reference.getWidth() -5;
+        width = reference.getWidth() -10;
         height = 95;
         setSize(width, height);
-        setLocation(0, 205);
+        setLocation(0, 230);
 
         currentMapFileLabel.setBounds(10, 20, width-20, 15);
         currentMapFile.setBounds(10, 35, width-20, 20);
         currentMapButton.setBounds(10, 60, 120, 25);
-        reloadButton.setBounds(140, 60, 120, 25);
+        reloadButton.setBounds(135, 60, 120, 25);
     }
 
     //// Unused ////

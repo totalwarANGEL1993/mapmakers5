@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.WindowEvent;
 import java.io.File;
 
 /**
@@ -57,6 +58,7 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
     public void initComponents() {
         super.initComponents();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         initProjectTab();
         initMapSettingsTab();
@@ -124,45 +126,65 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
         projectPanel = new ProjectViewPanel() {
             @Override
             protected void onProjectReverted() {
-                super.onProjectReverted();
-
                 ApplicationController controller = ApplicationController.getInstance();
 
                 int result = controller.getMessageService().displayConfirmDialog(
-                    "Projekt zurücksetzen", "Alle nicht gespeicherten Änderungen am Projekt werden zurückgesetzt!"
+                    "Projekt zurücksetzen", "Alle nicht gespeicherten Änderungen am Projekt werden zurückgesetzt! Bist Du sicher?"
                 );
                 if (result == 0) {
                     try {
+                        super.onProjectReverted();
                         controller.loadProject(controller.getWorkingDirectory());
-                    } catch (ApplicationException e) {
+                        projectPanel.loadProjectData(controller.getCurrentProject());
+                        mapPanel.loadMapData(controller.getCurrentProject().getMapData());
+                        questPanel.loadQuestData(controller.getCurrentProject().getQuestCollection());
+                        briefingPanel.loadBriefingData(controller.getCurrentProject().getBriefingCollection());
+                        SwingUtilities.invokeLater(new Thread(() -> controller.getMessageService().displayInfoMessage(
+                            "Zurückgesetzt", "Der zuletzt gespeicherte Zustand des Projektes wurde erfolgreich wiederhergestellt."
+                        )));
+                    }
+                    catch (ApplicationException e) {
+                        SwingUtilities.invokeLater(new Thread(() -> controller.getMessageService().displayErrorMessage(
+                            "Fehler", "Das Projekt konnte nicht zurückgesetzt werden! Möglicher Weise sind die Projektdateien beschädigt."
+                        )));
                         e.printStackTrace();
                     }
-                    projectPanel.loadProjectData(controller.getCurrentProject());
-                    mapPanel.loadMapData(controller.getCurrentProject().getMapData());
-                    questPanel.loadQuestData(controller.getCurrentProject().getQuestCollection());
-                    briefingPanel.loadBriefingData(controller.getCurrentProject().getBriefingCollection());
-                    controller.getMessageService().displayInfoMessage(
-                        "Zurückgesetzt", "Das Projekt wurde neu geladen. Alle nicht gespeicherten Änderungen wurden verworfen."
-                    );
+
                 }
             }
 
             @Override
             protected void onProjectClosed() {
-                super.onProjectClosed();
-                ((JFrame) ApplicationController.getInstance().getWorkbenchWindow()).dispose();
-                ApplicationController.getInstance().setCurrentProject(null);
-                ApplicationController.getInstance().setWorkingDirectory(new File(System.getProperty("user.home") + "/MapMaker/workspace"));
-                ApplicationController.getInstance().setHomeDirectory(new File(System.getProperty("user.home") + "/MapMaker/workspace"));
-                QuestSystemBehavior.openProjectSelectionWindow();
+                ApplicationController controller = ApplicationController.getInstance();
+
+                int result = controller.getMessageService().displayConfirmDialog(
+                    "Projekt schließen", "Alle nicht gespeicherten Änderungen am Projekt werden verworfen. Danach kannst Du ein anderes Projekt auswählen. Fortfahren?"
+                );
+                if (result == 0) {
+                    super.onProjectClosed();
+                    ((JFrame) ApplicationController.getInstance().getWorkbenchWindow()).dispose();
+                    ApplicationController.getInstance().setCurrentProject(null);
+                    ApplicationController.getInstance().setWorkingDirectory(new File(System.getProperty("user.home") + "/MapMaker/workspace"));
+                    ApplicationController.getInstance().setHomeDirectory(new File(System.getProperty("user.home") + "/MapMaker/workspace"));
+                    ApplicationController.getInstance().getBehaviorPrototypeService().getBehaviorPrototypes().getBehaviors().clear();
+                    QuestSystemBehavior.openProjectSelectionWindow();
+                }
             }
 
             @Override
             protected void onProjectSaved() {
-                super.onProjectSaved();
+                ApplicationController controller = ApplicationController.getInstance();
+
                 try {
+                    super.onProjectSaved();
                     ApplicationController.getInstance().internalSaveProject();
+                    SwingUtilities.invokeLater(new Thread(() -> controller.getMessageService().displayInfoMessage(
+                        "Gespeichert", "Das Projekt wurde erfolgreich gespeichert."
+                    )));
                 } catch (ApplicationException e) {
+                    SwingUtilities.invokeLater(new Thread(() -> controller.getMessageService().displayErrorMessage(
+                        "Fehler", "Das Projekt konnte nicht gespeichert werden! Möglicher Weise sind die Projektdateien beschädigt."
+                    )));
                     e.printStackTrace();
                 }
             }
@@ -189,5 +211,10 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
         briefingPanel.setPreferredSize(new Dimension(currentW, briefingPanel.getHeight()));
         questPanel.updatePanelSize(tabPane);
         questPanel.setPreferredSize(new Dimension(currentW, questPanel.getHeight()));
+    }
+
+    @Override
+    public void windowClosing(WindowEvent windowEvent) {
+        super.windowClosing(windowEvent);
     }
 }
