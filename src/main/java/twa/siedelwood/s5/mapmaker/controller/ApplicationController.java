@@ -422,6 +422,8 @@ public class ApplicationController {
             mapLoaderService.add(qsbBasePath + "extraloader.lua", "maps/externalmap/qsb/extraloader.lua");
             mapLoaderService.add(qsbBasePath + "information_ex2.lua", "maps/externalmap/qsb/information_ex2.lua");
             mapLoaderService.add(qsbBasePath + "information_ex3.lua", "maps/externalmap/qsb/information_ex3.lua");
+            mapLoaderService.add(qsbBasePath + "timer_ex2.lua", "maps/externalmap/qsb/timer_ex2.lua");
+            mapLoaderService.add(qsbBasePath + "timer_ex3.lua", "maps/externalmap/qsb/timer_ex3.lua");
             mapLoaderService.add(qsbBasePath + "interaction.lua", "maps/externalmap/qsb/interaction.lua");
             mapLoaderService.add(qsbBasePath + "oop.lua", "maps/externalmap/qsb/oop.lua");
             mapLoaderService.add(qsbBasePath + "questbehavior.lua", "maps/externalmap/qsb/questbehavior.lua");
