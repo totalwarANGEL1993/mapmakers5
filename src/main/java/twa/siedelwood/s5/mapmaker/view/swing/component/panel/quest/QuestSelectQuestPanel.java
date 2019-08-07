@@ -107,7 +107,7 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         questType = new JComboBox<String>();
         questType.addItem("MAINQUEST_OPEN");
         questType.addItem("SUBQUEST_OPEN");
-        questType.addItem("FRAGMENT_OPEN");
+        questType.addItem("FRAGMENTQUEST_OPEN");
         add(questType);
 
         questReceiverLabel = new JLabel("Empfänger");
@@ -262,7 +262,7 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
             int index;
             switch (quest.getType()) {
                 case "SUBQUEST_OPEN": index = 1; break;
-                case "FRAGMENT_OPEN": index = 2; break;
+                case "FRAGMENTQUEST_OPEN": index = 2; break;
                 default: index = 0;
             }
             questType.setSelectedIndex(index);
