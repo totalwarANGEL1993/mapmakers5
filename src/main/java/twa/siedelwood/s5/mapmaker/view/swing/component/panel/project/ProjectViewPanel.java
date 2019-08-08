@@ -157,8 +157,9 @@ public class ProjectViewPanel extends JPanel implements ViewPanel {
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             chooser.removeChoosableFileFilter(chooser.getChoosableFileFilters()[0]);
             chooser.addChoosableFileFilter(new FileNameExtensionFilter("Lua-Skript", "lua", "luac"));
+            chooser.addChoosableFileFilter(new FileNameExtensionFilter("Cutscene", "xml"));
             chooser.addChoosableFileFilter(new FileNameExtensionFilter("Grafik", "png"));
-            chooser.addChoosableFileFilter(new FileNameExtensionFilter("Konfiguration", "xml"));
+            chooser.addChoosableFileFilter(new FileNameExtensionFilter("Sound", "mp3"));
             chooser.setDialogTitle("Import hinzufügen");
             if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
                 ApplicationController controller = ApplicationController.getInstance();

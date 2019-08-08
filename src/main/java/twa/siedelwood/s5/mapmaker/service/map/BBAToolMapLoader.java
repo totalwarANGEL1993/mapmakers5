@@ -122,7 +122,7 @@ public class BBAToolMapLoader implements MapLoader
             final Path sourcePath = Paths.get(source);
             final Path destPath = Paths.get(destFile.getAbsolutePath());
             destPath.toFile().delete();
-            System.out.println("MapLoader: copy " + sourcePath + " " + destPath);
+            System.out.println("MapLoader: copy " + sourcePath + " -> " + destPath);
             Files.copy(sourcePath, destPath);
         }
         catch (final Exception e)
@@ -145,7 +145,7 @@ public class BBAToolMapLoader implements MapLoader
         {
             final Path destPath = Paths.get(destFile.getAbsolutePath());
             destPath.toFile().delete();
-            System.out.println("MapLoader: copy stream to " + destPath);
+            System.out.println("MapLoader: copy stream -> " + destPath);
             Files.copy(source, destPath);
         }
         catch (final Exception e)
