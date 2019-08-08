@@ -28,6 +28,9 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
     private BriefingViewPanel briefingPanel;
     private JScrollPane briefingPanelScroll;
 
+    private JPanel helpPanel;
+    private JScrollPane helpScroll;
+
     public WorkbenchWindowFrame() {
         super();
     }
@@ -65,10 +68,14 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
         initQuestsTab();
         initBriefingTab();
 
+        //helpPanel = new JPanel(null);
+        //briefingPanelScroll = new JScrollPane(helpPanel);
+
         addCard("Projekt", projectPanelScroll);
-        addCard("Map-Assistent", mapPanelScroll);
-        addCard("Quest-Assistent", questPanel);
-        addCard("Briefing-Assistent", briefingPanel);
+        addCard("Karte", mapPanelScroll);
+        addCard("Quests", questPanel);
+        addCard("Briefings", briefingPanel);
+        //addCard("Hilfe", helpPanel);
 
         addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {

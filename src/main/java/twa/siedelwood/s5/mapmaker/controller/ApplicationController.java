@@ -419,21 +419,31 @@ public class ApplicationController {
             System.out.println("Assistent: Copy orthus library...");
             String qsbBasePath = "lua/orthus/lua/qsb/";
             mapLoaderService.selectMap(localMapPath + ".unpacked");
-            mapLoaderService.add(qsbBasePath + "extraloader.lua", "maps/externalmap/qsb/extraloader.lua");
-            mapLoaderService.add(qsbBasePath + "information_ex2.lua", "maps/externalmap/qsb/information_ex2.lua");
-            mapLoaderService.add(qsbBasePath + "information_ex3.lua", "maps/externalmap/qsb/information_ex3.lua");
             mapLoaderService.add(qsbBasePath + "interaction.lua", "maps/externalmap/qsb/interaction.lua");
             mapLoaderService.add(qsbBasePath + "oop.lua", "maps/externalmap/qsb/oop.lua");
             mapLoaderService.add(qsbBasePath + "questbehavior.lua", "maps/externalmap/qsb/questbehavior.lua");
             mapLoaderService.add(qsbBasePath + "questdebug.lua", "maps/externalmap/qsb/questdebug.lua");
             mapLoaderService.add(qsbBasePath + "questsystem.lua", "maps/externalmap/qsb/questsystem.lua");
+            mapLoaderService.add(qsbBasePath + "extraloader.lua", "maps/externalmap/qsb/extraloader.lua");
             mapLoaderService.add(qsbBasePath + "treasure.lua", "maps/externalmap/qsb/treasure.lua");
+            mapLoaderService.add(qsbBasePath + "s5hook_ex2.lua", "maps/externalmap/qsb/s5hook_ex2.lua");
+            mapLoaderService.add(qsbBasePath + "information_ex2.lua", "maps/externalmap/qsb/information_ex2.lua");
+            mapLoaderService.add(qsbBasePath + "information_ex3.lua", "maps/externalmap/qsb/information_ex3.lua");
+            mapLoaderService.add(qsbBasePath + "timer_ex2.lua", "maps/externalmap/qsb/timer_ex2.lua");
+            mapLoaderService.add(qsbBasePath + "timer_ex3.lua", "maps/externalmap/qsb/timer_ex3.lua");
             System.out.println("Assistent: Done!");
 
             System.out.println("Assistent: Copy include files...");
             for (String fileName : currentProject.getIncludes()) {
                 File f = new File(fileName);
-                mapLoaderService.add(getWorkingDirectory() + "/inc/" +f.getName(), "maps/externalmap/inc/" +f.getName());
+                String subfolder = "/script/";
+                if (f.getName().endsWith(".png") || f.getName().endsWith(".mp3")) {
+                    subfolder = "/media/";
+                }
+                if (f.getName().endsWith(".xml")) {
+                    subfolder = "/";
+                }
+                mapLoaderService.add(getWorkingDirectory() + "/inc/" + f.getName(), "maps/externalmap" + subfolder + f.getName());
             }
             System.out.println("Assistent: Done!");
 

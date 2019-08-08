@@ -212,7 +212,35 @@
 
 
     "Goal_WinQuest": {
-        "Description": "Der Auftragnehmer muss einen anderen Auftrag erfolgreich abschließen. Schlägt der Auftrag fehl, wird dieses Ziel fehlschlagen.",
+        "Description": "Der Auftragnehmer muss einen anderen Auftrag erfolgreich abschließen. Schlägt der Auftrag fehl, wird dieses Ziel fehlschlagen. Es werden auch abgebrochene Quests gewertet.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+
+    "Goal_WinQuestWithoutFail": {
+        "Description": "Der Auftragnehmer muss einen anderen Auftrag erfolgreich abschließen. Es werden auch abgebrochene Quests gewertet.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+
+    "Goal_FailQuest": {
+        "Description": "Der Auftragnehmer muss einen anderem Auftrag scheitern. Wird der Atftrag stattdessen gewonnen, wird dieses Ziel fehlschlagen. Es werden auch abgebrochene Quests gewertet.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+
+    "Goal_FailQuestWithoutFail": {
+        "Description": "Der Auftragnehmer muss einen anderem Auftrag scheitern. Es werden auch abgebrochene Quests gewertet.",
+        "Parameter":   [
+            ["QuestName", "Name des Quest", []]
+        ]
+    },
+
+    "Goal_CompleteQuest": {
+        "Description": "Der Auftragnehmer muss einen anderen Auftrag abschließen. Das Resultat des Quest ist egal. Es werden auch abgebrochene Quests gewertet.",
         "Parameter":   [
             ["QuestName", "Name des Quest", []]
         ]
