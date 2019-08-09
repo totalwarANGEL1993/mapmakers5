@@ -74,6 +74,11 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             protected void onUpdateQuestDataClicked() {
                 QuestViewPanel.this.onUpdateQuestDataClicked();
             }
+
+            @Override
+            protected void onFilterChanged(String text) {
+                QuestViewPanel.this.onFilterChanged(text, this);
+            }
         };
         questsGroup.initPanel();
         add(questsGroup);
@@ -106,6 +111,23 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
         };
         behaviorGroup.initPanel();
         add(behaviorGroup);
+    }
+
+    /**
+     * Searches and selects a sutible quest-
+     * @param text Search pattern
+     * @param panel Panel
+     */
+    private void onFilterChanged(String text, QuestSelectQuestPanel panel) {
+        if (text == null || text.equals("")) {
+            panel.questList.setSelectedIndex(-1);
+        }
+        for (Quest q : questCollection.getQuestList()) {
+            if (q.getName().toLowerCase().contains(text.toLowerCase())) {
+                panel.questList.setSelectedValue(q.getName(), true);
+                break;
+            }
+        }
     }
 
     /**
