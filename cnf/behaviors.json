@@ -203,7 +203,7 @@
     },
 
     "Goal_DestroyEnemiesInArea": {
-        "Description": "Alle Feinde des Spielers im beschriebenen Gebiet sollen ausgelöscht werden. <br><b>Hinweis</b>: Vorsicht mit Script Entities!",
+        "Description": "Alle Feinde des Spielers im beschriebenen Gebiet sollen ausgelöscht werden. <br><u>Hinweis</u>: Vorsicht mit Script Entities!",
         "Parameter":   [
             ["ScriptName", "Zentrum des Gebiets", []],
             ["NumberInput", "Größe des Gebiets", []]
@@ -251,6 +251,14 @@
         "Parameter":   [
             ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
             ["ScriptName", "Skriptname des Hauptquartiers", []]
+        ]
+    },
+
+    "Goal_DestroyArmy": {
+        "Description": "Der Spieler muss eine Armee des Spielers zerstören indem alle Soldaten besiegt und ggf. der Lebensfaden zerstört wird. <br><u>Hinweis:</u><br>Armeen, die Hauptmänner selbst rekrutieren, sind erst dann besiegt, wenn der KI-Spieler besiegt wurde.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringInput", "Name der Armee", []]
         ]
     },
 
