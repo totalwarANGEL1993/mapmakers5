@@ -17,6 +17,7 @@ echo "done!"
 echo "copy lib..."
 mkdir -p QuestSystemBehavior/lua/orthus/lua
 cp -r ../lua/orthus/lua/qsb ./QuestSystemBehavior/lua/orthus/lua
+cp -r ../lua/orthus/doc ./QuestSystemBehavior/lua/orthus
 cp ../lua/mainmapscript.lua ./QuestSystemBehavior/lua/mainmapscript.lua
 cp ../lua/mapscript.lua ./QuestSystemBehavior/lua/mapscript.lua
 echo "done!"
