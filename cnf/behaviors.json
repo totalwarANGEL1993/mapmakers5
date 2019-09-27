@@ -40,6 +40,14 @@
         ]
     },
     
+    "Goal_CreateBridge": {
+        "Description": "Eine Brücke muss in der nähe des Script Entity errichtet werden. <br><b>Hinweis</b>: <br>Brückenbaustellen verlieren ihren Skriptnamen, wenn sie aktiviert werden. Nutze daher eine XD_ScriptEntity und platziere sie in ausreichender Nähe zum Bauplatz.",
+        "Parameter":   [
+            ["ScriptName", "Position auf der Map", []],
+            ["NumberInput", "Größe des Bereich", []]
+        ]
+    },
+    
     "Goal_Diplomacy": {
         "Description": "Der Auftragnehmer muss zu einem anderen Spieler einen diplomatischen Status erreichen.",
         "Parameter":   [

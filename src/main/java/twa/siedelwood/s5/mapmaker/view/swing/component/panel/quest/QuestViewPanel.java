@@ -142,7 +142,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             quest.setReceiver(questsGroup.questReceiver.getSelectedIndex()+1);
             quest.setTime(Integer.parseInt(questsGroup.questLimit.getText()));
             String text = questsGroup.questDescription.getText();
-            text = text.replaceAll("\\n", " @cr ");
+            text = text.replaceAll("\\n", "{cr}");
             quest.setText(text);
         }
     }
