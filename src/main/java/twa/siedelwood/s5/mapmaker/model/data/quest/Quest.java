@@ -91,6 +91,9 @@ public class Quest implements Comparable<Quest>{
     }
 
     public String toLua() {
+        String title = this.title.replaceAll("\"", "{qq}");
+        String text  = this.text.replaceAll("\"", "{qq}");
+
         String lua = "{";
         lua += "Name = \"" +name+ "\", ";
         lua += "Time = " +time+ ", ";

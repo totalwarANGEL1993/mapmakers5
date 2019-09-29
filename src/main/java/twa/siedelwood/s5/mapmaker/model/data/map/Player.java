@@ -47,6 +47,7 @@ public class Player {
             Diplomacy diplomacy = this.diplomacy.get(i);
             diplomacyString += diplomacy.toLua() + ",";
         }
+        String name = this.name.replaceAll("\"", "{qq}");
 
         return String.format(
             "{Name = \"%s\", Color = \"%s\", Diplomacy = {%s}}",

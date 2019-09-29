@@ -68,6 +68,7 @@ public class QuestBehavior {
     public String toLua() {
         String lua = "{";
         for (String parameter : parameters) {
+            parameter = parameter.replaceAll("\"", "{qq}");
             if (parameter.equals("true") || parameter.equals("false") || Pattern.matches("^\\d+.\\d+$", parameter) || Pattern.matches("^\\d+$", parameter)) {
                 lua += parameter + ",";
             }

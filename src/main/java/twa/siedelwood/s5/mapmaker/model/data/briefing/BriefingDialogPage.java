@@ -62,6 +62,8 @@ public class BriefingDialogPage implements BriefingPage {
 
     @Override
     public String toLua() {
+        String title = this.title.replaceAll("\"", "{qq}");
+        String text  = this.text.replaceAll("\"", "{qq}");
         return String.format("    ASP(\"%s\",\"%s\",\"%s\",\"%s\",%b,%s,%b,%b);", name, entity, title, text, dialogCamera, (action.equals("") ? "nil" : action), showSky, hideFoW);
     }
 

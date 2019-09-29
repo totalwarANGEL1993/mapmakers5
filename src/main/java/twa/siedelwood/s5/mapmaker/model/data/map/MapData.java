@@ -68,6 +68,9 @@ public class MapData {
     }
 
     public String toLua() {
+        String mapName = this.mapName.replaceAll("\"", "{qq}");
+        String mapDescription  = this.mapDescription.replaceAll("\"", "{qq}");
+
         String lua = "Global_MapConfigurationData = {\n";
         lua += "    MapName = \"" +mapName+ "\",\n";
         lua += "    MapDescription = \"" +mapDescription+ "\",\n";
