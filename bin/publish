@@ -9,7 +9,7 @@ rm -r var/QuestSystemBehavior.zip > /dev/null 2>&1
 cd var
 
 echo "rename jar..."
-cp mapmaker-s5.jar QuestSystemBehavior/QuestSystemBehavior.jar
+cp mapmakers5.jar QuestSystemBehavior/QuestSystemBehavior.jar
 cp ../bin/QuestSystemBehavior.exe ./QuestSystemBehavior/QuestSystemBehavior.exe
 cp ../bin/QuestSystemBehavior.sh ./QuestSystemBehavior/QuestSystemBehavior.sh
 echo "done!"

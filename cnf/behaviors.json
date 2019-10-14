@@ -536,7 +536,10 @@
         "Description": "Aktiviert einen KI-Spieler und setzt sein Technologielevel.",
         "Parameter":   [
             ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
-            ["NumberSelect", "Technologielevel", ["1", "2", "3", "4"]]
+            ["NumberSelect", "Technologielevel", ["1", "2", "3", "4"]],
+            ["NumberInput", "Maximale Anzahl Leibeigene", []],
+            ["BooleanSelect", "Gebäudebau erlauben (benötigt Leibeigene)", []],
+            ["BooleanSelect", "Wiederaufbau erlauben (benötigt Gebäudebau)", []]
         ]
     },
     
