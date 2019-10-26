@@ -429,8 +429,10 @@ public class ApplicationController {
             mapLoaderService.add(qsbBasePath + "s5hook_ex2.lua", "maps/externalmap/qsb/s5hook_ex2.lua");
             mapLoaderService.add(qsbBasePath + "information_ex2.lua", "maps/externalmap/qsb/information_ex2.lua");
             mapLoaderService.add(qsbBasePath + "information_ex3.lua", "maps/externalmap/qsb/information_ex3.lua");
+            mapLoaderService.add(qsbBasePath + "speed_ex2.lua", "maps/externalmap/qsb/speed_ex2.lua");
             mapLoaderService.add(qsbBasePath + "timer_ex2.lua", "maps/externalmap/qsb/timer_ex2.lua");
             mapLoaderService.add(qsbBasePath + "timer_ex3.lua", "maps/externalmap/qsb/timer_ex3.lua");
+            mapLoaderService.add(qsbBasePath + "workplace_ex2.lua", "maps/externalmap/qsb/workplace_ex2.lua");
             System.out.println("Assistent: Done!");
 
             System.out.println("Assistent: Copy include files...");
