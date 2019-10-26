@@ -126,7 +126,7 @@ public class MapSettingsViewPanel extends JPanel implements ViewPanel {
 
                 String text = mapDescriptionPanel.getMapDescription();
                 text = text.replaceAll("[\"'\\r\\t]", "");
-                text = text.replaceAll("\\n", " @cr ");
+                text = text.replaceAll("\\n", "{cr}");
                 mapDescriptionPanel.setMapDescription(text);
                 controller.getCurrentProject().getMapData().setMapDescription(text);
             }

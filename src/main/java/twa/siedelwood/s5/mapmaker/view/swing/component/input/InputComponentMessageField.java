@@ -61,7 +61,7 @@ public class InputComponentMessageField extends JPanel implements InputComponent
     public String getValue()
     {
         String text = value.getText();
-        text = text.replaceAll("\n", " @cr ");
+        text = text.replaceAll("\n", "{cr}");
         return text;
     }
 

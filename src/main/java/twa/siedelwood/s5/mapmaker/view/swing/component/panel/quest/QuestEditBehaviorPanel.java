@@ -107,24 +107,24 @@ public class QuestEditBehaviorPanel extends JPanel implements ActionListener, Li
     }
 
     /**
-     *
-     * @param data
+     * Changes the data of the quest list
+     * @param data List data
      */
     public void setBehaviors(Vector<QuestBehavior> data) {
         behaviorList.setListData(data);
     }
 
     /**
-     *
-     * @param behavior
+     * Selects the behavior in the list if it is in the list.
+     * @param behavior Behavior
      */
     public void setSelectedBehavior(QuestBehavior behavior) {
         behaviorList.setSelectedValue(behavior, true);
     }
 
     /**
-     *
-     * @param idx
+     * Selects the behavior at the index
+     * @param idx Index
      */
     public void setSelectedBehaviorIndex(int idx) {
         behaviorList.setSelectedIndex(idx);
@@ -132,16 +132,16 @@ public class QuestEditBehaviorPanel extends JPanel implements ActionListener, Li
     }
 
     /**
-     *
-     * @return
+     * Returns the selected quest behavior
+     * @return Selected behavior
      */
     public QuestBehavior getSelectedBehavior() {
         return behaviorList.getSelectedValue();
     }
 
     /**
-     *
-     * @return
+     * Returns the index of the selected behavior
+     * @return Selected index
      */
     public Integer getSelectedBehaviorIndex() {
         if (behaviorList.isSelectionEmpty()) {
@@ -151,7 +151,7 @@ public class QuestEditBehaviorPanel extends JPanel implements ActionListener, Li
     }
 
     /**
-     *
+     * Update the panel size
      * @param reference
      */
     public void updatePanelSize(Component reference) {
@@ -161,8 +161,8 @@ public class QuestEditBehaviorPanel extends JPanel implements ActionListener, Li
         setSize(width, height);
         behaviorInfo.setBounds(10, 20, width -20, 45);
         int selectionWidth = (width -165 < 700) ? width -165 : 700;
-        scrollPane.setBounds(10, 75, selectionWidth, height -105);
-        behaviorList.setSize(selectionWidth, height -105);
+        scrollPane.setBounds(10, 75, selectionWidth, height -85);
+        behaviorList.setSize(selectionWidth, height -85);
 
         int y = 75;
         for (int i=0; i<3; i++) {

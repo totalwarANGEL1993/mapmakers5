@@ -74,6 +74,11 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             protected void onUpdateQuestDataClicked() {
                 QuestViewPanel.this.onUpdateQuestDataClicked();
             }
+
+            @Override
+            protected void onFilterChanged(String text) {
+                QuestViewPanel.this.onFilterChanged(text, this);
+            }
         };
         questsGroup.initPanel();
         add(questsGroup);
@@ -109,6 +114,23 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
     }
 
     /**
+     * Searches and selects a sutible quest-
+     * @param text Search pattern
+     * @param panel Panel
+     */
+    private void onFilterChanged(String text, QuestSelectQuestPanel panel) {
+        if (text == null || text.equals("")) {
+            panel.questList.setSelectedIndex(-1);
+        }
+        for (Quest q : questCollection.getQuestList()) {
+            if (q.getName().toLowerCase().contains(text.toLowerCase())) {
+                panel.questList.setSelectedValue(q.getName(), true);
+                break;
+            }
+        }
+    }
+
+    /**
      * The user saved changes to the quest properties
      */
     private void onUpdateQuestDataClicked() {
@@ -120,7 +142,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             quest.setReceiver(questsGroup.questReceiver.getSelectedIndex()+1);
             quest.setTime(Integer.parseInt(questsGroup.questLimit.getText()));
             String text = questsGroup.questDescription.getText();
-            text = text.replaceAll("\\n", " @cr ");
+            text = text.replaceAll("\\n", "{cr}");
             quest.setText(text);
         }
     }

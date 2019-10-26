@@ -40,6 +40,14 @@
         ]
     },
     
+    "Goal_CreateBridge": {
+        "Description": "Eine Brücke muss in der nähe des Script Entity errichtet werden. <br><b>Hinweis</b>: <br>Brückenbaustellen verlieren ihren Skriptnamen, wenn sie aktiviert werden. Nutze daher eine XD_ScriptEntity und platziere sie in ausreichender Nähe zum Bauplatz.",
+        "Parameter":   [
+            ["ScriptName", "Position auf der Map", []],
+            ["NumberInput", "Größe des Bereich", []]
+        ]
+    },
+    
     "Goal_Diplomacy": {
         "Description": "Der Auftragnehmer muss zu einem anderen Spieler einen diplomatischen Status erreichen.",
         "Parameter":   [
@@ -132,7 +140,7 @@
     "Goal_Technology": {
         "Description": "Der Auftragnehmer muss eine Technologie erforschen.",
         "Parameter":   [
-            ["StringSelect", "Typname der Technologie", ["GT_Alchemy","GT_Alloying","GT_Architecture","GT_Binocular","GT_ChainBlock","GT_Chemistry","GT_Construction","GT_GearWheel","GT_Library","GT_Literacy","GT_Matchlock","GT_Mathematics","GT_Mercenaries","GT_Metallurgy","GT_Printing","GT_PulledBarrel","GT_StandingArmy","GT_Strategies","GT_Tactics","GT_Trading","T_BetterChassis","T_BetterTrainingArchery","T_BetterTrainingBarracks","T_BlisteringCannonballs","T_BodkinArrow","T_BookKeeping","T_ChainBardingArmor","T_ChainMailArmor","T_CityGuard","T_EnhancedGunPowder","T_FleeceArmor","T_FleeceLinedLeatherArmor","T_Fletching","T_IronCasting","T_LeadShot","T_LeatherArcherArmor","T_LeatherMailArmor","T_Loom","T_Masonry","T_MasterOfSmithery","T_PaddedArcherArmor","T_PlateMailArmor","T_Shoeing","T_Shoes","T_Sights","T_SoftArcherArmor","T_SpinningWheel","T_TownGuard","T_Tracking","T_Turnery","T_UpgradeBow1","T_UpgradeBow2","T_UpgradeBow3","T_UpgradeHeavyCavalry1","T_UpgradeLightCavalry1","T_UpgradeRifle1","T_UpgradeSpear1","T_UpgradeSpear2","T_UpgradeSpear3","T_UpgradeSword1","T_UpgradeSword2","T_UpgradeSword3","T_WeatherForecast","T_WoodAging"]]
+            ["StringSelect", "Typname der Technologie", ["GT_Alchemy","GT_Alloying","GT_Architecture","GT_Binocular","GT_ChainBlock","GT_Chemistry","GT_Construction","GT_GearWheel","GT_Library","GT_Literacy","GT_Matchlock","GT_Mathematics","GT_Mercenaries","GT_Metallurgy","GT_Printing","GT_PulledBarrel","GT_StandingArmy","GT_Strategies","GT_Tactics","GT_Trading","T_BetterChassis","T_BetterTrainingArchery","T_BetterTrainingBarracks","T_BlisteringCannonballs","T_BodkinArrow","T_BookKeeping","T_ChangeWeather","T_ChainBardingArmor","T_ChainMailArmor","T_CityGuard","T_EnhancedGunPowder","T_FleeceArmor","T_FleeceLinedLeatherArmor","T_Fletching","T_IronCasting","T_LeadShot","T_LeatherArcherArmor","T_LeatherMailArmor","T_Loom","T_Masonry","T_MasterOfSmithery","T_PaddedArcherArmor","T_PlateMailArmor","T_Shoeing","T_Shoes","T_Sights","T_SoftArcherArmor","T_SpinningWheel","T_TownGuard","T_Tracking","T_Turnery","T_UpgradeBow1","T_UpgradeBow2","T_UpgradeBow3","T_UpgradeHeavyCavalry1","T_UpgradeLightCavalry1","T_UpgradeRifle1","T_UpgradeSpear1","T_UpgradeSpear2","T_UpgradeSpear3","T_UpgradeSword1","T_UpgradeSword2","T_UpgradeSword3","T_WeatherForecast","T_WoodAging"]]
         ]
     },
     
@@ -203,7 +211,7 @@
     },
 
     "Goal_DestroyEnemiesInArea": {
-        "Description": "Alle Feinde des Spielers im beschriebenen Gebiet sollen ausgelöscht werden. <br><b>Hinweis</b>: Vorsicht mit Script Entities!",
+        "Description": "Alle Feinde des Spielers im beschriebenen Gebiet sollen ausgelöscht werden. <br><u>Hinweis</u>: Vorsicht mit Script Entities!",
         "Parameter":   [
             ["ScriptName", "Zentrum des Gebiets", []],
             ["NumberInput", "Größe des Gebiets", []]
@@ -218,22 +226,8 @@
         ]
     },
 
-    "Goal_WinQuestWithoutFail": {
-        "Description": "Der Auftragnehmer muss einen anderen Auftrag erfolgreich abschließen. Es werden auch abgebrochene Quests gewertet.",
-        "Parameter":   [
-            ["QuestName", "Name des Quest", []]
-        ]
-    },
-
     "Goal_FailQuest": {
         "Description": "Der Auftragnehmer muss einen anderem Auftrag scheitern. Wird der Atftrag stattdessen gewonnen, wird dieses Ziel fehlschlagen. Es werden auch abgebrochene Quests gewertet.",
-        "Parameter":   [
-            ["QuestName", "Name des Quest", []]
-        ]
-    },
-
-    "Goal_FailQuestWithoutFail": {
-        "Description": "Der Auftragnehmer muss einen anderem Auftrag scheitern. Es werden auch abgebrochene Quests gewertet.",
         "Parameter":   [
             ["QuestName", "Name des Quest", []]
         ]
@@ -251,6 +245,14 @@
         "Parameter":   [
             ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
             ["ScriptName", "Skriptname des Hauptquartiers", []]
+        ]
+    },
+
+    "Goal_DestroyArmy": {
+        "Description": "Der Spieler muss eine Armee des Spielers zerstören indem alle Soldaten besiegt und ggf. der Lebensfaden zerstört wird. <br><u>Hinweis:</u><br>Armeen, die Hauptmänner selbst rekrutieren, sind erst dann besiegt, wenn der KI-Spieler besiegt wurde.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringInput", "Name der Armee", []]
         ]
     },
 
@@ -389,7 +391,7 @@
     "Reward_Technology": {
         "Description": "Ändert den Status der Technologie für den Auftragnehmer.",
         "Parameter":   [
-            ["StringSelect", "Typname der Technologie", ["GT_Alchemy","GT_Alloying","GT_Architecture","GT_Binocular","GT_ChainBlock","GT_Chemistry","GT_Construction","GT_GearWheel","GT_Library","GT_Literacy","GT_Matchlock","GT_Mathematics","GT_Mercenaries","GT_Metallurgy","GT_Printing","GT_PulledBarrel","GT_StandingArmy","GT_Strategies","GT_Tactics","GT_Trading","T_BetterChassis","T_BetterTrainingArchery","T_BetterTrainingBarracks","T_BlisteringCannonballs","T_BodkinArrow","T_BookKeeping","T_ChainBardingArmor","T_ChainMailArmor","T_CityGuard","T_EnhancedGunPowder","T_FleeceArmor","T_FleeceLinedLeatherArmor","T_Fletching","T_IronCasting","T_LeadShot","T_LeatherArcherArmor","T_LeatherMailArmor","T_Loom","T_Masonry","T_MasterOfSmithery","T_PaddedArcherArmor","T_PlateMailArmor","T_Shoeing","T_Shoes","T_Sights","T_SoftArcherArmor","T_SpinningWheel","T_TownGuard","T_Tracking","T_Turnery","T_UpgradeBow1","T_UpgradeBow2","T_UpgradeBow3","T_UpgradeHeavyCavalry1","T_UpgradeLightCavalry1","T_UpgradeRifle1","T_UpgradeSpear1","T_UpgradeSpear2","T_UpgradeSpear3","T_UpgradeSword1","T_UpgradeSword2","T_UpgradeSword3","T_WeatherForecast","T_WoodAging","UP1_Alchemist","UP1_Archery","UP1_Bank","UP1_Barracks","UP1_Blacksmith","UP1_Brickworks","UP1_Claymine","UP1_Farm","UP1_Foundry","UP1_GunsmithWorkshop","UP1_Headquarter","UP1_Ironmine","UP1_Market","UP1_Monastery","UP1_Residence","UP1_Sawmill","UP1_Stables","UP1_StoneMason","UP1_Stonemine","UP1_Sulfurmine","UP1_Tavern","UP1_Tower","UP1_University","UP1_Village","UP2_Blacksmith","UP2_Claymine","UP2_Farm","UP2_Headquarter","UP2_Ironmine","UP2_Monastery","UP2_Residence","UP2_Stonemine","UP2_Sulfurmine","UP2_Tower","UP2_Village"]],
+            ["StringSelect", "Typname der Technologie", ["GT_Alchemy","GT_Alloying","GT_Architecture","GT_Binocular","GT_ChainBlock","GT_Chemistry","GT_Construction","GT_GearWheel","GT_Library","GT_Literacy","GT_Matchlock","GT_Mathematics","GT_Mercenaries","GT_Metallurgy","GT_Printing","GT_PulledBarrel","GT_StandingArmy","GT_Strategies","GT_Tactics","GT_Trading","T_BetterChassis","T_BetterTrainingArchery","T_BetterTrainingBarracks","T_BlisteringCannonballs","T_BodkinArrow","T_BookKeeping","T_ChangeWeather","T_ChainBardingArmor","T_ChainMailArmor","T_CityGuard","T_EnhancedGunPowder","T_FleeceArmor","T_FleeceLinedLeatherArmor","T_Fletching","T_IronCasting","T_LeadShot","T_LeatherArcherArmor","T_LeatherMailArmor","T_Loom","T_Masonry","T_MasterOfSmithery","T_PaddedArcherArmor","T_PlateMailArmor","T_Shoeing","T_Shoes","T_Sights","T_SoftArcherArmor","T_SpinningWheel","T_TownGuard","T_Tracking","T_Turnery","T_UpgradeBow1","T_UpgradeBow2","T_UpgradeBow3","T_UpgradeHeavyCavalry1","T_UpgradeLightCavalry1","T_UpgradeRifle1","T_UpgradeSpear1","T_UpgradeSpear2","T_UpgradeSpear3","T_UpgradeSword1","T_UpgradeSword2","T_UpgradeSword3","T_WeatherForecast","T_WoodAging","UP1_Alchemist","UP1_Archery","UP1_Bank","UP1_Barracks","UP1_Blacksmith","UP1_Brickworks","UP1_Claymine","UP1_Farm","UP1_Foundry","UP1_GunsmithWorkshop","UP1_Headquarter","UP1_Ironmine","UP1_Market","UP1_Monastery","UP1_Residence","UP1_Sawmill","UP1_Stables","UP1_StoneMason","UP1_Stonemine","UP1_Sulfurmine","UP1_Tavern","UP1_Tower","UP1_University","UP1_Village","UP2_Blacksmith","UP2_Claymine","UP2_Farm","UP2_Headquarter","UP2_Ironmine","UP2_Monastery","UP2_Residence","UP2_Stonemine","UP2_Sulfurmine","UP2_Tower","UP2_Village"]],
             ["StringSelect", "Technologiestatus", ["Researched", "Allowed", "Forbidden"]]
         ]
     },
@@ -534,7 +536,10 @@
         "Description": "Aktiviert einen KI-Spieler und setzt sein Technologielevel.",
         "Parameter":   [
             ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
-            ["NumberSelect", "Technologielevel", ["1", "2", "3", "4"]]
+            ["NumberSelect", "Technologielevel", ["1", "2", "3", "4"]],
+            ["NumberInput", "Maximale Anzahl Leibeigene", []],
+            ["BooleanSelect", "Gebäudebau erlauben (benötigt Leibeigene)", []],
+            ["BooleanSelect", "Wiederaufbau erlauben (benötigt Gebäudebau)", []]
         ]
     },
     
@@ -746,7 +751,7 @@
     "Reprisal_Technology": {
         "Description": "Ändert den Status der Technologie für den Auftragnehmer.",
         "Parameter":   [
-            ["StringSelect", "Typname der Technologie", ["GT_Alchemy","GT_Alloying","GT_Architecture","GT_Binocular","GT_ChainBlock","GT_Chemistry","GT_Construction","GT_GearWheel","GT_Library","GT_Literacy","GT_Matchlock","GT_Mathematics","GT_Mercenaries","GT_Metallurgy","GT_Printing","GT_PulledBarrel","GT_StandingArmy","GT_Strategies","GT_Tactics","GT_Trading","T_BetterChassis","T_BetterTrainingArchery","T_BetterTrainingBarracks","T_BlisteringCannonballs","T_BodkinArrow","T_BookKeeping","T_ChainBardingArmor","T_ChainMailArmor","T_CityGuard","T_EnhancedGunPowder","T_FleeceArmor","T_FleeceLinedLeatherArmor","T_Fletching","T_IronCasting","T_LeadShot","T_LeatherArcherArmor","T_LeatherMailArmor","T_Loom","T_Masonry","T_MasterOfSmithery","T_PaddedArcherArmor","T_PlateMailArmor","T_Shoeing","T_Shoes","T_Sights","T_SoftArcherArmor","T_SpinningWheel","T_TownGuard","T_Tracking","T_Turnery","T_UpgradeBow1","T_UpgradeBow2","T_UpgradeBow3","T_UpgradeHeavyCavalry1","T_UpgradeLightCavalry1","T_UpgradeRifle1","T_UpgradeSpear1","T_UpgradeSpear2","T_UpgradeSpear3","T_UpgradeSword1","T_UpgradeSword2","T_UpgradeSword3","T_WeatherForecast","T_WoodAging","UP1_Alchemist","UP1_Archery","UP1_Bank","UP1_Barracks","UP1_Blacksmith","UP1_Brickworks","UP1_Claymine","UP1_Farm","UP1_Foundry","UP1_GunsmithWorkshop","UP1_Headquarter","UP1_Ironmine","UP1_Market","UP1_Monastery","UP1_Residence","UP1_Sawmill","UP1_Stables","UP1_StoneMason","UP1_Stonemine","UP1_Sulfurmine","UP1_Tavern","UP1_Tower","UP1_University","UP1_Village","UP2_Blacksmith","UP2_Claymine","UP2_Farm","UP2_Headquarter","UP2_Ironmine","UP2_Monastery","UP2_Residence","UP2_Stonemine","UP2_Sulfurmine","UP2_Tower","UP2_Village"]],
+            ["StringSelect", "Typname der Technologie", ["GT_Alchemy","GT_Alloying","GT_Architecture","GT_Binocular","GT_ChainBlock","GT_Chemistry","GT_Construction","GT_GearWheel","GT_Library","GT_Literacy","GT_Matchlock","GT_Mathematics","GT_Mercenaries","GT_Metallurgy","GT_Printing","GT_PulledBarrel","GT_StandingArmy","GT_Strategies","GT_Tactics","GT_Trading","T_BetterChassis","T_BetterTrainingArchery","T_BetterTrainingBarracks","T_BlisteringCannonballs","T_BodkinArrow","T_BookKeeping","T_ChangeWeather","T_ChainBardingArmor","T_ChainMailArmor","T_CityGuard","T_EnhancedGunPowder","T_FleeceArmor","T_FleeceLinedLeatherArmor","T_Fletching","T_IronCasting","T_LeadShot","T_LeatherArcherArmor","T_LeatherMailArmor","T_Loom","T_Masonry","T_MasterOfSmithery","T_PaddedArcherArmor","T_PlateMailArmor","T_Shoeing","T_Shoes","T_Sights","T_SoftArcherArmor","T_SpinningWheel","T_TownGuard","T_Tracking","T_Turnery","T_UpgradeBow1","T_UpgradeBow2","T_UpgradeBow3","T_UpgradeHeavyCavalry1","T_UpgradeLightCavalry1","T_UpgradeRifle1","T_UpgradeSpear1","T_UpgradeSpear2","T_UpgradeSpear3","T_UpgradeSword1","T_UpgradeSword2","T_UpgradeSword3","T_WeatherForecast","T_WoodAging","UP1_Alchemist","UP1_Archery","UP1_Bank","UP1_Barracks","UP1_Blacksmith","UP1_Brickworks","UP1_Claymine","UP1_Farm","UP1_Foundry","UP1_GunsmithWorkshop","UP1_Headquarter","UP1_Ironmine","UP1_Market","UP1_Monastery","UP1_Residence","UP1_Sawmill","UP1_Stables","UP1_StoneMason","UP1_Stonemine","UP1_Sulfurmine","UP1_Tavern","UP1_Tower","UP1_University","UP1_Village","UP2_Blacksmith","UP2_Claymine","UP2_Farm","UP2_Headquarter","UP2_Ironmine","UP2_Monastery","UP2_Residence","UP2_Stonemine","UP2_Sulfurmine","UP2_Tower","UP2_Village"]],
             ["StringSelect", "Technologiestatus", ["Researched", "Allowed", "Forbidden"]]
         ]
     },

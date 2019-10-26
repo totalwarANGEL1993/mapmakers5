@@ -4,4 +4,4 @@
 .attach_pid*
 target/*
 var/*
-lua/orthus
+lua/orthus/*

@@ -2,6 +2,7 @@ package twa.siedelwood.s5.mapmaker.view.swing.component.panel.briefing;
 
 import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingPage;
 import twa.siedelwood.s5.mapmaker.view.swing.component.renderer.BriefingPageCellRenderer;
+import twa.siedelwood.s5.mapmaker.view.swing.component.swing.JOnChangeTextFieldPanel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -16,6 +17,7 @@ import java.util.Vector;
 public class BriefingEditPagePanel extends JPanel implements ActionListener, ListSelectionListener, MouseListener {
     private JLabel pagesInfo;
     private JList<BriefingPage> pagesList;
+    private JOnChangeTextFieldPanel searchField;
     private JScrollPane scrollPane;
     private JButton[] buttons;
     protected int height = 590;
@@ -127,7 +129,21 @@ public class BriefingEditPagePanel extends JPanel implements ActionListener, Lis
         buttons[5] = new JButton("Löschen");
         buttons[5].addActionListener(this);
         add(buttons[5]);
+
+        searchField = new JOnChangeTextFieldPanel("Suchen...") {
+            @Override
+            protected void onTextChanged(String text) {
+                BriefingEditPagePanel.this.onTextChanged(text);
+            }
+        };
+        add(searchField);
     }
+
+    /**
+     *
+     * @param text
+     */
+    protected void onTextChanged(String text) {}
 
     /**
      *
@@ -175,12 +191,14 @@ public class BriefingEditPagePanel extends JPanel implements ActionListener, Lis
      */
     public void updatePanelSize(Component reference) {
         int width = reference.getWidth() - 10;
+        height = reference.getHeight() - 165;
 
         setSize(width, height);
         pagesInfo.setBounds(10, 20, width -20, 45);
         int selectionWidth = (width -165 < 700) ? width -165 : 700;
-        scrollPane.setBounds(10, 75, selectionWidth, height -85);
-        pagesList.setSize(selectionWidth, height -85);
+        scrollPane.setBounds(10, 75, selectionWidth, height -125);
+        pagesList.setSize(selectionWidth, height -125);
+        searchField.resizeComponent(10, height -50, selectionWidth, 40);
 
         int y = (height / 2) - ((35 * 3) + 8);
         for (int i=0; i<6; i++) {

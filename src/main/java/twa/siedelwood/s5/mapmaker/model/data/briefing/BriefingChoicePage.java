@@ -74,10 +74,14 @@ public class BriefingChoicePage implements BriefingPage {
 
     @Override
     public String toLua() {
+        String title = this.title.replaceAll("\"", "{qq}");
+        String text  = this.text.replaceAll("\"", "{qq}");
+        String firstText = this.firstSelectText.replaceAll("\"", "{qq}");
+        String secondText  = this.secondSelectText.replaceAll("\"", "{qq}");
         return String.format(
             "    local %s = ASMC(\"%s\",\"%s\",\"%s\",\"%s\",%b,%s,%b,%b,\"%s\",\"%s\",\"%s\",\"%s\");",
             name, name, entity, title, text, dialogCamera, (action.equals("") ? "nil" : action), showSky, hideFoW,
-                firstSelectText, firstSelectPage, secondSelectText, secondSelectPage
+                firstText, firstSelectPage, secondText, secondSelectPage
         );
     }
 

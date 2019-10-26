@@ -12,8 +12,8 @@ gvWeatherGenerator = {
     ["SetupSteppeWeatherGfxSet"]    = {RainProp = 15, SnowProp = 0},
     ["SetupMoorWeatherGfxSet"]      = {RainProp = 85, SnowProp = 0},
 
-    MaxDuration  = 120,
-    MinDuration  = 30,
+    MaxDuration  = 180,
+    MinDuration  = 60,
     StatesAmount = 30,
     LastState    = 1;
 };
@@ -41,8 +41,7 @@ gvPlayerColorMapping = {
 QUEST_ASSISTENT_MAP_SETTINGS_DATA
 
 --
--- Setzt die im Assistenten eingestellten diplomatischen Beziehungen für
--- den menschlichen Spieler. Außerdem werden die Namen der Parteien gesetzt.
+-- Sets names and diplomatic relations of the players.
 --
 function InitDiplomacy()
     for k, v in pairs(Global_MapConfigurationData.Players) do
@@ -64,27 +63,27 @@ function InitDiplomacy()
 end
 
 --
--- Gibt dem menschlichen Spieler die eingestellten Startrohstoffe.
+-- Adds the starting resources to the human player.
 --
 function InitResources()
     Tools.GiveResouces(gvMission.PlayerID, unpack(Global_MapConfigurationData.Resources));
 end
 
 --
--- Verbietet alle im Assistenten eingestellten Technologien.
+-- Sets technology states. Currently unused.
 --
 function InitTechnologies()
 end
 
 --
--- Ruft das im Assistenten eingestellte Wetterset auf.
+-- Starts the weather set.
 --
 function InitWeatherGfxSets()
 	_G[Global_MapConfigurationData.WeatherSet]();
 end
 
 --
--- Setzt die Spielerfarben der Parteien fest.
+-- Sets the player colors.
 --
 function InitPlayerColorMapping()
     for k, v in pairs(Global_MapConfigurationData.Players) do
@@ -95,7 +94,8 @@ function InitPlayerColorMapping()
 end
 
 --
--- Erzeugt zufälliges Wetter für das ausgewählte Wetterset.
+-- Creates random weather for the selected weather set. Do not expect much!
+-- This is a very basic randomizer.
 --
 function GenerateWeather()
     if Global_MapConfigurationData.RandomizeWeather then
@@ -124,7 +124,7 @@ function GenerateWeather()
 end
 
 --
--- Startet alle Prozesse, die zu Beginn der Mission aktiviert werden müssen.
+-- Activates all processes that must be startet when the game is starting.
 --
 function FirstMapAction()
     Score.Player[0] = {};
@@ -145,7 +145,7 @@ end
 QUEST_ASSISTENT_GENERATED_QUESTS
 
 --
--- Hier werden die im Assistenten angelegten Quests definiert und gestartet.
+-- Generates the quests configured in the assistent.
 --
 function CreateQuests()
     for k, v in pairs(Global_QuestsToGenerate) do
@@ -175,6 +175,7 @@ function CreateQuests()
             unpack(Behaviors)
         };
     end
+    Global_QuestsToGenerate = nil;
 end
 
 -- -------------------------------------------------------------------------- --

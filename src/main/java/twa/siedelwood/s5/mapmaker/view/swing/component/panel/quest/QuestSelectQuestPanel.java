@@ -1,6 +1,7 @@
 package twa.siedelwood.s5.mapmaker.view.swing.component.panel.quest;
 
 import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
+import twa.siedelwood.s5.mapmaker.view.swing.component.swing.JOnChangeTextFieldPanel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -20,22 +21,23 @@ import java.util.Vector;
  */
 public class QuestSelectQuestPanel extends JPanel implements ActionListener, ListSelectionListener, FocusListener, PropertyChangeListener {
     int height = 450;
-    private JLabel questInfo;
+    protected JLabel questInfo;
     protected JList<String> questList;
-    private JScrollPane questListScroll;
+    protected JScrollPane questListScroll;
+    protected JOnChangeTextFieldPanel filterTextarea;
     protected JButton[] buttons;
     protected JComboBox<String> questVisibility;
-    private JLabel questVisibilityLabel;
-    private JLabel questTypeLabel;
+    protected JLabel questVisibilityLabel;
+    protected JLabel questTypeLabel;
     protected JComboBox<String> questType;
     protected JTextField questTitle;
     protected JTextArea questDescription;
-    private JScrollPane questDescriptionScroll;
-    private JLabel questTitleLabel;
-    private JLabel questDescriptionLabel;
-    private JLabel questReceiverLabel;
+    protected JScrollPane questDescriptionScroll;
+    protected JLabel questTitleLabel;
+    protected JLabel questDescriptionLabel;
+    protected JLabel questReceiverLabel;
     protected JComboBox<String> questReceiver;
-    private JLabel questLimitLabel;
+    protected JLabel questLimitLabel;
     protected JFormattedTextField questLimit;
 
     /**
@@ -51,12 +53,20 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
     public void initPanel() {
         setLayout(null);
         setBorder(BorderFactory.createTitledBorder("Quests"));
+        createQuestControlls();
+        createQuestProperties();
+        onQuestVisibilityChanged();
+    }
 
+    /**
+     * Creates the controlls to select, create, change and delete quests.
+     */
+    public void createQuestControlls() {
         questInfo = new JLabel(
-            "<html>Hier können Aufträge verwaltet werden. Du kannst Aufträge erstellen, kopieren," +
-            " umbenennen und löschen. Die Eigenschhaften eines Auftrages werden bearbeitet," +
-            " in dem der Auftrag aus der Liste ausgewählt wird. Um Eigenschaften zu aktualisieren," +
-            " klicke auf \"Update\".</html>"
+                "<html>Hier können Aufträge verwaltet werden. Du kannst Aufträge erstellen, kopieren," +
+                        " umbenennen und löschen. Die Eigenschhaften eines Auftrages werden bearbeitet," +
+                        " in dem der Auftrag aus der Liste ausgewählt wird. Um Eigenschaften zu aktualisieren," +
+                        " klicke auf \"Update\".</html>"
         );
         questInfo.setFont(new Font("Arial", Font.PLAIN, 12));
         questInfo.setVerticalAlignment(JLabel.TOP);
@@ -92,7 +102,19 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         buttons[4].addActionListener(this);
         add(buttons[4]);
 
+        filterTextarea = new JOnChangeTextFieldPanel("Suchen...") {
+            @Override
+            protected void onTextChanged(String text) {
+                QuestSelectQuestPanel.this.onFilterChanged(text);
+            }
+        };
+        add(filterTextarea);
+    }
 
+    /**
+     * Creates the quest properties
+     */
+    private void createQuestProperties() {
         questVisibilityLabel = new JLabel("Sichtbarkeit");
         add(questVisibilityLabel);
         questVisibility = new JComboBox<String>();
@@ -147,8 +169,6 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         questLimit.addFocusListener(this);
         questLimit.addPropertyChangeListener(this);
         add(questLimit);
-
-        onQuestVisibilityChanged();
     }
 
     /**
@@ -299,6 +319,19 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
     }
 
     /**
+     *
+     */
+    public void clearFilter() {
+        filterTextarea.clear();
+    }
+
+    /**
+     *
+     * @param text
+     */
+    protected void onFilterChanged(String text) {}
+
+    /**
      * The user has resized the window.
      * @param reference Reference object
      */
@@ -308,8 +341,9 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         setSize(width, height);
         questInfo.setBounds(10, 20, width -20, 45);
         int selectionWidth = ((width * 0.5) -10 < 500) ? (int) ((width * 0.5) - 10) : 500;
-        questListScroll.setBounds(10, 75, selectionWidth, height -115);
-        questList.setSize(selectionWidth, height -115);
+        questListScroll.setBounds(10, 75, selectionWidth, height -160);
+        questList.setSize(selectionWidth, height -160);
+        filterTextarea.resizeComponent(10, height -85, selectionWidth, 40);
 
         for (int i=0; i<4; i++) {
             buttons[i].setBounds((10 + (135 * i)), height -35, 130, 25);

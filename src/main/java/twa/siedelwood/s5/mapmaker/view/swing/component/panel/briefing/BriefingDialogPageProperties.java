@@ -175,7 +175,7 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
      */
     @Override
     public void onConfirm() {
-        String text = this.text.getText().replaceAll("\\n", " @cr ");
+        String text = this.text.getText().replaceAll("\\n", "{cr}");
         page.setText(text);
 
         page.setTitle(title.getText());

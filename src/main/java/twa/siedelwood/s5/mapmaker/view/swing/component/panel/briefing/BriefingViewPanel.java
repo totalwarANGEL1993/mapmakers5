@@ -706,9 +706,35 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
             protected void onPageSelectionChanged() {
                 BriefingViewPanel.this.onPageSelectionChanged();
             }
+
+            @Override
+            protected void onTextChanged(String text) {
+                BriefingViewPanel.this.onTextChanged(text, this);
+            }
         };
         pageGroup.initPanel();
         add(pageGroup);
+    }
+
+    /**
+     *
+     * @param text
+     * @param briefingEditPagePanel
+     */
+    private void onTextChanged(String text, BriefingEditPagePanel briefingEditPagePanel) {
+        if (currentSelectedBriefing == -1 || text == null || text.equals("")) {
+            return;
+        }
+        Briefing briefing = briefingCollection.get(currentSelectedBriefing);
+        if (briefing == null) {
+            return;
+        }
+        for (BriefingPage p : briefing.getPages()) {
+            if (p.getName().toLowerCase().contains(text.toLowerCase())) {
+                briefingEditPagePanel.setSelectedPage(p);
+                break;
+            }
+        }
     }
 
     /**

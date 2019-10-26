@@ -1,5 +1,7 @@
 package twa.siedelwood.s5.mapmaker.view.swing.component.dialog;
 
+import twa.siedelwood.s5.mapmaker.view.swing.component.swing.JOnChangeTextFieldPanel;
+
 import javax.swing.*;
 import java.util.Vector;
 
@@ -9,11 +11,12 @@ import java.util.Vector;
 public class ListSelectValueDialog implements ConfirmDialog {
     protected String title = "Wert auswählen";
     protected BasicConfirmDialog dialog;
+    protected JOnChangeTextFieldPanel searchPanel;
     protected JList<String> valueSelect;
     protected Vector<String> values;
     protected JFrame frame;
     protected int width = 400;
-    protected int height = 300;
+    protected int height = 320;
     protected String chosenValue;
 
     /**
@@ -113,14 +116,31 @@ public class ListSelectValueDialog implements ConfirmDialog {
 
         JScrollPane scrollPane = new JScrollPane();
         valueSelect = new JList<>();
-        valueSelect.setBounds(10, 10, width -35, 190);
+        valueSelect.setBounds(10, 10, width -35, 175);
         valueSelect.setListData(values);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setViewportView(valueSelect);
-        scrollPane.setBounds(10, 10, width -35, 190);
+        scrollPane.setBounds(10, 10, width -35, 175);
         scrollPane.setVisible(true);
         dialog.add(scrollPane);
+
+        searchPanel = new JOnChangeTextFieldPanel("Suchen...") {
+            @Override
+            protected void onTextChanged(String text) {
+                if (text == null || text.equals("")) {
+                    valueSelect.setSelectedIndex(-1);
+                }
+                for (String v : values) {
+                    if (v.toLowerCase().contains(text.toLowerCase())) {
+                        valueSelect.setSelectedValue(v, true);
+                        break;
+                    }
+                }
+            }
+        };
+        searchPanel.resizeComponent(10, height -130, width -35, 40);
+        dialog.add(searchPanel);
     }
 
     /**
