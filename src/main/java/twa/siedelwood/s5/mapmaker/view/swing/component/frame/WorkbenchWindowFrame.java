@@ -4,6 +4,7 @@ import twa.siedelwood.s5.mapmaker.QuestSystemBehavior;
 import twa.siedelwood.s5.mapmaker.controller.ApplicationController;
 import twa.siedelwood.s5.mapmaker.controller.ApplicationException;
 import twa.siedelwood.s5.mapmaker.view.swing.component.panel.briefing.BriefingViewPanel;
+import twa.siedelwood.s5.mapmaker.view.swing.component.panel.help.HelpViewPanel;
 import twa.siedelwood.s5.mapmaker.view.swing.component.panel.mapsettings.MapSettingsViewPanel;
 import twa.siedelwood.s5.mapmaker.view.swing.component.panel.project.ProjectViewPanel;
 import twa.siedelwood.s5.mapmaker.view.swing.component.panel.quest.QuestViewPanel;
@@ -28,8 +29,8 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
     private BriefingViewPanel briefingPanel;
     private JScrollPane briefingPanelScroll;
 
-    private JPanel helpPanel;
-    private JScrollPane helpScroll;
+    private HelpViewPanel helpPanel;
+    private JScrollPane helpPanelScroll;
 
     public WorkbenchWindowFrame() {
         super();
@@ -67,6 +68,7 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
         initMapSettingsTab();
         initQuestsTab();
         initBriefingTab();
+        initHelpTab();
 
         //helpPanel = new JPanel(null);
         //briefingPanelScroll = new JScrollPane(helpPanel);
@@ -75,7 +77,7 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
         addCard("Karte", mapPanelScroll);
         addCard("Quests", questPanel);
         addCard("Briefings", briefingPanel);
-        //addCard("Hilfe", helpPanel);
+        addCard("Über...", helpPanel);
 
         addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
@@ -88,6 +90,18 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
                 }
             }
         });
+    }
+
+    /**
+     * Initalizes the briefing tab
+     */
+    private void initHelpTab() {
+        helpPanel = new HelpViewPanel();
+        helpPanel.initPanel();
+
+        helpPanelScroll = new JScrollPane(helpPanel);
+        helpPanelScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        helpPanelScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
     }
 
     /**
@@ -218,6 +232,8 @@ public class WorkbenchWindowFrame extends BaseWindowFrame {
         briefingPanel.setPreferredSize(new Dimension(currentW, briefingPanel.getHeight()));
         questPanel.updatePanelSize(tabPane);
         questPanel.setPreferredSize(new Dimension(currentW, questPanel.getHeight()));
+        helpPanel.updatePanelSize(tabPane);
+        helpPanel.setPreferredSize(new Dimension(currentW, questPanel.getHeight()));
     }
 
     @Override
