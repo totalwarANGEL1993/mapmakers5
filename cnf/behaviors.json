@@ -551,7 +551,7 @@
             ["NumberSelect", "Stärke der Armee", ["1", "2", "3", "4", "5", "6", "7", "8"]],
             ["ScriptName", "Position auf der Map", []],
             ["NumberInput", "Aktionsradius", []],
-            ["StringSelect", "Armeetyp", ["City", "BlackKnight", "Bandit", "Barbarian", "Nephilim"]]
+            ["StringSelect", "Armeetyp", ["City", "BlackKnight", "Bandit", "Barbarian"]]
         ]
     },
 
