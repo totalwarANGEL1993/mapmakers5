@@ -58,7 +58,7 @@ public class MapSettingsRersourcesPanel extends MapSettingsBasePanel implements 
      * @return Amount
      */
     public int getGold() {
-        return Integer.parseInt(fields[0].getText());
+        return Integer.parseInt(fields[0].getText().replaceAll("\\.", ""));
     }
 
     /**
@@ -66,7 +66,7 @@ public class MapSettingsRersourcesPanel extends MapSettingsBasePanel implements 
      * @return Amount
      */
     public int getClay() {
-        return Integer.parseInt(fields[1].getText());
+        return Integer.parseInt(fields[1].getText().replaceAll("\\.", ""));
     }
 
     /**
@@ -74,7 +74,7 @@ public class MapSettingsRersourcesPanel extends MapSettingsBasePanel implements 
      * @return Amount
      */
     public int getWood() {
-        return Integer.parseInt(fields[2].getText());
+        return Integer.parseInt(fields[2].getText().replaceAll("\\.", ""));
     }
 
     /**
@@ -82,7 +82,7 @@ public class MapSettingsRersourcesPanel extends MapSettingsBasePanel implements 
      * @return Amount
      */
     public int getStone() {
-        return Integer.parseInt(fields[3].getText());
+        return Integer.parseInt(fields[3].getText().replaceAll("\\.", ""));
     }
 
     /**
@@ -90,7 +90,7 @@ public class MapSettingsRersourcesPanel extends MapSettingsBasePanel implements 
      * @return Amount
      */
     public int getIron() {
-        return Integer.parseInt(fields[4].getText());
+        return Integer.parseInt(fields[4].getText().replaceAll("\\.", ""));
     }
 
     /**
@@ -98,55 +98,7 @@ public class MapSettingsRersourcesPanel extends MapSettingsBasePanel implements 
      * @return Amount
      */
     public int getSulfur() {
-        return Integer.parseInt(fields[5].getText());
-    }
-
-    /**
-     * Set the amount of gold.
-     * @param amount Amount
-     */
-    public void setGold(int amount) {
-        fields[0].setText("" +amount);
-    }
-
-    /**
-     * Set the amount of clay.
-     * @param amount Amount
-     */
-    public void setClay(int amount) {
-        fields[0].setText("" +amount);
-    }
-
-    /**
-     * Set the amount of wood.
-     * @param amount Amount
-     */
-    public void setWood(int amount) {
-        fields[0].setText("" +amount);
-    }
-
-    /**
-     * Set the amount of stone.
-     * @param amount Amount
-     */
-    public void setStone(int amount) {
-        fields[0].setText("" +amount);
-    }
-
-    /**
-     * Set the amount of iron.
-     * @param amount Amount
-     */
-    public void setIron(int amount) {
-        fields[0].setText("" +amount);
-    }
-
-    /**
-     * Set the amount of sulfur.
-     * @param amount Amount
-     */
-    public void setSulfur(int amount) {
-        fields[0].setText("" +amount);
+        return Integer.parseInt(fields[5].getText().replaceAll("\\.", ""));
     }
 
     @Override
