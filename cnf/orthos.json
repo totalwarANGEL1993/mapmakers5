@@ -1,0 +1,103 @@
+{
+  "Version": "1.1.0",
+  "BaseDirectory": "lua/orthus/lua/qsb/",
+  
+  "Files": [
+    {
+      "Source":      "core/oop.lua",
+      "Destination": "qsb/core/oop.lua"
+    },
+    {
+      "Source":      "core/questtools.lua",
+      "Destination": "qsb/core/questtools.lua"
+    },
+    {
+      "Source":      "core/questsync.lua",
+      "Destination": "qsb/core/questsync.lua"
+    },
+    {
+      "Source":      "core/bugfixes.lua",
+      "Destination": "qsb/core/bugfixes.lua"
+    },
+    {
+      "Source":      "core/questsystem.lua",
+      "Destination": "qsb/core/questsystem.lua"
+    },
+    {
+      "Source":      "core/questbriefing.lua",
+      "Destination": "qsb/core/questbriefing.lua"
+    },
+    {
+      "Source":      "core/questdebug.lua",
+      "Destination": "qsb/core/questdebug.lua"
+    },
+
+
+    {
+      "Source":      "lib/libloader.lua",
+      "Destination": "qsb/lib/libloader.lua"
+    },
+    {
+      "Source":      "lib/luabit50.lua",
+      "Destination": "qsb/lib/luabit50.lua"
+    },
+    {
+      "Source":      "lib/md5.lua",
+      "Destination": "qsb/lib/md5.lua"
+    },
+    {
+      "Source":      "lib/entityfind.lua",
+      "Destination": "qsb/lib/entityfind.lua"
+    },
+    {
+      "Source":      "lib/metatable.lua",
+      "Destination": "qsb/lib/metatable.lua"
+    },
+    {
+      "Source":      "lib/s5hook.lua",
+      "Destination": "qsb/lib/s5hook.lua"
+    },
+
+
+
+    {
+      "Source":      "ext/extraloader.lua",
+      "Destination": "qsb/ext/extraloader.lua"
+    },
+    {
+      "Source":      "ext/speed_ex2.lua",
+      "Destination": "qsb/ext/speed_ex2.lua"
+    },
+    {
+      "Source":      "ext/onscreeninfo_ex2.lua",
+      "Destination": "qsb/ext/onscreeninfo_ex2.lua"
+    },
+    {
+      "Source":      "ext/workplace_ex2.lua",
+      "Destination": "qsb/ext/workplace_ex2.lua"
+    },
+    {
+      "Source":      "ext/optionsmenu.lua",
+      "Destination": "qsb/ext/optionsmenu.lua"
+    },
+    {
+      "Source":      "ext/interaction.lua",
+      "Destination": "qsb/ext/interaction.lua"
+    },
+    {
+      "Source":      "ext/troopgenerator.lua",
+      "Destination": "qsb/ext/troopgenerator.lua"
+    },
+
+
+
+    {
+      "Source":      "questbehavior.lua",
+      "Destination": "qsb/questbehavior.lua"
+    },
+    {
+      "Source":      "treasure.lua",
+      "Destination": "qsb/treasure.lua"
+    }
+  ]
+}

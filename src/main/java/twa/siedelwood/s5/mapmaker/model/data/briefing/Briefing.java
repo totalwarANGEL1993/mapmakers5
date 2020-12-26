@@ -93,21 +93,16 @@ public class Briefing {
     }
 
     public String toLua() {
-        String lua = "function " +name+ "()\n";
-        lua += "    local briefing = {};\n";
-        lua += "    local AP, ASP, ASMC = AddPages(briefing);\n\n";
+        String lua = "function " +name+ "(_Receiver)\n";
+        lua += "    local briefing = {RestoreCamera = true};\n";
+        lua += "    local AP = AddPages(briefing);\n\n";
 
-        String choices = "";
         for (BriefingPage page : pages) {
             lua += page.toLua() + "\n";
-            if (page.getType() == BriefingPageTypes.TYPE_CHOICE) {
-                choices += "        QuestSystemBehavior.Data.ChoicePages[\"" +page.getName()+ "\"] = GetSelectedBriefingMCButton(" +page.getName()+ ");\n";
-            }
         }
-        //choices = choices + ((choices.length() > 0) ? "\n" : "");
 
-        lua += "\n    briefing.finished = function()\n" +choices+ "    end\n";
-        lua += "    return StartBriefing(briefing);\n";
+        lua += "\n    briefing.Finished = function()\n    end\n";
+        lua += "    return StartBriefing(briefing, _Receiver);\n";
         lua += "end\n\n";
         return lua;
     }

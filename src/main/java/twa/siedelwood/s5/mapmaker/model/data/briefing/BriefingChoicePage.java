@@ -79,9 +79,22 @@ public class BriefingChoicePage implements BriefingPage {
         String firstText = this.firstSelectText.replaceAll("\"", "{qq}");
         String secondText  = this.secondSelectText.replaceAll("\"", "{qq}");
         return String.format(
-            "    local %s = ASMC(\"%s\",\"%s\",\"%s\",\"%s\",%b,%s,%b,%b,\"%s\",\"%s\",\"%s\",\"%s\");",
-            name, name, entity, title, text, dialogCamera, (action.equals("") ? "nil" : action), showSky, hideFoW,
-                firstText, firstSelectPage, secondText, secondSelectPage
+            "    local %s = AP{\n" +
+            "        Name         = \"%s\",\n" +
+            "        Target       = \"%s\",\n" +
+            "        Title        = \"%s\",\n" +
+            "        Text         = \"%s\",\n" +
+            "        DialogCamera = %b,\n" +
+            "        Action       = %s,\n" +
+            "        RenderSky    = %b,\n" +
+            "        RenderFoW    = %b,\n" +
+            "        MC           = {\n" +
+            "            {\"%s\",\"%s\"},\n" +
+            "            {\"%s\",\"%s\"},\n" +
+            "        },\n" +
+            "    };",
+            name, name, entity, title, text, dialogCamera, (action.equals("") ? "nil" : action),
+            showSky, !hideFoW, firstText, firstSelectPage, secondText, secondSelectPage
         );
     }
 

@@ -273,6 +273,14 @@
         ]
     },
 
+    "Goal_Steal": {
+        "Description": "Der Spieler muss eine bestimmte Menge von Rohstoffen anderer Parteien mit Dieben stehlen.",
+        "Parameter":   [
+            ["ChoiceName", "Typname des Rohstoff", ["Gold", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Akzeptierte Antwort", []]
+        ]
+    },
+
 
 
 
@@ -628,7 +636,7 @@
         "Description": "Ersetzt das angegebene Entity mit einer Schatztruhe, welche die angegebene Menge an Rohstoffen enthält.",
         "Parameter":   [
             ["ScriptName", "Skriptname des Entity", []],
-            ["StringSelect", "Rohstofftyp", ["Random", "Gold", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["StringSelect", "Typname des Rohstoff", ["Random", "Gold", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
             ["NumberInput", "Menge an Rohstoffen", []]
         ]
     },

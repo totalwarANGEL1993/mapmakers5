@@ -18,6 +18,7 @@ import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
 import twa.siedelwood.s5.mapmaker.model.data.quest.QuestBehavior;
 import twa.siedelwood.s5.mapmaker.model.data.quest.QuestCollection;
 import twa.siedelwood.s5.mapmaker.model.meta.ConfigurationProjectModel;
+import twa.siedelwood.s5.mapmaker.model.meta.ConfigureOrthusComponentsModel;
 import twa.siedelwood.s5.mapmaker.service.config.BehaviorPrototypeService;
 import twa.siedelwood.s5.mapmaker.service.config.SelectableValueService;
 import twa.siedelwood.s5.mapmaker.service.map.MapLoader;
@@ -30,6 +31,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -291,13 +293,13 @@ public class ApplicationController {
      */
     public void loadProject(File project) throws ApplicationException {
         try {
-            String projectFile = new String(Files.readAllBytes(Paths.get(project.getAbsolutePath() + "/project.json")), Charset.forName("UTF-8"));
+            String projectFile = new String(Files.readAllBytes(Paths.get(project.getAbsolutePath() + "/project.json")), StandardCharsets.UTF_8);
             currentProject = ConfigurationProjectModel.parse(projectFile);
-            String queststFile = new String(Files.readAllBytes(Paths.get(project.getAbsolutePath() + "/quests.json")), Charset.forName("UTF-8"));
+            String queststFile = new String(Files.readAllBytes(Paths.get(project.getAbsolutePath() + "/quests.json")), StandardCharsets.UTF_8);
             currentProject.setQuestCollection(QuestCollection.parse(queststFile));
-            String brefingsFile = new String(Files.readAllBytes(Paths.get(project.getAbsolutePath() + "/briefings.json")), Charset.forName("UTF-8"));
+            String brefingsFile = new String(Files.readAllBytes(Paths.get(project.getAbsolutePath() + "/briefings.json")), StandardCharsets.UTF_8);
             currentProject.setBriefingCollection(BriefingCollection.parse(brefingsFile));
-            String mapConfFile = new String(Files.readAllBytes(Paths.get(project.getAbsolutePath() + "/mapconfig.json")), Charset.forName("UTF-8"));
+            String mapConfFile = new String(Files.readAllBytes(Paths.get(project.getAbsolutePath() + "/mapconfig.json")), StandardCharsets.UTF_8);
             currentProject.setMapData(MapData.parse(mapConfFile));
             internalLoadProject();
         }
@@ -368,7 +370,6 @@ public class ApplicationController {
      */
     public void exportToArchive() {
         try {
-
             File map = new File(currentProject.getMapFile());
             Files.copy(Paths.get(currentProject.getMapFile()), Paths.get(getWorkingDirectory() + "/" + map.getName()), StandardCopyOption.REPLACE_EXISTING);
 
@@ -381,6 +382,7 @@ public class ApplicationController {
             mapScriptBuilder.setQuests(currentProject.getQuestCollection());
             mapScriptBuilder.setBriefings(currentProject.getBriefingCollection());
 
+            // Write map data
             System.out.println("Assistent: rewriting map description...");
             String infoContent = mapScriptBuilder.replaceMapDescriptionInInfoFile(
                 mapFolder + "/info.xml",
@@ -388,7 +390,7 @@ public class ApplicationController {
                 currentProject.getMapData().getMapDescription()
             );
             Files.delete(Paths.get(mapFolder + "/info.xml"));
-            Files.write(Paths.get(mapFolder + "/info.xml"), infoContent.getBytes(Charset.forName("UTF-8")), StandardOpenOption.CREATE);
+            Files.write(Paths.get(mapFolder + "/info.xml"), infoContent.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
             System.out.println("Assistent: Done!");
 
             System.out.println("Assistent: Creating internal main script...");
@@ -396,7 +398,7 @@ public class ApplicationController {
             String mainScriptPath = localMapPath + ".unpacked/maps/externalmap/mainmapscript.lua";
             if (new File(mainScriptPath).exists())
                 Files.delete(Paths.get(mainScriptPath));
-            Files.write(Paths.get(mainScriptPath), content.getBytes(Charset.forName("UTF-8")), StandardOpenOption.CREATE);
+            Files.write(Paths.get(mainScriptPath), content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
             System.out.println("Assistent: Done!");
 
             System.out.println("Assistent: Copy mapscript...");
@@ -416,25 +418,18 @@ public class ApplicationController {
                 System.err.println("Could not find custom behavior in project!");
             }
 
+            // Copy Orthos library
             System.out.println("Assistent: Copy orthus library...");
             String qsbBasePath = "lua/orthus/lua/qsb/";
             mapLoaderService.selectMap(localMapPath + ".unpacked");
-            mapLoaderService.add(qsbBasePath + "interaction.lua", "maps/externalmap/qsb/interaction.lua");
-            mapLoaderService.add(qsbBasePath + "oop.lua", "maps/externalmap/qsb/oop.lua");
-            mapLoaderService.add(qsbBasePath + "questbehavior.lua", "maps/externalmap/qsb/questbehavior.lua");
-            mapLoaderService.add(qsbBasePath + "questdebug.lua", "maps/externalmap/qsb/questdebug.lua");
-            mapLoaderService.add(qsbBasePath + "questsystem.lua", "maps/externalmap/qsb/questsystem.lua");
-            mapLoaderService.add(qsbBasePath + "extraloader.lua", "maps/externalmap/qsb/extraloader.lua");
-            mapLoaderService.add(qsbBasePath + "treasure.lua", "maps/externalmap/qsb/treasure.lua");
-            mapLoaderService.add(qsbBasePath + "s5hook_ex2.lua", "maps/externalmap/qsb/s5hook_ex2.lua");
-            mapLoaderService.add(qsbBasePath + "information_ex2.lua", "maps/externalmap/qsb/information_ex2.lua");
-            mapLoaderService.add(qsbBasePath + "information_ex3.lua", "maps/externalmap/qsb/information_ex3.lua");
-            mapLoaderService.add(qsbBasePath + "speed_ex2.lua", "maps/externalmap/qsb/speed_ex2.lua");
-            mapLoaderService.add(qsbBasePath + "timer_ex2.lua", "maps/externalmap/qsb/timer_ex2.lua");
-            mapLoaderService.add(qsbBasePath + "timer_ex3.lua", "maps/externalmap/qsb/timer_ex3.lua");
-            mapLoaderService.add(qsbBasePath + "workplace_ex2.lua", "maps/externalmap/qsb/workplace_ex2.lua");
+            ConfigureOrthusComponentsModel libraryData = new ConfigureOrthusComponentsModel();
+            libraryData.load("cnf/orthos.json");
+            for (ConfigureOrthusComponentsModel.Entry entry : libraryData.getEntryList()) {
+                mapLoaderService.add(entry.getSource(), entry.getDestination());
+            }
             System.out.println("Assistent: Done!");
 
+            // Copy included files
             System.out.println("Assistent: Copy include files...");
             for (String fileName : currentProject.getIncludes()) {
                 File f = new File(fileName);
@@ -449,6 +444,7 @@ public class ApplicationController {
             }
             System.out.println("Assistent: Done!");
 
+            // Pack the map
             System.out.println("Assistent: Creating archive...");
             mapLoaderService.packMap();
             mapLoaderService.removeMapFolder();

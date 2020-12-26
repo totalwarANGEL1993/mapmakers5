@@ -7,6 +7,7 @@ import twa.siedelwood.s5.mapmaker.model.meta.ConfigurationBehaviorPrototypes;
 import twa.siedelwood.s5.mapmaker.model.meta.ConfigurationParamaterModel;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -50,7 +51,7 @@ public class BehaviorPrototypeService {
      * @throws Exception
      */
     public void load(String path) throws Exception {
-        String content = new String(Files.readAllBytes(Paths.get(path)), Charset.forName("UTF-8"));
+        String content = new String(Files.readAllBytes(Paths.get(path)), StandardCharsets.UTF_8);
         ConfigurationBehaviorPrototypes newBehaviorPrototypes = ConfigurationBehaviorPrototypes.parse(content);
 
         // If behavior already existing then just append new behavior

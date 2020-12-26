@@ -136,7 +136,7 @@ function FirstMapAction()
 
     QuestSystemBehavior:PrepareQuestSystem();
     if Global_MapConfigurationData.Debug[1] or Global_MapConfigurationData.Debug[2] or Global_MapConfigurationData.Debug[3] or Global_MapConfigurationData.Debug[4] then
-        QuestSystemDebug:Activate(unpack(Global_MapConfigurationData.Debug));
+        QuestDebug:Activate(unpack(Global_MapConfigurationData.Debug));
     end
     CreateQuests();
     PreperationDone();
@@ -175,6 +175,7 @@ function CreateQuests()
             unpack(Behaviors)
         };
     end
+    -- Delete to unlock memory
     Global_QuestsToGenerate = nil;
 end
 

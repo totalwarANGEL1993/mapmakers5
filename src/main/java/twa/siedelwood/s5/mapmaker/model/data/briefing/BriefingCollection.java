@@ -82,12 +82,12 @@ public class BriefingCollection {
     }
 
     public String toLua() {
-        String lua = "";
+        StringBuilder lua = new StringBuilder();
         for (Briefing b : briefings) {
             System.out.println("\n\n\n" + b.toLua());
-            lua += b.toLua();
+            lua.append(b.toLua());
         }
-        return lua;
+        return lua.toString();
     }
 
     public Json toJson() {
