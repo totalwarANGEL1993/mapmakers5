@@ -89,8 +89,8 @@ public class BriefingChoicePage implements BriefingPage {
             "        RenderSky    = %b,\n" +
             "        RenderFoW    = %b,\n" +
             "        MC           = {\n" +
-            "            {\"%s\",\"%s\"},\n" +
-            "            {\"%s\",\"%s\"},\n" +
+            "            {\"%s\",\"%s\", ID = 1},\n" +
+            "            {\"%s\",\"%s\", ID = 2},\n" +
             "        },\n" +
             "    };",
             name, name, entity, title, text, dialogCamera, (action.equals("") ? "nil" : action),
