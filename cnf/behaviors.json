@@ -276,8 +276,8 @@
     "Goal_Steal": {
         "Description": "Der Spieler muss eine bestimmte Menge von Rohstoffen anderer Parteien mit Dieben stehlen.",
         "Parameter":   [
-            ["ChoiceName", "Typname des Rohstoff", ["Gold", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
-            ["NumberInput", "Akzeptierte Antwort", []]
+            ["StringSelect", "Typname des Rohstoff", ["Gold", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
+            ["NumberInput", "Zu stehlende Menge", []]
         ]
     },
 
