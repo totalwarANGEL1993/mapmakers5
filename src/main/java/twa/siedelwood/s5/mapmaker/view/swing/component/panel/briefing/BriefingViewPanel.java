@@ -185,7 +185,8 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
         if (!briefingCollection.validateName(name)) {
             controller.getMessageService().displayErrorMessage(
                     "Ungültiger Name",
-                    "Der angegebene Name ist ungültig oder zu kurz! Möglicher Weise ist er zu kurz oder enthält verbotene Zeichen.",
+                    "Der angegebene Name ist ungültig oder zu kurz! Möglicher Weise enthält er ungültige" +
+                    " Zeichen. \n\nElaubte Zeichen: A-Z a-z 0-9 _",
                     controller.getWorkbenchWindow()
             );
             return false;
@@ -194,7 +195,8 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
         if (briefingCollection.doesBriefingNameExist(name)) {
             controller.getMessageService().displayErrorMessage(
                     "Duplikat",
-                    "Es existiert bereits ein Briefing mit dem angegebenen Namen! Bitte wähle einen anderen Namen für das Briefing aus.",
+                    "Es existiert bereits ein Briefing mit dem angegebenen Namen! Bitte wähle einen anderen" +
+                    " Namen für das Briefing aus.",
                     controller.getWorkbenchWindow()
             );
             return false;

@@ -24,6 +24,7 @@ public class BriefingDialogPage implements BriefingPage {
     private String action = "";
     private boolean showSky = false;
     private boolean hideFoW = false;
+    private boolean noEscape = false;
 
     public BriefingDialogPage(String name) {
         this();
@@ -31,14 +32,15 @@ public class BriefingDialogPage implements BriefingPage {
     }
 
     public BriefingDialogPage(List<Json> data) {
-        name = data.get(0).getStringValue();
-        entity = data.get(1).getStringValue();
-        title = data.get(2).getStringValue();
-        text = data.get(3).getStringValue();
-        dialogCamera = data.get(4).getBooleanValue();
-        action = data.get(5).getStringValue();
-        showSky = data.get(6).getBooleanValue();
-        hideFoW = data.get(7).getBooleanValue();
+        name         = data.get(0) != null ? data.get(0).getStringValue() : "";
+        entity       = data.get(1) != null ? data.get(1).getStringValue() : "";
+        title        = data.get(2) != null ? data.get(2).getStringValue() : "";
+        text         = data.get(3) != null ? data.get(3).getStringValue() : "";
+        dialogCamera = data.get(4) != null ? data.get(4).getBooleanValue() : false;
+        action       = data.get(5) != null ? data.get(5).getStringValue() : "";
+        showSky      = data.get(6) != null ? data.get(6).getBooleanValue() : false;
+        hideFoW      = data.get(7) != null ? data.get(7).getBooleanValue() : false;
+        noEscape     = data.get(8) != null ? data.get(8).getBooleanValue() : false;
     }
 
     @Override
@@ -57,6 +59,7 @@ public class BriefingDialogPage implements BriefingPage {
         result.add(action);
         result.add(showSky);
         result.add(hideFoW);
+        result.add(noEscape);
         return result;
     }
 
@@ -66,17 +69,18 @@ public class BriefingDialogPage implements BriefingPage {
         String text  = this.text.replaceAll("\"", "{qq}");
         return String.format(
             "    AP{\n" +
-            "        Name         = \"%s\",\n" +
-            "        Target       = \"%s\",\n" +
-            "        Title        = \"%s\",\n" +
-            "        Text         = \"%s\",\n" +
-            "        DialogCamera = %b,\n" +
-            "        Action       = %s,\n" +
-            "        RenderSky    = %b,\n" +
-            "        RenderFow    = %b,\n" +
+            "        Name            = \"%s\",\n" +
+            "        Target          = \"%s\",\n" +
+            "        Title           = \"%s\",\n" +
+            "        Text            = \"%s\",\n" +
+            "        DialogCamera    = %b,\n" +
+            "        Action          = %s,\n" +
+            "        RenderSky       = %b,\n" +
+            "        RenderFow       = %b,\n" +
+            "        DisableSkipping = %b,\n" +
             "    };",
             name, entity, title, text, dialogCamera, (action.equals("") ? "nil" : action),
-            showSky, !hideFoW
+            showSky, !hideFoW, noEscape
         );
     }
 
@@ -94,14 +98,15 @@ public class BriefingDialogPage implements BriefingPage {
         JsonParser parser = new JsonParser();
         JsonArray source = (JsonArray) parser.parse(json);
         return new BriefingDialogPage(
-            source.get(0).getStringValue(),
-            source.get(1).getStringValue(),
-            source.get(2).getStringValue(),
-            source.get(3).getStringValue(),
-            source.get(4).getBooleanValue(),
-            source.get(5).getStringValue(),
-            source.get(6).getBooleanValue(),
-            source.get(7).getBooleanValue()
+            source.get(0) != null ? source.get(0).getStringValue() : "",
+            source.get(1) != null ? source.get(1).getStringValue() : "",
+            source.get(2) != null ? source.get(2).getStringValue() : "",
+            source.get(3) != null ? source.get(3).getStringValue() : "",
+            source.get(4) != null ? source.get(4).getBooleanValue() : false,
+            source.get(5) != null ? source.get(5).getStringValue() : "",
+            source.get(6) != null ? source.get(6).getBooleanValue() : false,
+            source.get(7) != null ? source.get(7).getBooleanValue() : false,
+            source.get(8) != null ? source.get(8).getBooleanValue() : false
         );
     }
 

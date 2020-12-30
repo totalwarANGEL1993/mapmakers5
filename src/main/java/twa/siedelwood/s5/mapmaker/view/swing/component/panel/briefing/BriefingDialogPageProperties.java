@@ -13,7 +13,7 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
     private final JFrame frame;
     private final BriefingPage page;
     private int width = 500;
-    private int height = 455;
+    private int height = 490;
     private BasicConfirmDialog dialog;
     private Boolean accepted;
     private JTextField title;
@@ -22,6 +22,7 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
     private JComboBox<String> dialogCam;
     private JComboBox<String> showSky;
     private JComboBox<String> hideFoW;
+    private JComboBox<String> noEscape;
     private JTextArea text;
     private JButton selEntity;
 
@@ -51,6 +52,7 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
             dialogCam.setSelectedIndex(page.isDialogCamera() ? 0 : 1);
             showSky.setSelectedIndex(page.isShowSky() ? 0 : 1);
             hideFoW.setSelectedIndex(page.isHideFoW() ? 0 : 1);
+            noEscape.setSelectedIndex(page.isNoEscape() ? 0 : 1);
         }
     }
 
@@ -146,6 +148,15 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
         hideFoW.setBounds(160, 325, 150, 25);
         dialog.add(hideFoW);
 
+        JLabel escLabel = new JLabel("Nicht überspringen");
+        escLabel.setBounds(10, 360, 140, 15);
+        dialog.add(escLabel);;
+        noEscape = new JComboBox<String>();
+        noEscape.addItem("aktiv");
+        noEscape.addItem("abgeschaltet");
+        noEscape.setBounds(160, 360, 150, 25);
+        dialog.add(noEscape);
+
         onPageLoaded();
     }
 
@@ -185,6 +196,7 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
         page.setDialogCamera(dialogCam.getSelectedIndex() == 0);
         page.setShowSky(showSky.getSelectedIndex() == 0);
         page.setHideFoW(hideFoW.getSelectedIndex() == 0);
+        page.setNoEscape(noEscape.getSelectedIndex() == 0);
     }
 
     /**

@@ -20,6 +20,7 @@ public class BriefingSepertorPage implements BriefingPage {
     private String action;
     private boolean showSky = false;
     private boolean hideFoW = false;
+    private boolean noEscape = true;
     private String firstSelectText;
     private String firstSelectPage;
     private String secondSelectText;

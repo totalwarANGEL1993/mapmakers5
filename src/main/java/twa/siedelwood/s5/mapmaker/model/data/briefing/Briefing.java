@@ -118,7 +118,7 @@ public class Briefing {
             if (size == 1) {
                 briefing.pages.add(BriefingSepertorPage.parse(data.toJson()));
             }
-            else if (size == 8) {
+            else if (size == 9) {
                 briefing.pages.add(BriefingDialogPage.parse(data.toJson()));
             }
             else {

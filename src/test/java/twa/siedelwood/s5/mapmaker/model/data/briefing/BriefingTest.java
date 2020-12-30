@@ -2,7 +2,6 @@ package twa.siedelwood.s5.mapmaker.model.data.briefing;
 
 import org.junit.Before;
 import org.junit.Test;
-import twa.siedelwood.s5.mapmaker.model.data.map.MapData;
 
 import static org.junit.Assert.assertTrue;
 
@@ -21,7 +20,8 @@ public class BriefingTest {
             true,
             "nil",
             true,
-            true
+            true,
+            false
         );
         BriefingChoicePage choicePage = new BriefingChoicePage(
             "Page2",
@@ -30,6 +30,7 @@ public class BriefingTest {
             "Text",
             true,
             "nil",
+            true,
             true,
             true,
             "Option 1 text",

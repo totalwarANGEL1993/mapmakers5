@@ -121,7 +121,7 @@ public class BriefingCollection {
     }
 
     public boolean validateName(String name) {
-        if (name.length() < 1 && !Pattern.matches(ApplicationConstants.DEFAULT_NAME_REGEX, name)) {
+        if (name.length() < 1 || !Pattern.matches(ApplicationConstants.DEFAULT_NAME_REGEX, name)) {
             return false;
         }
         return true;

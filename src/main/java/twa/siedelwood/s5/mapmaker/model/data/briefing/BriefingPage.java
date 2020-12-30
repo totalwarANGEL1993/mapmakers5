@@ -22,6 +22,7 @@ public interface BriefingPage {
     boolean isDialogCamera();
     boolean isShowSky();
     boolean isHideFoW();
+    boolean isNoEscape();
 
     void setName(String name);
     void setEntity(String pos);
@@ -35,4 +36,5 @@ public interface BriefingPage {
     void setDialogCamera(boolean flag);
     void setShowSky(boolean flag);
     void setHideFoW(boolean flag);
+    void setNoEscape(boolean flag);
 }

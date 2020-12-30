@@ -250,6 +250,7 @@ public class BriefingChoicePageProperties implements ConfirmDialog, ActionListen
         page.setDialogCamera(dialogCam.getSelectedIndex() == 0);
         page.setShowSky(showSky.getSelectedIndex() == 0);
         page.setHideFoW(hideFoW.getSelectedIndex() == 0);
+        page.setNoEscape(true);
 
         page.setFirstSelectText(op1Text.getText());
         page.setSecondSelectText(op2Text.getText());
