@@ -1,13 +1,7 @@
 package twa.siedelwood.s5.mapmaker.view.swing.component.panel.briefing;
 
 import twa.siedelwood.s5.mapmaker.controller.ApplicationController;
-import twa.siedelwood.s5.mapmaker.model.data.briefing.Briefing;
-import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingChoicePage;
-import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingCollection;
-import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingDialogPage;
-import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingPage;
-import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingPageTypes;
-import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingSepertorPage;
+import twa.siedelwood.s5.mapmaker.model.data.briefing.*;
 import twa.siedelwood.s5.mapmaker.model.data.quest.QuestCollection;
 import twa.siedelwood.s5.mapmaker.view.ViewPanel;
 import twa.siedelwood.s5.mapmaker.view.swing.component.dialog.EnterValueDialog;
@@ -19,6 +13,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Vector;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Main panel for briefings editor tab
@@ -244,6 +240,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
      * @param briefing Briefing of page
      */
     private void openPageProperties(BriefingPage page, Briefing briefing) {
+        // Dialog page
         if (page.getType() == BriefingPageTypes.TYPE_DIALOG) {
             BriefingDialogPageProperties editDialog = new BriefingDialogPageProperties(page, null) {
                 @Override
@@ -266,6 +263,8 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
             editDialog.initDialog();
             editDialog.showDialog();
         }
+
+        // Choice between 2 Options
         if (page.getType() == BriefingPageTypes.TYPE_CHOICE) {
             BriefingChoicePageProperties editDialog = new BriefingChoicePageProperties(page, null) {
                 @Override
@@ -286,6 +285,23 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 }
 
                 @Override
+                public void onTargetOption1Clicked() {
+                    Vector<String> pageNames = briefing.getPageNamesOfType(BriefingPageTypes.TYPE_DIALOG);
+                    ListSelectValueDialog select = new ListSelectValueDialog(null, "Ziel auswählen") {
+                        @Override
+                        public void onConfirm() {
+                            super.onConfirm();
+                            String nameSelectedPage = getValue();
+                            page.setFirstSelectPage(nameSelectedPage);
+                            op1Target.setText(nameSelectedPage);
+                        }
+                    };
+                    select.initDialog();
+                    select.setValues(pageNames);
+                    select.showDialog();
+                }
+
+                @Override
                 public void onTargetOption2Clicked() {
                     Vector<String> pageNames = briefing.getPageNamesOfType(BriefingPageTypes.TYPE_DIALOG);
                     ListSelectValueDialog select = new ListSelectValueDialog(null, "Ziel auswählen") {
@@ -301,17 +317,24 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                     select.setValues(pageNames);
                     select.showDialog();
                 }
+            };
+            editDialog.initDialog();
+            editDialog.showDialog();
+        }
 
+        // Redirect to other
+        if (page.getType() == BriefingPageTypes.TYPE_JUMP) {
+            BriefingRedirectPageProperties editDialog = new BriefingRedirectPageProperties(page, null) {
                 @Override
-                public void onTargetOption1Clicked() {
+                public void onTargetSelectClicked() {
                     Vector<String> pageNames = briefing.getPageNamesOfType(BriefingPageTypes.TYPE_DIALOG);
                     ListSelectValueDialog select = new ListSelectValueDialog(null, "Ziel auswählen") {
                         @Override
                         public void onConfirm() {
                             super.onConfirm();
                             String nameSelectedPage = getValue();
-                            page.setFirstSelectPage(nameSelectedPage);
-                            op1Target.setText(nameSelectedPage);
+                            page.setSecondSelectPage(nameSelectedPage);
+                            targetPage.setText(nameSelectedPage);
                         }
                     };
                     select.initDialog();
@@ -366,6 +389,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
         options.add("Dialog hinzufügen");
         options.add("Entscheidung hinzufügen");
         options.add("Seperator hinzufügen");
+        options.add("Weiterleitung hinzufügen");
 
         SelectValueDialog dialog = new SelectValueDialog(null) {
             @Override
@@ -387,6 +411,10 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                     case 2:
                         pageName = "SP_" +newPageIndex;
                         newPage = new BriefingSepertorPage(pageName);
+                        break;
+                    case 3:
+                        pageName = "RP_" +newPageIndex;
+                        newPage = new BriefingRedirectPage(pageName);
                         break;
                 }
                 // Ensure unique name

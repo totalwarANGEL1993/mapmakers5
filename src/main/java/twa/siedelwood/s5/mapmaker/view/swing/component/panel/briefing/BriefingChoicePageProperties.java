@@ -73,6 +73,7 @@ public class BriefingChoicePageProperties implements ConfirmDialog, ActionListen
     /**
      * Select target for option 2
      */
+    @Override
     public void onTargetOption2Clicked() {
 
     }
@@ -80,6 +81,7 @@ public class BriefingChoicePageProperties implements ConfirmDialog, ActionListen
     /**
      * Select target for option 1
      */
+    @Override
     public void onTargetOption1Clicked() {
 
     }

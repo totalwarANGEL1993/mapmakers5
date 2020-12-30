@@ -202,9 +202,7 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
     /**
      *
      */
-    protected void onEntitySelectClicked() {
-
-    }
+    protected void onEntitySelectClicked() {}
 
     @Override
     public void setSize(int w, int h) {

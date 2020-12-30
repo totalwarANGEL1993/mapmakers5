@@ -39,10 +39,12 @@ public class BriefingTest {
             "OptionTarget2"
         );
         BriefingSepertorPage sepertorPage = new BriefingSepertorPage();
+        BriefingRedirectPage redirectPage = new BriefingRedirectPage("Page4", "Page2");
 
         briefing.addPage(dialogPage);
         briefing.addPage(choicePage);
         briefing.addPage(sepertorPage);
+        briefing.addPage(redirectPage);
     }
 
     @Test

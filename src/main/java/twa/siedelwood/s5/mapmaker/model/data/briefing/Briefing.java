@@ -118,11 +118,14 @@ public class Briefing {
             if (size == 1) {
                 briefing.pages.add(BriefingSepertorPage.parse(data.toJson()));
             }
-            else if (size == 9) {
-                briefing.pages.add(BriefingDialogPage.parse(data.toJson()));
+            if (size == 2) {
+                briefing.pages.add(BriefingRedirectPage.parse(data.toJson()));
+            }
+            else if (size >= 12) {
+                briefing.pages.add(BriefingChoicePage.parse(data.toJson()));
             }
             else {
-                briefing.pages.add(BriefingChoicePage.parse(data.toJson()));
+                briefing.pages.add(BriefingDialogPage.parse(data.toJson()));
             }
         }
         return briefing;
