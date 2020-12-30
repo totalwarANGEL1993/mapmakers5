@@ -563,6 +563,13 @@
         ]
     },
 
+    "Reward_SetPlayerColor": {
+        "Description": "Setzt die ausgewählte Farbe für den die Partei.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]],
+            ["StringSelect", "Spielerfarbe auswählen", ["ENEMY_COLOR1","ENEMY_COLOR2","ENEMY_COLOR3","EVIL_GOVERNOR_COLOR","FRIENDLY_COLOR1","FRIENDLY_COLOR2","FRIENDLY_COLOR3","FARMER_COLOR","KERBEROS_COLOR","MERCENARY_COLOR","NEPHILIM_COLOR","NPC_COLOR","PLAYER_COLOR","ROBBERS_COLOR","SAINT_COLOR","TRADER_COLOR"]]
+        ]
+    },
 
     "Reward_SetVulnerablity": {
         "Description": "Macht das angegebene Entity verwundbar oder unverwundbar.",
