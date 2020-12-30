@@ -4,6 +4,7 @@ import lombok.Data;
 import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
+import twa.siedelwood.s5.mapmaker.controller.ApplicationConstants;
 import twa.siedelwood.s5.mapmaker.model.data.briefing.Briefing;
 import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingPage;
 import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingPageTypes;
@@ -13,6 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 /**
  * Collection of quests
@@ -51,7 +53,7 @@ public class QuestCollection {
         Vector<String> customVariables = new Vector<>();
         for (Quest quest : questList) {
             for (QuestBehavior behavior : quest.getBehaviorList()) {
-                if (behavior.getName().contains("CustomVariable")) {
+                if (Pattern.matches(ApplicationConstants.CUSTOM_VARIABLE_BEHAVIOR_NAME_REGEX, behavior.getName())) {
                     String varName = behavior.getParameter(1);
                     if (varName != null && !varName.equals("") && !customVariables.contains(varName)) {
                         customVariables.add(varName);
@@ -60,6 +62,21 @@ public class QuestCollection {
             }
         }
         return customVariables;
+    }
+
+    public Vector<String> getAllArmyNames() {
+        Vector<String> armyNameVector = new Vector<>();
+        for (Quest quest : questList) {
+            for (QuestBehavior behavior : quest.getBehaviorList()) {
+                if (Pattern.matches(ApplicationConstants.ARMY_CREATION_BEHAVIOR_NAME_REGEX, behavior.getName())) {
+                    String armyName = behavior.getParameter(1);
+                    if (armyName != null && !armyName.equals("") && !armyNameVector.contains(armyName)) {
+                        armyNameVector.add(armyName);
+                    }
+                }
+            }
+        }
+        return armyNameVector;
     }
 
     public Vector<String> getQuestsReferencingBriefing(Briefing briefing) {

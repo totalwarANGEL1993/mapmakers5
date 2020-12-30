@@ -66,18 +66,18 @@ public class QuestBehavior {
     }
 
     public String toLua() {
-        String lua = "{";
+        StringBuilder lua = new StringBuilder("{");
         for (String parameter : parameters) {
             parameter = parameter.replaceAll("\"", "{qq}");
             if (parameter.equals("true") || parameter.equals("false") || Pattern.matches("^\\d+.\\d+$", parameter) || Pattern.matches("^\\d+$", parameter)) {
-                lua += parameter + ",";
+                lua.append(parameter).append(",");
             }
             else {
-                lua += "\"" + parameter + "\",";
+                lua.append("\"").append(parameter).append("\",");
             }
         }
-        lua += "}";
-        return lua;
+        lua.append("}");
+        return lua.toString();
     }
 
     public static QuestBehavior parse(String json) throws Exception {

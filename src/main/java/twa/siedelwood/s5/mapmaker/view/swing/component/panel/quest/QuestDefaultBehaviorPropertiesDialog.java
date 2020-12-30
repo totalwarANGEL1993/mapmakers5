@@ -96,6 +96,11 @@ public class QuestDefaultBehaviorPropertiesDialog extends ListSelectValueDialog 
                         component = inputComponentFactory.getFromParameterData(width - 10, h, paramaterModel, names);
                         components.add(component);
                         break;
+                    case "ArmyName":
+                        names = ApplicationController.getInstance().getCurrentProject().getQuestCollection().getAllArmyNames();
+                        component = inputComponentFactory.getFromParameterData(width - 10, h, paramaterModel, names);
+                        components.add(component);
+                        break;
                     // ScriptName
                     default:
                         names = ApplicationController.getInstance().getSelectableValueService().getScriptNames();
