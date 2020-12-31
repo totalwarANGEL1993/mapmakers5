@@ -13,7 +13,7 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
     private final JFrame frame;
     private final BriefingPage page;
     private int width = 500;
-    private int height = 490;
+    private int height = 445;
     private BasicConfirmDialog dialog;
     private Boolean accepted;
     private JTextField title;
@@ -32,15 +32,7 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
     }
 
     /**
-     *
-     * @param pos
-     */
-    public void bypassPagePosition(String pos) {
-        entity.setText(pos);
-    }
-
-    /**
-     *
+     * Page has been successfully loaded.
      */
     protected void onPageLoaded() {
         if (dialog != null) {
@@ -57,7 +49,7 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
     }
 
     /**
-     *
+     * Create the dialog window
      */
     @Override
     public void initDialog() {
@@ -96,65 +88,65 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setViewportView(text);
-        scrollPane.setBounds(160, 40, width-185, 120);
+        scrollPane.setBounds(160, 40, width-185, 100);
         scrollPane.setVisible(true);
         dialog.add(scrollPane);
 
         JLabel entityLabel = new JLabel("Position");
-        entityLabel.setBounds(10, 185, 140, 15);
+        entityLabel.setBounds(10, 150, 140, 15);
         dialog.add(entityLabel);
         entity = new JTextField();
-        entity.setBounds(160, 185, 200, 25);
+        entity.setBounds(160, 150, 200, 25);
         entity.setFont(new Font("Arial", Font.PLAIN, 12));
         dialog.add(entity);
         selEntity = new JButton("...");
-        selEntity.setBounds(360, 185, 30, 24);
+        selEntity.setBounds(360, 150, 30, 24);
         selEntity.addActionListener(this);
         dialog.add(selEntity);
 
 
         JLabel dialogCamLabel = new JLabel("Dialogkamera");
-        dialogCamLabel.setBounds(10, 220, 140, 15);
+        dialogCamLabel.setBounds(10, 185, 140, 15);
         dialog.add(dialogCamLabel);
         dialogCam = new JComboBox<String>();
         dialogCam.addItem("aktiv");
         dialogCam.addItem("abgeschaltet");
-        dialogCam.setBounds(160, 220, 150, 25);
+        dialogCam.setBounds(160, 185, 150, 25);
         dialog.add(dialogCam);
 
         JLabel actionLabel = new JLabel("Lua-Funktion");
-        actionLabel.setBounds(10, 255, 140, 15);
+        actionLabel.setBounds(10, 220, 140, 15);
         dialog.add(actionLabel);
         action = new JTextField();
         action.setFont(new Font("Arial", Font.PLAIN, 12));
-        action.setBounds(160, 255, width-185, 25);
+        action.setBounds(160, 220, width-185, 25);
         dialog.add(action);
 
         JLabel skyLabel = new JLabel("Himmel anzeigen");
-        skyLabel.setBounds(10, 290, 140, 15);
+        skyLabel.setBounds(10, 255, 140, 15);
         dialog.add(skyLabel);;
         showSky = new JComboBox<String>();
         showSky.addItem("aktiv");
         showSky.addItem("abgeschaltet");
-        showSky.setBounds(160, 290, 150, 25);
+        showSky.setBounds(160, 255, 150, 25);
         dialog.add(showSky);
 
         JLabel fowLabel = new JLabel("FoW abschalten");
-        fowLabel.setBounds(10, 325, 140, 15);
+        fowLabel.setBounds(10, 290, 140, 15);
         dialog.add(fowLabel);;
         hideFoW = new JComboBox<String>();
         hideFoW.addItem("aktiv");
         hideFoW.addItem("abgeschaltet");
-        hideFoW.setBounds(160, 325, 150, 25);
+        hideFoW.setBounds(160, 290, 150, 25);
         dialog.add(hideFoW);
 
         JLabel escLabel = new JLabel("Nicht überspringen");
-        escLabel.setBounds(10, 360, 140, 15);
+        escLabel.setBounds(10, 325, 140, 15);
         dialog.add(escLabel);;
         noEscape = new JComboBox<String>();
         noEscape.addItem("aktiv");
         noEscape.addItem("abgeschaltet");
-        noEscape.setBounds(160, 360, 150, 25);
+        noEscape.setBounds(160, 325, 150, 25);
         dialog.add(noEscape);
 
         onPageLoaded();
@@ -165,9 +157,6 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
         return entity;
     }
 
-    /**
-     *
-     */
     @Override
     public void showDialog() {
         if (dialog != null) {
@@ -175,15 +164,9 @@ public class BriefingDialogPageProperties implements ConfirmDialog, ActionListen
         }
     }
 
-    /**
-     *
-     */
     @Override
     public void onCancel() {}
 
-    /**
-     *
-     */
     @Override
     public void onConfirm() {
         String text = this.text.getText().replaceAll("\\n", "{cr}");

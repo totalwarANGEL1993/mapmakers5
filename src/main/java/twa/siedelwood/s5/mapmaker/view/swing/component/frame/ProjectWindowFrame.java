@@ -17,8 +17,8 @@ import java.util.regex.Pattern;
  * Window for opening and creating projects.
  */
 public class ProjectWindowFrame extends JFrame implements WindowFrame, ActionListener {
-    private int baseW = 500;
-    private int baseH = 730;
+    private int baseW = 450;
+    private int baseH = 590;
     private JButton openProjectButton;
     private JButton selectDirectoryButton;
     private JButton createProjectButton;
@@ -80,7 +80,7 @@ public class ProjectWindowFrame extends JFrame implements WindowFrame, ActionLis
         pane.add(openProjectPanel);
 
         openProjectButton = new JButton("Projekt öffnen");
-        openProjectButton.setBounds((openProjectPanel.getWidth()/2) -90, openProjectPanel.getHeight() -45, 180, 25);
+        openProjectButton.setBounds((openProjectPanel.getWidth()/2) -75, openProjectPanel.getHeight() -45, 150, 25);
         openProjectButton.addActionListener(this);
         openProjectPanel.add(openProjectButton);
 
@@ -100,7 +100,7 @@ public class ProjectWindowFrame extends JFrame implements WindowFrame, ActionLis
         pane.add(createProjectPanel);
 
         createProjectButton = new JButton("Projekt erstellen");
-        createProjectButton.setBounds((createProjectPanel.getWidth()/2) -90, createProjectPanel.getHeight() -45, 180, 25);
+        createProjectButton.setBounds((createProjectPanel.getWidth()/2) -75, createProjectPanel.getHeight() -45, 150, 25);
         createProjectButton.addActionListener(this);
         createProjectPanel.add(createProjectButton);
 
@@ -127,7 +127,7 @@ public class ProjectWindowFrame extends JFrame implements WindowFrame, ActionLis
         createProjectPanel.add(directoryField);
 
         selectDirectoryButton = new JButton("Durchsuchen");
-        selectDirectoryButton.setBounds(10, 120, 150, 25);
+        selectDirectoryButton.setBounds(10, 120, 120, 25);
         selectDirectoryButton.addActionListener(this);
         createProjectPanel.add(selectDirectoryButton);
 
@@ -169,27 +169,9 @@ public class ProjectWindowFrame extends JFrame implements WindowFrame, ActionLis
         createProjectPanel.add(mapField);
 
         selectmapButton = new JButton("Durchsuchen");
-        selectmapButton.setBounds(10, 365, 150, 25);
+        selectmapButton.setBounds(10, 365, 120, 25);
         selectmapButton.addActionListener(this);
         createProjectPanel.add(selectmapButton);
-
-        // Legacy
-
-        JLabel s5mNameDesc = new JLabel("Legacy-Project importieren");
-        s5mNameDesc.setBounds(10, 400, createProjectPanel.getWidth() -20, 15);
-        s5mNameDesc.setFont(new Font("Arial", Font.BOLD, 12));
-        createProjectPanel.add(s5mNameDesc);
-
-        s5mField = new JTextField("");
-        s5mField.setBounds(10, 420, createProjectPanel.getWidth() -20, 20);
-        s5mField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-        s5mField.setEditable(false);
-        createProjectPanel.add(s5mField);
-
-        selects5mButton = new JButton("Durchsuchen");
-        selects5mButton.setBounds(10, 445, 150, 25);
-        selects5mButton.addActionListener(this);
-        createProjectPanel.add(selects5mButton);
 
         setVisible(true);
     }

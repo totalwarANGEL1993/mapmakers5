@@ -93,12 +93,13 @@ public class BriefingChoicePage implements BriefingPage {
             "        RenderFoW       = %b,\n" +
             "        DisableSkipping = %b,\n" +
             "        MC              = {\n" +
-            "            {\"%s\",\"%s\", ID = 1},\n" +
-            "            {\"%s\",\"%s\", ID = 2},\n" +
+            "            {\"%s\",(_G[\"%s\"] and type(_G[\"%s\"]) == \"function\" and _G[\"%s\"]) or \"%s\", ID = 1},\n" +
+            "            {\"%s\",(_G[\"%s\"] and type(_G[\"%s\"]) == \"function\" and _G[\"%s\"]) or \"%s\", ID = 2},\n" +
             "        },\n" +
             "    };",
             name, name, entity, title, text, dialogCamera, (action.equals("") ? "nil" : action),
-            showSky, !hideFoW, noEscape, firstText, firstSelectPage, secondText, secondSelectPage
+            showSky, !hideFoW, noEscape, firstText, firstSelectPage, firstSelectPage, firstSelectPage,
+            firstSelectPage, secondText, secondSelectPage, secondSelectPage, secondSelectPage, secondSelectPage
         );
     }
 
@@ -128,7 +129,7 @@ public class BriefingChoicePage implements BriefingPage {
                 source.get(8) != null ? source.get(8).getStringValue() : "",
                 source.get(9) != null ? source.get(9).getStringValue() : "",
                 source.get(10) != null ? source.get(10).getStringValue() : "",
-                source.get(11) != null ? source.get(11).getStringValue() :""
+                source.get(11) != null ? source.get(11).getStringValue() : ""
         );
     }
 

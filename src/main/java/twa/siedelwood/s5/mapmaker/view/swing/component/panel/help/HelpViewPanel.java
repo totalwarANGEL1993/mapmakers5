@@ -55,12 +55,16 @@ public class HelpViewPanel extends JPanel implements ViewPanel {
         String version = "?";
         String author  = "?";
         String email   = "?";
+        String skype   = "?";
+        String discord = "?";
         Properties app = new Properties();
         try {
             app.load(Files.newBufferedReader(Paths.get("cnf/app.properties")));
             version = app.getProperty("app.info.version");
             author  = app.getProperty("app.info.author");
             email   = app.getProperty("app.info.email");
+            skype   = app.getProperty("app.info.skype");
+            discord = app.getProperty("app.info.discord");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -73,9 +77,11 @@ public class HelpViewPanel extends JPanel implements ViewPanel {
 
         infoLabel = new JLabel("<html>" +
                                "<table border=\"0\">" +
-                               "<tr><td>Version:</td><td>" +version+ "</td></tr>" +
+                               "<tr><td>Version:</td><td><b>" +version+ "</b></td></tr>" +
                                "<tr><td>Author:</td><td>" +author+ "</td></tr>" +
-                               "<tr><td>Kontakt:</td><td><u>" +email+ "</u></td></tr>" +
+                               "<tr><td>Email:</td><td><u>" +email+ "</u></td></tr>" +
+                               "<tr><td>Skype:</td><td><u>" +skype+ "</u></td></tr>" +
+                               "<tr><td>Discord:</td><td><u>" +discord+ "</u></td></tr>" +
                                "</table>" +
                                "</html>");
         infoLabel.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -90,8 +96,8 @@ public class HelpViewPanel extends JPanel implements ViewPanel {
         int width = reference.getWidth();
         setSize(reference.getWidth(), getContentHeight());
 
-        infoGroup.setBounds(0, 5, reference.getWidth() -10, 90);
-        infoLabel.setBounds(10, 15, reference.getWidth() -30, 60);
+        infoGroup.setBounds(0, 5, reference.getWidth() -10, 140);
+        infoLabel.setBounds(10, 15, reference.getWidth() -30, 110);
     }
 
     @Override
