@@ -125,11 +125,11 @@ public class BriefingChoicePage implements BriefingPage {
                 source.get(5) != null ? source.get(5).getStringValue() : "",
                 source.get(6) != null ? source.get(6).getBooleanValue() : false,
                 source.get(7) != null ? source.get(7).getBooleanValue() : false,
-                source.get(12) != null ? source.get(12).getBooleanValue() : true,
-                source.get(8) != null ? source.get(8).getStringValue() : "",
+                source.get(8) != null ? source.get(8).getBooleanValue() : true,
                 source.get(9) != null ? source.get(9).getStringValue() : "",
                 source.get(10) != null ? source.get(10).getStringValue() : "",
-                source.get(11) != null ? source.get(11).getStringValue() : ""
+                source.get(11) != null ? source.get(11).getStringValue() : "",
+                source.get(12) != null ? source.get(12).getStringValue() : ""
         );
     }
 

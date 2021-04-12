@@ -6,6 +6,8 @@ import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
 import twa.siedelwood.s5.mapmaker.controller.ApplicationConstants;
+import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
+import twa.siedelwood.s5.mapmaker.model.data.quest.QuestBehavior;
 
 import java.util.ArrayList;
 import java.util.Collections;

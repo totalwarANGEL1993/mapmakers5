@@ -417,7 +417,6 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                         newPage = new BriefingRedirectPage(pageName);
                         break;
                 }
-                // Ensure unique name
                 if (briefingCollection.doesPageNameExist(newPage.getName(), briefing)) {
                     newPage.setName(newPage.getName() + "_1");
                 }
@@ -444,7 +443,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 @Override
                 public void onConfirm() {
                     super.onConfirm();
-                    if (!checkPageName(getValue(), briefing, page.getType() == BriefingPageTypes.TYPE_CHOICE)) {
+                    if (!checkPageName(getValue(), briefing, page.getType())) {
                         return;
                     }
                     BriefingPage newPage = page.clone();
@@ -472,17 +471,20 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 @Override
                 public void onConfirm() {
                     super.onConfirm();
-                    if (!checkPageName(getValue(), briefing, page.getType() == BriefingPageTypes.TYPE_CHOICE)) {
+                    final String oldName = page.getName();
+                    String newName = getValue();
+
+                    if (!checkPageName(newName, briefing, page.getType())) {
                         return;
                     }
                     QuestCollection questCollection = ApplicationController.getInstance().getCurrentProject().getQuestCollection();
-
-                    String oldName = page.getName();
-                    page.setName(getValue());
+                    if (briefingCollection.doesPageNameExist(newName, briefing)) {
+                        page.setName(newName + "_1");
+                    }
+                    briefing.renamePage(oldName, newName);
                     pageGroup.setPages(briefing.toPageVector());
                     pageGroup.setSelectedPage(page);
-                    renamePageReferences(getValue(), oldName);
-                    questCollection.replacePageNameInReferencingQuests(oldName, getValue());
+                    questCollection.replacePageNameInReferencingQuests(oldName, newName);
                 }
             };
             dialog.initDialog();
@@ -513,8 +515,10 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 QuestCollection questCollection = ApplicationController.getInstance().getCurrentProject().getQuestCollection();
                 Vector<String> referencingQuests = questCollection.getQuestsReferencingPage(page);
                 if (referencingQuests.size() > 0) {
-                    String quests = "";
-                    for (String s : referencingQuests) {quests += "<br>" + s;}
+                    StringBuilder quests = new StringBuilder();
+                    for (String s : referencingQuests) {
+                        quests.append("<br>").append(s);
+                    }
                     controller.getMessageService().displayErrorMessage(
                         "Referenzen gefunden",
                         "<html>Entscheidungen können nur gelöscht werden, wenn sie von keinem Auftragt" +
@@ -527,7 +531,8 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
                 briefing.removePage(currentSelectedPage);
                 pageGroup.setPages(briefing.toPageVector());
                 pageGroup.setSelectedPageIndex(0);
-                renamePageReferences(pageName, "INVALID_PAGE");
+                briefing.renamePage(pageName, "INVALID_PAGE");
+                // renamePageReferences(pageName, "INVALID_PAGE");
             }
         }
     }
@@ -549,30 +554,13 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
     }
 
     /**
-     * Changes all occurences of the page name and warns the user if any was changed.
-     * @param name Name of page
-     * @param newName New name of page
-     */
-    private void renamePageReferences(String name, String newName) {
-        for (BriefingPage p : briefingCollection.get(currentSelectedBriefing).getPages()) {
-            if (p.getType() == BriefingPageTypes.TYPE_CHOICE) {
-                if (p.getFirstSelectPage().equals(name)) {
-                    p.setFirstSelectPage(newName);
-                }
-                if (p.getSecondSelectPage().equals(name)) {
-                    p.setSecondSelectPage(newName);
-                }
-            }
-        }
-    }
-
-    /**
      * Checks a page name and displays error messages in case of failures.
      * @param name Name of briefing
      * @param briefing Briefing
+     * @param type Page type
      * @return Name valid
      */
-    private boolean checkPageName(String name, Briefing briefing, boolean isChoicePage) {
+    private boolean checkPageName(String name, Briefing briefing, BriefingPageTypes type) {
         ApplicationController controller = ApplicationController.getInstance();
         if (!briefingCollection.validateName(name)) {
             controller.getMessageService().displayErrorMessage(
@@ -583,7 +571,7 @@ public class BriefingViewPanel extends JPanel implements ViewPanel {
             return false;
         }
 
-        if (isChoicePage) {
+        if (type == BriefingPageTypes.TYPE_CHOICE) {
             if (briefingCollection.doesChoicePageNameExist(name, briefing)) {
                 controller.getMessageService().displayErrorMessage(
                         "Duplikat",

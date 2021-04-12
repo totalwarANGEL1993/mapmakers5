@@ -66,6 +66,32 @@ public class Briefing {
         return null;
     }
 
+    public void renamePage(String name, String rep) {
+        for (BriefingPage q : pages) {
+            //if (q.getType() != BriefingPageTypes.TYPE_JUMP) {
+                // Change choices
+                if (q.getType() == BriefingPageTypes.TYPE_CHOICE) {
+                    if (name.equals(q.getFirstSelectPage())) {
+                        q.setFirstSelectPage(rep);
+                    }
+                    if (name.equals(q.getSecondSelectPage())) {
+                        q.setSecondSelectPage(rep);
+                    }
+                }
+                // Change redirect target
+                if (q.getType() == BriefingPageTypes.TYPE_JUMP) {
+                    if (name.equals(q.getSecondSelectPage())) {
+                        q.setSecondSelectPage(rep);
+                    }
+                }
+                // Change name
+                if (q.getName().equals(name)) {
+                    q.setName(rep);
+                }
+            //}
+        }
+    }
+
     public Briefing clone() {
         try {
             return Briefing.parse(toJson().toJson());
@@ -121,7 +147,7 @@ public class Briefing {
             else if (size == 2) {
                 briefing.pages.add(BriefingRedirectPage.parse(data.toJson()));
             }
-            else if (size >= 12) {
+            else if (size >= 13) {
                 briefing.pages.add(BriefingChoicePage.parse(data.toJson()));
             }
             else {
