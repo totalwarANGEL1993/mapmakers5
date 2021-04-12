@@ -1,8 +1,12 @@
 {
-  "Version": "1.1.0",
+  "Version": "1.1.1",
   "BaseDirectory": "lua/orthus/lua/qsb/",
   
   "Files": [
+    {
+      "Source":      "core/loader.lua",
+      "Destination": "qsb/core/loader.lua"
+    },
     {
       "Source":      "core/oop.lua",
       "Destination": "qsb/core/oop.lua"
@@ -34,8 +38,8 @@
 
 
     {
-      "Source":      "lib/libloader.lua",
-      "Destination": "qsb/lib/libloader.lua"
+      "Source":      "lib/loader.lua",
+      "Destination": "qsb/lib/loader.lua"
     },
     {
       "Source":      "lib/luabit50.lua",
@@ -61,8 +65,8 @@
 
 
     {
-      "Source":      "ext/extraloader.lua",
-      "Destination": "qsb/ext/extraloader.lua"
+      "Source":      "ext/loader.lua",
+      "Destination": "qsb/ext/loader.lua"
     },
     {
       "Source":      "ext/speed_ex2.lua",
