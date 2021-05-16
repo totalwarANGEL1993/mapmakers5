@@ -3,6 +3,11 @@
 echo "START OF DEPLOYMENT"
 echo ""
 
+echo "creating doc"
+cd lua/orthus
+./bin/createdoc
+cd ../..
+
 mkdir -p var/QuestSystemBehavior
 rm -rf var/QuestSystemBehavior/* > /dev/null 2>&1
 rm -r var/QuestSystemBehavior.zip > /dev/null 2>&1

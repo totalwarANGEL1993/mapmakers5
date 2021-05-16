@@ -65,6 +65,22 @@
 
 
     {
+      "Source":      "ext/aitrooprecruiter.lua",
+      "Destination": "qsb/ext/aitrooprecruiter.lua"
+    },
+    {
+      "Source":      "ext/aitroopspawner.lua",
+      "Destination": "qsb/ext/aitroopspawner.lua"
+    },
+    {
+      "Source":      "ext/aiarmy.lua",
+      "Destination": "qsb/ext/aiarmy.lua"
+    },
+    {
+      "Source":      "ext/aicontroller.lua",
+      "Destination": "qsb/ext/aicontroller.lua"
+    },
+    {
       "Source":      "ext/loader.lua",
       "Destination": "qsb/ext/loader.lua"
     },
@@ -87,10 +103,6 @@
     {
       "Source":      "ext/interaction.lua",
       "Destination": "qsb/ext/interaction.lua"
-    },
-    {
-      "Source":      "ext/troopgenerator.lua",
-      "Destination": "qsb/ext/troopgenerator.lua"
     },
 
 
