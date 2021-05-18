@@ -553,6 +553,13 @@
         ]
     },
 
+    "Reward_AI_DestroyAIPlayer": {
+        "Description": "Deaktiviert einen KI-Spieler löscht alle für diesen Spieler erstellten Armeen. <br><u>Hinweis</u>: <br>Auch versteckte werden gelöscht!",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
+    },
+
     "Reward_AI_ConstructBuilding": {
         "Description": "Ein KI-Spieler baut ein Gebäude an der angegebenen Position. <br><u>Hinweis</u>: <br>Es werden Leibeigene Benötigt!",
         "Parameter":   [
@@ -584,6 +591,13 @@
             ["ScriptName", "Position auf der Map", []],
             ["NumberInput", "Aktionsradius", []],
             ["StringSelect", "Armeetyp", ["City", "BlackKnight", "Bandit", "Barbarian"]]
+        ]
+    },
+
+    "Reward_AI_DestroyArmy": {
+        "Description": "Löscht eine Armee mit samt allen Soldaten.",
+        "Parameter":   [
+            ["ArmyName", "Name der Armee", []]
         ]
     },
 
