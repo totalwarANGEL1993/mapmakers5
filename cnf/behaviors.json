@@ -181,9 +181,13 @@
     "Goal_Tribute": {
         "Description": "Der Auftragnehmer muss einen Tribut entrichten.",
         "Parameter":   [
-            ["StringSelect", "Typname des Rohstoff", ["Gold", "Clay", "Wood", "Stone", "Iron", "Sulfur"]],
-            ["NumberInput", "Höhe des Tribut", []],
-            ["MessageInput", "Nachricht des Tribut", []]
+            ["MessageInput", "Nachricht des Tribut", []],
+            ["NumberInput", "Menge an Gold", []],
+            ["NumberInput", "Menge an Lehm", []],
+            ["NumberInput", "Menge an Holz", []],
+            ["NumberInput", "Menge an Stein", []],
+            ["NumberInput", "Menge an Eisen", []],
+            ["NumberInput", "Menge an Schwefel", []]
         ]
     },
 
