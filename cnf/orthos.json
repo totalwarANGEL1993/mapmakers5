@@ -61,9 +61,17 @@
       "Source":      "lib/s5hook.lua",
       "Destination": "qsb/lib/s5hook.lua"
     },
+    {
+      "Source":      "lib/svlib.lua",
+      "Destination": "qsb/lib/svlib.lua"
+    },
 
 
 
+    {
+      "Source":      "ext/loader.lua",
+      "Destination": "qsb/ext/loader.lua"
+    },
     {
       "Source":      "ext/aitrooprecruiter.lua",
       "Destination": "qsb/ext/aitrooprecruiter.lua"
@@ -81,20 +89,8 @@
       "Destination": "qsb/ext/aicontroller.lua"
     },
     {
-      "Source":      "ext/loader.lua",
-      "Destination": "qsb/ext/loader.lua"
-    },
-    {
-      "Source":      "ext/speed_ex2.lua",
-      "Destination": "qsb/ext/speed_ex2.lua"
-    },
-    {
       "Source":      "ext/onscreeninfo_ex2.lua",
       "Destination": "qsb/ext/onscreeninfo_ex2.lua"
-    },
-    {
-      "Source":      "ext/workplace_ex2.lua",
-      "Destination": "qsb/ext/workplace_ex2.lua"
     },
     {
       "Source":      "ext/optionsmenu.lua",
@@ -103,6 +99,14 @@
     {
       "Source":      "ext/interaction.lua",
       "Destination": "qsb/ext/interaction.lua"
+    },
+    {
+      "Source":      "ext/speed_ex2.lua",
+      "Destination": "qsb/ext/speed_ex2.lua"
+    },
+    {
+      "Source":      "ext/workplace_ex2.lua",
+      "Destination": "qsb/ext/workplace_ex2.lua"
     },
 
 
