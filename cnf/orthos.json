@@ -1,69 +1,96 @@
 {
-  "Version": "1.1.1",
+  "Version": "2.0.0",
   "BaseDirectory": "lua/orthus/lua/qsb/",
   
   "Files": [
     {
-      "Source":      "core/loader.lua",
-      "Destination": "qsb/core/loader.lua"
+      "Source":      "loader.lua",
+      "Destination": "qsb/loader.lua"
     },
     {
-      "Source":      "core/oop.lua",
-      "Destination": "qsb/core/oop.lua"
+      "Source":      "multiplayermapscript.lua",
+      "Destination": "qsb/multiplayermapscript.lua"
     },
     {
-      "Source":      "core/questtools.lua",
-      "Destination": "qsb/core/questtools.lua"
+      "Source":      "lib/oop.lua",
+      "Destination": "qsb/lib/oop.lua"
     },
     {
-      "Source":      "core/questsync.lua",
-      "Destination": "qsb/core/questsync.lua"
-    },
-    {
-      "Source":      "core/bugfixes.lua",
-      "Destination": "qsb/core/bugfixes.lua"
-    },
-    {
-      "Source":      "core/questsystem.lua",
-      "Destination": "qsb/core/questsystem.lua"
-    },
-    {
-      "Source":      "core/questbriefing.lua",
-      "Destination": "qsb/core/questbriefing.lua"
-    },
-    {
-      "Source":      "core/questdebug.lua",
-      "Destination": "qsb/core/questdebug.lua"
+      "Source":      "lib/bugfixes.lua",
+      "Destination": "qsb/lib/bugfixes.lua"
     },
 
 
+
     {
-      "Source":      "lib/loader.lua",
-      "Destination": "qsb/lib/loader.lua"
+      "Source":      "lib/ai/aiarmy.lua",
+      "Destination": "qsb/lib/ai/aiarmy.lua"
     },
     {
-      "Source":      "lib/luabit50.lua",
-      "Destination": "qsb/lib/luabit50.lua"
+      "Source":      "lib/ai/aicontroller.lua",
+      "Destination": "qsb/lib/ai/aicontroller.lua"
     },
     {
-      "Source":      "lib/md5.lua",
-      "Destination": "qsb/lib/md5.lua"
+      "Source":      "lib/ai/aitrooprecruiter.lua",
+      "Destination": "qsb/lib/ai/aitrooprecruiter.lua"
     },
     {
-      "Source":      "lib/entityfind.lua",
-      "Destination": "qsb/lib/entityfind.lua"
+      "Source":      "lib/ai/aitroopspawner.lua",
+      "Destination": "qsb/lib/ai/aitroopspawner.lua"
+    },
+
+    {
+      "Source":      "lib/quest/multiplayersystem.lua",
+      "Destination": "qsb/lib/quest/questbehavior.lua"
     },
     {
-      "Source":      "lib/metatable.lua",
-      "Destination": "qsb/lib/metatable.lua"
+      "Source":      "lib/quest/questbehavior.lua",
+      "Destination": "qsb/lib/quest/questbehavior.lua"
     },
     {
-      "Source":      "lib/s5hook.lua",
-      "Destination": "qsb/lib/s5hook.lua"
+      "Source":      "lib/quest/questbriefing.lua",
+      "Destination": "qsb/lib/quest/questbriefing.lua"
     },
     {
-      "Source":      "lib/svlib.lua",
-      "Destination": "qsb/lib/svlib.lua"
+      "Source":      "lib/quest/questdebug.lua",
+      "Destination": "qsb/lib/quest/questdebug.lua"
+    },
+    {
+      "Source":      "lib/quest/questsync.lua",
+      "Destination": "qsb/lib/quest/questsync.lua"
+    },
+    {
+      "Source":      "lib/quest/questsystem.lua",
+      "Destination": "qsb/lib/quest/questsystem.lua"
+    },
+    {
+      "Source":      "lib/quest/questtools.lua",
+      "Destination": "qsb/lib/quest/questtools.lua"
+    },
+    {
+      "Source":      "lib/quest/questtreasure.lua",
+      "Destination": "qsb/lib/quest/questtreasure.lua"
+    },
+
+    {
+      "Source":      "lib/ui/interaction.lua",
+      "Destination": "qsb/lib/ui/interaction.lua"
+    },
+    {
+      "Source":      "lib/ui/onscreeninfo.lua",
+      "Destination": "qsb/lib/ui/onscreeninfo.lua"
+    },
+    {
+      "Source":      "lib/ui/optionsmenu.lua",
+      "Destination": "qsb/lib/ui/optionsmenu.lua"
+    },
+    {
+      "Source":      "lib/ui/speed.lua",
+      "Destination": "qsb/lib/ui/speed.lua"
+    },
+    {
+      "Source":      "lib/ui/workplace.lua",
+      "Destination": "qsb/lib/ui/workplace.lua"
     },
 
 
@@ -73,51 +100,16 @@
       "Destination": "qsb/ext/loader.lua"
     },
     {
-      "Source":      "ext/aitrooprecruiter.lua",
-      "Destination": "qsb/ext/aitrooprecruiter.lua"
+      "Source":      "ext/metatable.lua",
+      "Destination": "qsb/ext/metatable.lua"
     },
     {
-      "Source":      "ext/aitroopspawner.lua",
-      "Destination": "qsb/ext/aitroopspawner.lua"
+      "Source":      "ext/s5hook.lua",
+      "Destination": "qsb/ext/s5hook.lua"
     },
     {
-      "Source":      "ext/aiarmy.lua",
-      "Destination": "qsb/ext/aiarmy.lua"
-    },
-    {
-      "Source":      "ext/aicontroller.lua",
-      "Destination": "qsb/ext/aicontroller.lua"
-    },
-    {
-      "Source":      "ext/onscreeninfo_ex2.lua",
-      "Destination": "qsb/ext/onscreeninfo_ex2.lua"
-    },
-    {
-      "Source":      "ext/optionsmenu.lua",
-      "Destination": "qsb/ext/optionsmenu.lua"
-    },
-    {
-      "Source":      "ext/interaction.lua",
-      "Destination": "qsb/ext/interaction.lua"
-    },
-    {
-      "Source":      "ext/speed_ex2.lua",
-      "Destination": "qsb/ext/speed_ex2.lua"
-    },
-    {
-      "Source":      "ext/workplace_ex2.lua",
-      "Destination": "qsb/ext/workplace_ex2.lua"
-    },
-
-
-
-    {
-      "Source":      "questbehavior.lua",
-      "Destination": "qsb/questbehavior.lua"
-    },
-    {
-      "Source":      "treasure.lua",
-      "Destination": "qsb/treasure.lua"
+      "Source":      "ext/svlib.lua",
+      "Destination": "qsb/ext/svlib.lua"
     }
   ]
 }
