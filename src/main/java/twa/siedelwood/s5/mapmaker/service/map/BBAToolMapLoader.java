@@ -1,9 +1,7 @@
 
 package twa.siedelwood.s5.mapmaker.service.map;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
-import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,10 +10,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -119,11 +114,10 @@ public class BBAToolMapLoader implements MapLoader
             String s5cBasePath = "lua/orthus/lua/s5c/";
             File s5cSrc = new File(s5cBasePath);
             File s5cDst = new File(mapPath + "/maps/externalmap/s5c");
-            // s5cDst.mkdirs();
-            FileUtils.copyDirectory(s5cSrc, s5cDst);
+            copyDirectory(s5cSrc, s5cDst);
             File s5cDstGit = new File(mapPath + "/maps/externalmap/s5c/s5communitylib/.git");
             if (s5cDstGit.exists())
-                FileUtils.deleteDirectory(s5cDstGit);
+                deleteDirectory(s5cDstGit);
         }
         catch (Exception e) {
             throw new MapLoaderException(e);
@@ -240,9 +234,33 @@ public class BBAToolMapLoader implements MapLoader
     }
 
     /**
+     * Copies a directory with contents.
+     * @param src Directory to copy
+     * @param dst Destination
+     */
+    public static void copyDirectory(File src, File dst) throws IOException
+    {
+        Files.walk(Paths.get(src.getAbsolutePath()))
+            .forEach(source -> {
+                Path destination = Paths.get(
+                    dst.getAbsolutePath(),
+                    source.toString().substring(src.getAbsolutePath().length())
+                );
+                try {
+                    if (destination.toFile().exists()) {
+                        destination.toFile().delete();
+                    }
+                    Files.copy(source, destination);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+    }
+
+    /**
      * Deletes a directory with contents.
      * @param directory Directory to delete
-     * @return
+     * @return Success
      */
     protected boolean deleteDirectory(final File directory) {
         if (directory.exists()) {

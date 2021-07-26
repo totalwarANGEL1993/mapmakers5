@@ -1,7 +1,6 @@
 package twa.siedelwood.s5.mapmaker.controller;
 
 import lombok.Data;
-import org.apache.commons.io.FileUtils;
 import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
