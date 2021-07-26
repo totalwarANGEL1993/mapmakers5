@@ -35,6 +35,13 @@ public interface MapLoader
 	void unpackMap() throws MapLoaderException;
 
 	/**
+	 * Copies the community lib into the map.
+	 *
+	 * @throws MapLoaderException
+	 */
+	void addCommunityLib() throws MapLoaderException;
+
+	/**
 	 * Copies a file to new location inside the map.
 	 * 
 	 * @param source Source file to copy

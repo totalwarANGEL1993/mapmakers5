@@ -1,6 +1,7 @@
 
 package twa.siedelwood.s5.mapmaker.service.map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
 
@@ -106,6 +107,27 @@ public class BBAToolMapLoader implements MapLoader
         }
 
         execute();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addCommunityLib() throws MapLoaderException
+    {
+        try {
+            String s5cBasePath = "lua/orthus/lua/s5c/";
+            File s5cSrc = new File(s5cBasePath);
+            File s5cDst = new File(mapPath + "/maps/externalmap/s5c");
+            // s5cDst.mkdirs();
+            FileUtils.copyDirectory(s5cSrc, s5cDst);
+            File s5cDstGit = new File(mapPath + "/maps/externalmap/s5c/s5communitylib/.git");
+            if (s5cDstGit.exists())
+                FileUtils.deleteDirectory(s5cDstGit);
+        }
+        catch (Exception e) {
+            throw new MapLoaderException(e);
+        }
     }
 
     /**

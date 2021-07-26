@@ -1,6 +1,7 @@
 package twa.siedelwood.s5.mapmaker.controller;
 
 import lombok.Data;
+import org.apache.commons.io.FileUtils;
 import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
@@ -420,13 +421,17 @@ public class ApplicationController {
 
             // Copy Orthos library
             System.out.println("Assistent: Copy orthus library...");
-            String qsbBasePath = "lua/orthus/lua/qsb/";
             mapLoaderService.selectMap(localMapPath + ".unpacked");
             ConfigureOrthusComponentsModel libraryData = new ConfigureOrthusComponentsModel();
             libraryData.load("cnf/orthos.json");
             for (ConfigureOrthusComponentsModel.Entry entry : libraryData.getEntryList()) {
                 mapLoaderService.add(entry.getSource(), entry.getDestination());
             }
+            System.out.println("Assistent: Done!");
+
+            // Copy Community library
+            System.out.println("Assistent: Copy community library...");
+            mapLoaderService.addCommunityLib();
             System.out.println("Assistent: Done!");
 
             // Copy included files

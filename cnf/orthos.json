@@ -15,10 +15,6 @@
       "Source":      "lib/oop.lua",
       "Destination": "qsb/lib/oop.lua"
     },
-    {
-      "Source":      "lib/bugfixes.lua",
-      "Destination": "qsb/lib/bugfixes.lua"
-    },
 
 
 
@@ -50,6 +46,10 @@
     {
       "Source":      "lib/quest/questbriefing.lua",
       "Destination": "qsb/lib/quest/questbriefing.lua"
+    },
+    {
+      "Source":      "lib/quest/questcore.lua",
+      "Destination": "qsb/lib/quest/questcore.lua"
     },
     {
       "Source":      "lib/quest/questdebug.lua",
@@ -102,10 +102,6 @@
     {
       "Source":      "ext/metatable.lua",
       "Destination": "qsb/ext/metatable.lua"
-    },
-    {
-      "Source":      "ext/s5hook.lua",
-      "Destination": "qsb/ext/s5hook.lua"
     },
     {
       "Source":      "ext/svlib.lua",
