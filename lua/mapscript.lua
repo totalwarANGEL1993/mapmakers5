@@ -1,6 +1,7 @@
 -- Include globals
 Script.Load("data/script/maptools/main.lua");
 Script.Load("data/script/maptools/mapeditortools.lua");
+Script.Load("data/maps/externalmap/mainmapscript.lua");
 
 -- Load library
 gvBasePath = "data/maps/externalmap/";
