@@ -8,10 +8,6 @@
       "Destination": "qsb/loader.lua"
     },
     {
-      "Source":      "multiplayermapscript.lua",
-      "Destination": "qsb/multiplayermapscript.lua"
-    },
-    {
       "Source":      "lib/oop.lua",
       "Destination": "qsb/lib/oop.lua"
     },
@@ -35,10 +31,6 @@
       "Destination": "qsb/lib/ai/aitroopspawner.lua"
     },
 
-    {
-      "Source":      "lib/quest/multiplayersystem.lua",
-      "Destination": "qsb/lib/quest/questbehavior.lua"
-    },
     {
       "Source":      "lib/quest/questbehavior.lua",
       "Destination": "qsb/lib/quest/questbehavior.lua"
