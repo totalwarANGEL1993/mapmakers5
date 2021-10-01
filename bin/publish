@@ -38,9 +38,18 @@ mkdir -p QuestSystemBehavior/bin/
 cp -r ../bin/bba5.exe QuestSystemBehavior/bin/bba5.exe
 echo "done!"
 
-echo "creating archive..."
-zip -9 -T QuestSystemBehavior.zip -r QuestSystemBehavior
-echo "done!"
+#echo "creating archive..."
+#zip -9 -T QuestSystemBehavior.zip -r QuestSystemBehavior
+#echo "done!"
+
+echo "prepare repository..."
+mkdir -p ../deployment/orthosassistant
+rm -rf ../deployment/orthosassistant/QuestSystemBehavior > /dev/null 2>&1
+cp -r ./QuestSystemBehavior ../deployment/orthosassistant
+cd ../deployment/orthosassistant
+git add .
+git commit
+#git push
 
 echo ""
 echo "FINISHED DEPLOYMENT"

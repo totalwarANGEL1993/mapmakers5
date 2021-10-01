@@ -4,4 +4,6 @@
 .attach_pid*
 target/*
 var/*
-lua/orthus/*
+s5c
+lua/orthus
+deployment
