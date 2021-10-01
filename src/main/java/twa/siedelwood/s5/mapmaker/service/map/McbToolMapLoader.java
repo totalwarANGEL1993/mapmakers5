@@ -229,6 +229,8 @@ public class McbToolMapLoader implements MapLoader
         return scriptNames;
     }
 
+    // Test
+
     /**
      * Returns if the operating system is windows.
      * 
