@@ -15,7 +15,6 @@ cd var
 
 echo "rename jar..."
 cp mapmaker-s5.jar QuestSystemBehavior/QuestSystemBehavior.jar
-cp ../bin/QuestSystemBehavior.exe QuestSystemBehavior.exe
 echo "done!"
 
 echo "copy lib..."
