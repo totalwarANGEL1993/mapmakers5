@@ -2,8 +2,10 @@
 *.iml
 .idea
 .attach_pid*
+.idea
 target/*
 var/*
 s5c
+jre
 lua/orthus
 deployment
