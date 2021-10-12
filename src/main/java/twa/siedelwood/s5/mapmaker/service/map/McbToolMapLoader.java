@@ -11,7 +11,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -188,6 +190,11 @@ public class McbToolMapLoader implements MapLoader
         }
     }
 
+    @Override
+    public void convertToLowercase() throws MapLoaderException {
+        throw new MapLoaderException("Not implemented!");
+    }
+
     /**
      *
      * @throws MapLoaderException
@@ -293,7 +300,7 @@ public class McbToolMapLoader implements MapLoader
      * @param mapPath Path to map
      * @return Command string
      */
-    protected String buildExecutionString(final String mapPath) throws MapLoaderException {
+    protected String[] buildExecutionString(final String mapPath) throws MapLoaderException {
         String mapSourcePath;
         String mapDestPath;
         if (mapPath.endsWith(".unpacked")) {
@@ -308,13 +315,23 @@ public class McbToolMapLoader implements MapLoader
             throw new MapLoaderException("File " + mapPath + " is of unsupported extension!");
         }
 
-        String exec = System.getProperty("user.dir") + "\\bin\\bba\\bbaToolS5.exe -err \"" + mapSourcePath + "\" \"" + mapDestPath + "\"";
+        final List<String> parameterList = new ArrayList<>();
+        parameterList.add(System.getProperty("user.dir") + "\\bin\\bba\\bbaToolS5.exe");
+        parameterList.add("-err");
+        parameterList.add("\"" + mapSourcePath.replaceAll(" ", "\\\\ ") + "\"");
+        parameterList.add("\"" + mapDestPath.replaceAll(" ", "\\\\ ") + "\"");
         if (!isWindows())
         {
-            exec = "wine " + System.getProperty("user.dir") + "/bin/bin/bbaToolS5.exe -err \"" + mapSourcePath + "\" \"" + mapDestPath + "\"";
+            parameterList.add(0, "wine");
         }
+        final String exec = String.join(" ", parameterList);
         System.out.println(exec);
-        return exec;
+
+        final String[] parameterArray = new String[parameterList.size()];
+        for (int i=0; i<parameterList.size(); i++) {
+            parameterArray[i] = parameterList.get(i);
+        }
+        return parameterArray;
     }
 
     /**
@@ -327,11 +344,13 @@ public class McbToolMapLoader implements MapLoader
         try
         {
             System.out.println("MapLoader: Processing map...");
-            final Process process = Runtime.getRuntime().exec(buildExecutionString(mapPath));
+            final String[] parameter = buildExecutionString(mapPath);
+            final Process process = new ProcessBuilder(parameter).start();
 
-            if (process.waitFor() != 0)
+            int processResult = process.waitFor();
+            if (processResult != 0)
             {
-                throw new MapLoaderException("MapLoader: Error while packing/unpacking a map!");
+                throw new MapLoaderException("MapLoader: Error while packing/unpacking a map! Process result: " + processResult);
             }
             else
             {

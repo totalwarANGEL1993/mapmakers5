@@ -68,6 +68,13 @@ public interface MapLoader
 	void remove(String filename) throws MapLoaderException;
 
 	/**
+	 * Renames all files inside the map archive to lowercase.
+	 *
+	 * @throws MapLoaderException
+	 */
+	void convertToLowercase() throws MapLoaderException;
+
+	/**
 	 * Removes the map folder.
 	 * @throws MapLoaderException
 	 */

@@ -37,7 +37,6 @@ public class QuestSystemBehavior {
         SelectableValueService selectableValueService = new SelectableValueService();
         BehaviorPrototypeService behaviorPrototypeService = new BehaviorPrototypeService();
         MapLoader mapLoader = new BBAToolMapLoader();
-        // MapLoader mapLoader = new McbToolMapLoader();
         MapScriptBuilder mapScriptBuilder = new MapScriptBuilder();
 
         ApplicationController controller = ApplicationController.getInstance();
