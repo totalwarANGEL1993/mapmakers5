@@ -1,0 +1,54 @@
+#!/bin/bash
+
+echo "START OF DEPLOYMENT"
+echo ""
+
+echo "creating doc"
+cd lua/orthus
+./bin/createdoc
+cd ../..
+
+mkdir -p var/QuestSystemBehavior
+rm -rf var/QuestSystemBehavior/* > /dev/null 2>&1
+rm -r var/QuestSystemBehavior.zip > /dev/null 2>&1
+cd var
+
+echo "rename jar..."
+cp mapmaker-s5.jar QuestSystemBehavior/QuestSystemBehavior.jar
+cp ../bin/QuestSystemBehavior.exe QuestSystemBehavior.exe
+echo "done!"
+
+echo "copy lib..."
+mkdir -p QuestSystemBehavior/lua/orthus/lua
+cp -r ../lua/orthus/lua/qsb ./QuestSystemBehavior/lua/orthus/lua
+cp -r ../lua/orthus/lua/s5c ./QuestSystemBehavior/lua/orthus/lua
+rm -rf ./QuestSystemBehavior/lua/orthus/lua/s5c/s5communitylib/.git
+cp -r ../lua/orthus/doc ./QuestSystemBehavior/lua/orthus
+cp ../lua/mainmapscript.lua ./QuestSystemBehavior/lua/mainmapscript.lua
+cp ../lua/mapscript.lua ./QuestSystemBehavior/lua/mapscript.lua
+echo "done!"
+
+echo "copy cnf..."
+cp -r ../cnf QuestSystemBehavior/cnf
+echo "done!"
+
+echo "copy bba tools..."
+mkdir -p QuestSystemBehavior/bin/
+cp -r ../bin/bba5.exe QuestSystemBehavior/bin/bba5.exe
+echo "done!"
+
+#echo "creating archive..."
+#zip -9 -T QuestSystemBehavior.zip -r QuestSystemBehavior
+#echo "done!"
+
+echo "prepare repository..."
+mkdir -p ../deployment/orthosassistant
+rm -rf ../deployment/orthosassistant/QuestSystemBehavior > /dev/null 2>&1
+cp -r ./QuestSystemBehavior ../deployment/orthosassistant
+cd ../deployment/orthosassistant
+git add .
+git commit
+#git push
+
+echo ""
+echo "FINISHED DEPLOYMENT"
