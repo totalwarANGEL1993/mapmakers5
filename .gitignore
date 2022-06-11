@@ -5,6 +5,7 @@
 .idea
 target/*
 var/*
+lua/ldoc/*
 s5c
 jre
 lua/orthus

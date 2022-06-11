@@ -5,7 +5,7 @@ echo ""
 
 echo "creating doc"
 cd lua/orthus
-./bin/createdoc
+#./bin/createdoc
 cd ../..
 
 mkdir -p var/QuestSystemBehavior
