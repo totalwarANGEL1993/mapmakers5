@@ -10,7 +10,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,6 +72,7 @@ public class BBAToolMapLoader implements MapLoader
         {
             throw new MapLoaderException("Could not pack map: " + mapPath);
         }
+        convertToLowercase();
         execute();
     }
 
@@ -114,6 +117,9 @@ public class BBAToolMapLoader implements MapLoader
             String s5cBasePath = "lua/orthus/lua/s5c/";
             File s5cSrc = new File(s5cBasePath);
             File s5cDst = new File(mapPath + "/maps/externalmap/s5c");
+            if (s5cDst.exists()) {
+                deleteDirectory(s5cDst);
+            }
             copyDirectory(s5cSrc, s5cDst);
             File s5cDstGit = new File(mapPath + "/maps/externalmap/s5c/s5communitylib/.git");
             if (s5cDstGit.exists())
@@ -182,6 +188,20 @@ public class BBAToolMapLoader implements MapLoader
         }
         else {
             file.delete();
+        }
+    }
+
+    @Override
+    public void convertToLowercase() throws MapLoaderException {
+        File file = new File(mapPath + ".unpacked");
+        if (file.isDirectory()) {
+            renameDirectoryToLowercase(file);
+        }
+        else {
+            final String lowercased = file.getName().toLowerCase();
+            if (!file.getName().equals(lowercased)) {
+                file.renameTo(new File(lowercased));
+            }
         }
     }
 
@@ -280,20 +300,59 @@ public class BBAToolMapLoader implements MapLoader
     }
 
     /**
+     * Renames the directory and all files inside of it to lowercase.
+     * @param directory Directory to rename
+     * @return Success
+     */
+    protected boolean renameDirectoryToLowercase(final File directory) {
+        String lowercased;
+        File renamed;
+        if (directory.exists()) {
+            final File[] files = directory.listFiles();
+            if (null != files) {
+                for (final File file : files) {
+                    if (file.isDirectory()) {
+                        renameDirectoryToLowercase(file);
+                    }
+                    else {
+                        lowercased = file.getName().toLowerCase();
+                        if (!file.getName().equals(lowercased)) {
+                            return file.renameTo(new File(lowercased));
+                        }
+                    }
+                }
+            }
+        }
+        lowercased = directory.getName().toLowerCase();
+        if (!directory.getName().equals(lowercased)) {
+            return directory.renameTo(new File(lowercased));
+        }
+        return false;
+    }
+
+    /**
      * Builds the command string for the bba tool.
      * 
      * @param path Map path
      * @return Command string
      */
-    protected String buildExecutionString(final String path)
+    protected String[] buildExecutionString(final String path)
     {
-        String exec = System.getProperty("user.dir") + "\\bin\\bba5.exe \"" + path + "\"";
+        final List<String> parameterList = new ArrayList<>();
+        parameterList.add(System.getProperty("user.dir") + "\\bin\\bba5.exe");
+        parameterList.add("\"" + path + "\"");
         if (!isWindows())
         {
-            exec = "wine " + System.getProperty("user.dir") + "/bin/bba5.exe \"" + path + "\"";
+            parameterList.add(0, "wine");
         }
+        final String exec = String.join(" ", parameterList);
         System.out.println(exec);
-        return exec;
+
+        final String[] parameterArray = new String[parameterList.size()];
+        for (int i=0; i<parameterList.size(); i++) {
+            parameterArray[i] = parameterList.get(i);
+        }
+        return parameterArray;
     }
 
     /**
@@ -306,20 +365,7 @@ public class BBAToolMapLoader implements MapLoader
         try
         {
             System.out.println("MapLoader: Processing map...");
-
             final Process process = Runtime.getRuntime().exec(buildExecutionString(mapPath));
-
-            /*
-            final InputStream is = process.getInputStream();
-            int size = 0;
-            final byte[] buffer = new byte[1024];
-            while ((size = is.read(buffer)) != -1)
-            {
-                System.out.write(buffer, 0, size);
-            }
-            process.waitFor();
-            */
-
             if (process.waitFor() != 0)
             {
                 throw new MapLoaderException("MapLoader: Error while packing/unpacking a map!");
