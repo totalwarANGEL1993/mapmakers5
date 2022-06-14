@@ -624,7 +624,6 @@
     "Reward_AI_EnableArmyAttack": {
         "Description": "Deaktiviert oder aktiviert Angriffe auf Zielpositionen durch die angegebene Armee.",
         "Parameter":   [
-            ["NumberSelect", "Besitzer der Armee", ["1", "2", "3", "4", "5", "6", "7", "8"]],
             ["ArmyName", "Name der Armee", []],
             ["BooleanSelect", "Armee greift an", []]
         ]
@@ -633,7 +632,6 @@
     "Reward_AI_EnableArmyPatrol": {
         "Description": "Deaktiviert oder aktiviert Patrolien zwischen Wegpunkten durch die angegebene Armee.",
         "Parameter":   [
-            ["NumberSelect", "Besitzer der Armee", ["1", "2", "3", "4", "5", "6", "7", "8"]],
             ["ArmyName", "Name der Armee", []],
             ["BooleanSelect", "Armee patrolliert", []]
         ]
