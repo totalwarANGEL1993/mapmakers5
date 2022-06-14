@@ -20,8 +20,11 @@ import twa.siedelwood.s5.mapmaker.view.swing.component.panel.briefing.BriefingSe
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,11 +34,14 @@ import java.util.Vector;
 /**
  * Main panel for briefings editor tab
  */
-public class HelpViewPanel extends JPanel implements ViewPanel {
+public class HelpViewPanel extends JPanel implements ViewPanel, ActionListener {
     private JPanel infoGroup;
     private JLabel infoLabel;
     private int baseWidth = 0;
     private int baseHeight = 0;
+    private JPanel dokuGroup;
+    private JLabel dokuLabel;
+    private JButton openDocumentation;
 
     /**
      * Constructor
@@ -70,6 +76,21 @@ public class HelpViewPanel extends JPanel implements ViewPanel {
             e.printStackTrace();
         }
 
+        dokuGroup = new JPanel(null);
+        dokuGroup.setBorder(BorderFactory.createTitledBorder("Dokumentation"));
+        dokuGroup.setVisible(true);
+        add(dokuGroup);
+
+        dokuLabel = new JLabel("<html>Zeige die Dokumentation zur API an.</html>");
+        dokuLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        dokuLabel.setVisible(true);
+        dokuGroup.add(dokuLabel);
+
+        openDocumentation = new JButton("Dokumentation");
+        openDocumentation.setName("QsbEditor_Button_OpenDocumentation");
+        openDocumentation.addActionListener(this);
+        dokuGroup.add(openDocumentation);
+
         infoGroup = new JPanel(null);
         infoGroup.setBorder(BorderFactory.createTitledBorder("Info"));
         infoGroup.setVisible(true);
@@ -96,7 +117,10 @@ public class HelpViewPanel extends JPanel implements ViewPanel {
         int width = reference.getWidth();
         setSize(reference.getWidth(), getContentHeight());
 
-        infoGroup.setBounds(0, 5, reference.getWidth() -10, 140);
+        dokuGroup.setBounds(0, 5, reference.getWidth() -10, 70);
+        dokuLabel.setBounds(10, 20, reference.getWidth() -30, 15);
+        openDocumentation.setBounds(10, 35, 150, 25);
+        infoGroup.setBounds(0, 75, reference.getWidth() -10, 140);
         infoLabel.setBounds(10, 15, reference.getWidth() -30, 110);
     }
 
@@ -133,6 +157,17 @@ public class HelpViewPanel extends JPanel implements ViewPanel {
      */
     public int getContentHeight() {
         return 20;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == openDocumentation) {
+            final Path docPath = Paths.get(System.getProperty("user.dir"), "lua", "orthus", "doc", "index.html");
+            try {
+                Desktop.getDesktop().browse(docPath.toFile().toURI());
+            }
+            catch (IOException ignored) {}
+        }
     }
 
     //// Unused ////
