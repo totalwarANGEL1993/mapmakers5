@@ -46,8 +46,8 @@ mkdir -p ../deployment/orthosassistant
 rm -rf ../deployment/orthosassistant/QuestSystemBehavior > /dev/null 2>&1
 cp -r ./QuestSystemBehavior ../deployment/orthosassistant
 cd ../deployment/orthosassistant
-git add .
-git commit
+#git add .
+#git commit
 #git push
 
 echo ""
