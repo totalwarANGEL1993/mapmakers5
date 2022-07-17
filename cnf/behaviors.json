@@ -300,10 +300,24 @@
         "Description": "Der Auftragnehmer verliert das Spiel.",
         "Parameter":   []
     },
+
+    "Reward_DefeatOtherPlayer": {
+        "Description": "Ein anderer Spieler verliert das Spiel.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
+    },
     
     "Reward_Victory": {
         "Description": "Der Auftragnehmer gewinnt das Spiel.",
         "Parameter":   []
+    },
+
+    "Reward_VictoryOtherPlayer": {
+        "Description": "Ein anderer Spieler gewinnt das Spiel.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
     },
     
     "Reward_Briefing": {
@@ -702,10 +716,24 @@
         "Description": "Der Auftragnehmer verliert das Spiel.",
         "Parameter":   []
     },
+
+    "Reprisal_DefeatOtherPlayer": {
+        "Description": "Ein anderer Spieler verliert das Spiel.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
+    },
     
     "Reprisal_Victory": {
         "Description": "Der Auftragnehmer gewinnt das Spiel.",
         "Parameter":   []
+    },
+
+    "Reprisal_VictoryOtherPlayer": {
+        "Description": "Ein anderer Spieler gewinnt das Spiel.",
+        "Parameter":   [
+            ["NumberSelect", "Zielpartei auswählen", ["1", "2", "3", "4", "5", "6", "7", "8"]]
+        ]
     },
     
     "Reprisal_Briefing": {
