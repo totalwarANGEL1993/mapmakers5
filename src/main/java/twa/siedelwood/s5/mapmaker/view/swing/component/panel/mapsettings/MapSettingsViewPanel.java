@@ -220,10 +220,12 @@ public class MapSettingsViewPanel extends JPanel implements ViewPanel {
             @Override
             protected void onChangesSubmitted() {
                 ApplicationController controller = ApplicationController.getInstance();
-                String set = mapWeatherPanel.getSelectedSet();
-                controller.getCurrentProject().getMapData().setWeatherSet(set);
-                boolean active = mapWeatherPanel.getUseRandomizedWeather();
-                controller.getCurrentProject().getMapData().setRandomizedWeather(active);
+                if (null != controller.getCurrentProject()) {
+                    String set = mapWeatherPanel.getSelectedSet();
+                    controller.getCurrentProject().getMapData().setWeatherSet(set);
+                    boolean active = mapWeatherPanel.getUseRandomizedWeather();
+                    controller.getCurrentProject().getMapData().setRandomizedWeather(active);
+                }
             }
         };
         mapWeatherPanel.initPanel();

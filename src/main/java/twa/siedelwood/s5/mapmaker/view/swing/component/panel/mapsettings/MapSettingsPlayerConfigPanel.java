@@ -5,12 +5,14 @@ import twa.siedelwood.s5.mapmaker.model.data.map.MapData;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.Vector;
 
 /**
  * Panel for configure players (name and color)
  */
-public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel {
+public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel implements FocusListener {
     private JLabel infoDesc;
 
     private JLabel[] playerNameLabel;
@@ -24,7 +26,7 @@ public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel {
      */
     public MapSettingsPlayerConfigPanel() {
         super();
-        height = 500;
+        height = 470;
     }
 
     /**
@@ -192,9 +194,11 @@ public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel {
             playerColorLabel[i].setBounds(nameX + 15, y+20, 200, 20);
             playerColorIcon[i].setBounds(nameX + 205, y+40, 20, 20);
             playerColor[i].setBounds(nameX + 15, y+40, 180, 20);
+            playerColor[i].addFocusListener(this);
 
             playerNameLabel[i].setBounds(10, y+20, nameX, 20);
             playerName[i].setBounds(10, y+40, nameX, 20);
+            playerName[i].addFocusListener(this);
 
             y = y + 50;
         }
@@ -272,5 +276,19 @@ public class MapSettingsPlayerConfigPanel extends MapSettingsBasePanel {
                 break;
         }
         jPanel.setBackground(bgColor);
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        for (int i=0; i<8; i++) {
+            if (e.getSource() == playerColor[i] || e.getSource() == playerName[i]) {
+                onChangesSubmitted();
+            }
+        }
     }
 }

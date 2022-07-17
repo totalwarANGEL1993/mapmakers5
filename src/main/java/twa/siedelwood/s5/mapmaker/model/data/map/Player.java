@@ -9,6 +9,7 @@ import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
 import twa.lib.typesavejson.models.JsonObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Player {
+public class Player implements Serializable {
     String name;
 
     String color;

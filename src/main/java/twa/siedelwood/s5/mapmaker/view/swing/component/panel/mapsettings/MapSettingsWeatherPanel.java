@@ -4,12 +4,16 @@ import twa.siedelwood.s5.mapmaker.model.data.map.MapData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.Vector;
 
 /**
  * Panel for configure the weather set.
  */
-public class MapSettingsWeatherPanel extends MapSettingsBasePanel {
+public class MapSettingsWeatherPanel extends MapSettingsBasePanel implements ActionListener {
     private JLabel infoSet;
     private JLabel infoRandomWeather;
 
@@ -21,7 +25,7 @@ public class MapSettingsWeatherPanel extends MapSettingsBasePanel {
      */
     public MapSettingsWeatherPanel() {
         super();
-        height = 180;
+        height = 150;
     }
 
     /**
@@ -115,6 +119,7 @@ public class MapSettingsWeatherPanel extends MapSettingsBasePanel {
 
         weatherSets = new JComboBox<>();
         weatherSets.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+        weatherSets.addActionListener(this);
         add(weatherSets);
 
         infoRandomWeather = new JLabel(
@@ -130,7 +135,8 @@ public class MapSettingsWeatherPanel extends MapSettingsBasePanel {
         randomizeWeather = new JComboBox<>();
         randomizeWeather.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         randomizeWeather.addItem("aktiv");
-        randomizeWeather.addItem("angeschaltet");
+        randomizeWeather.addItem("abgeschaltet");
+        randomizeWeather.addActionListener(this);
         add(randomizeWeather);
     }
 
@@ -149,5 +155,12 @@ public class MapSettingsWeatherPanel extends MapSettingsBasePanel {
         randomizeWeather.setBounds(10, 115, 300, 25);
 
         super.updatePanelSize(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == weatherSets || e.getSource() == randomizeWeather) {
+            onChangesSubmitted();
+        }
     }
 }

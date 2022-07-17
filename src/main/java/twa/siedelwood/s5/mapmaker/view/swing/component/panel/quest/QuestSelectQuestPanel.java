@@ -1,5 +1,6 @@
 package twa.siedelwood.s5.mapmaker.view.swing.component.panel.quest;
 
+import lombok.Setter;
 import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
 import twa.siedelwood.s5.mapmaker.view.swing.component.swing.JOnChangeTextFieldPanel;
 
@@ -21,6 +22,9 @@ import java.util.Vector;
  */
 public class QuestSelectQuestPanel extends JPanel implements ActionListener, ListSelectionListener, FocusListener, PropertyChangeListener {
     int height = 450;
+    boolean noUpdate = false;
+    @Setter
+    boolean editQuestMode = false;
     protected JLabel questInfo;
     protected JList<String> questList;
     protected JScrollPane questListScroll;
@@ -65,8 +69,7 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         questInfo = new JLabel(
                 "<html>Hier können Aufträge verwaltet werden. Du kannst Aufträge erstellen, kopieren," +
                         " umbenennen und löschen. Die Eigenschhaften eines Auftrages werden bearbeitet," +
-                        " in dem der Auftrag aus der Liste ausgewählt wird. Um Eigenschaften zu aktualisieren," +
-                        " klicke auf \"Update\".</html>"
+                        " in dem der Auftrag aus der Liste ausgewählt wird.</html>"
         );
         questInfo.setFont(new Font("Arial", Font.PLAIN, 12));
         questInfo.setVerticalAlignment(JLabel.TOP);
@@ -89,16 +92,16 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         buttons[0] = new JButton("Neu");
         buttons[0].addActionListener(this);
         add(buttons[0]);
-        buttons[1] = new JButton("Kopie");
+        buttons[1] = new JButton("Bearbeiten");
         buttons[1].addActionListener(this);
         add(buttons[1]);
-        buttons[2] = new JButton("Umbenennen");
+        buttons[2] = new JButton("Kopie");
         buttons[2].addActionListener(this);
         add(buttons[2]);
-        buttons[3] = new JButton("Löschen");
+        buttons[3] = new JButton("Umnennen");
         buttons[3].addActionListener(this);
         add(buttons[3]);
-        buttons[4] = new JButton("Update");
+        buttons[4] = new JButton("Löschen");
         buttons[4].addActionListener(this);
         add(buttons[4]);
 
@@ -130,6 +133,7 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         questType.addItem("MAINQUEST_OPEN");
         questType.addItem("SUBQUEST_OPEN");
         questType.addItem("FRAGMENTQUEST_OPEN");
+        questType.addActionListener(this);
         add(questType);
 
         questReceiverLabel = new JLabel("Empfänger");
@@ -138,12 +142,15 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         for (int i=1; i<9; i++) {
             questReceiver.addItem("Spieler " + i);
         }
+        questReceiver.addActionListener(this);
         add(questReceiver);
 
         questTitleLabel = new JLabel("Titel");
         add(questTitleLabel);
         questTitle = new JTextField("");
         questTitle.setFont(new Font("Arial", Font.PLAIN, 12));
+        questTitle.addFocusListener(this);
+        questTitle.addPropertyChangeListener(this);
         add(questTitle);
 
         questDescriptionLabel = new JLabel("Beschreibung");
@@ -153,10 +160,12 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         questDescription.setFont(new Font("Arial", Font.PLAIN, 12));
         questDescription.setLineWrap(true);
         questDescription.setWrapStyleWord(true);
+        questDescription.addFocusListener(this);
         questDescriptionScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         questDescriptionScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         questDescriptionScroll.setViewportView(questDescription);
         questDescriptionScroll.setVisible(true);
+        questDescriptionScroll.addPropertyChangeListener(this);
         add(questDescriptionScroll);
 
         questLimitLabel = new JLabel("Zeitlimit");
@@ -233,6 +242,21 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         */
     }
 
+    public void onEditQuestPropertiesChanged(Boolean active) {
+        if (null != active) {
+            editQuestMode = active;
+        }
+        questListScroll.setEnabled(!editQuestMode);
+        questList.setEnabled(!editQuestMode);
+        questVisibility.setEnabled(editQuestMode);
+        questReceiver.setEnabled(editQuestMode);
+        questType.setEnabled(editQuestMode);
+        questTitle.setEnabled(editQuestMode);
+        questDescription.setEnabled(editQuestMode);
+        questReceiver.setEnabled(editQuestMode);
+        questLimit.setEnabled(editQuestMode);
+    }
+
     /**
      * Sets the list of quest names.
      * @param data List of names
@@ -291,10 +315,6 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
             questReceiver.setSelectedIndex(quest.getReceiver() - 1);
             questLimit.setValue(quest.getTime());
             questVisibility.setSelectedIndex(quest.isVisible() ? 1 : 0);
-            questVisibility.setEnabled(true);
-            buttons[4].setEnabled(true);
-            questReceiver.setEnabled(true);
-            questLimit.setEnabled(true);
         }
         else {
             questType.setSelectedIndex(0);
@@ -304,7 +324,6 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
             questLimit.setValue(0);
             questVisibility.setSelectedIndex(0);
             questVisibility.setEnabled(false);
-            buttons[4].setEnabled(false);
             questReceiver.setEnabled(false);
             questLimit.setEnabled(false);
         }
@@ -345,26 +364,26 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
         questList.setSize(selectionWidth, height -160);
         filterTextarea.resizeComponent(10, height -85, selectionWidth, 40);
 
-        for (int i=0; i<4; i++) {
-            buttons[i].setBounds((10 + (135 * i)), height -35, 130, 25);
+        for (int i=0; i<5; i++) {
+            buttons[i].setBounds((10 + (110 * i)), height -35, 105, 25);
         }
 
         int propertiesWidth = ((width * 0.5) -20 < 700) ? (int) (width * 0.5) -20 : 700;
-        buttons[4].setBounds(selectionWidth +20, 75, 130, 25);
-        questVisibilityLabel.setBounds(selectionWidth +20, 105, 200, 20);
-        questVisibility.setBounds(selectionWidth +20, 125, 180, 20);
+        int y = 70;
+        questVisibilityLabel.setBounds(selectionWidth +20, y, 200, 15); y+=15;
+        questVisibility.setBounds(selectionWidth +20, y, 180, 20); y+=25;
 
-        questReceiverLabel.setBounds(selectionWidth +20, 165, 200, 20);
-        questReceiver.setBounds(selectionWidth +20, 185, 180, 20);
-        questLimitLabel.setBounds(selectionWidth +20, 210, 200, 15);
-        questLimit.setBounds(selectionWidth +20, 225, 180, 20);
-        questTypeLabel.setBounds(selectionWidth +20, 250, 200, 15);
-        questType.setBounds(selectionWidth +20, 265, 180, 20);
-        questTitleLabel.setBounds(selectionWidth +20, 290, 200, 15);
-        questTitle.setBounds(selectionWidth +20, 305, propertiesWidth, 20);
-        questDescriptionLabel.setBounds(selectionWidth +20, 330, 200, 15);
-        int textHeight = height - 387;
-        questDescriptionScroll.setBounds(selectionWidth +20, 345, propertiesWidth, textHeight);
+        questReceiverLabel.setBounds(selectionWidth +20, y, 200, 15); y+=15;
+        questReceiver.setBounds(selectionWidth +20, y, 180, 20); y+=25;
+        questLimitLabel.setBounds(selectionWidth +20, y, 200, 15); y+=15;
+        questLimit.setBounds(selectionWidth +20, y, 180, 20); y+=25;
+        questTypeLabel.setBounds(selectionWidth +20, y, 200, 15); y+=15;
+        questType.setBounds(selectionWidth +20, y, 180, 20); y+=25;
+        questTitleLabel.setBounds(selectionWidth +20, y, 200, 15); y+=15;
+        questTitle.setBounds(selectionWidth +20, y, propertiesWidth, 20); y+=25;
+        questDescriptionLabel.setBounds(selectionWidth +20, y, 200, 15); y+=15;
+        int textHeight = height - 330;
+        questDescriptionScroll.setBounds(selectionWidth +20, y, propertiesWidth, textHeight);
         questDescription.setSize(propertiesWidth, textHeight);
     }
 
@@ -384,18 +403,23 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
             onNewQuestClicked();
         }
         if (e.getSource() == buttons[1]) {
-            onCopieQuestClicked();
+            onEditQuestPropertiesChanged(!editQuestMode);
         }
         if (e.getSource() == buttons[2]) {
-            onRenameQuestClicked();
+            onCopieQuestClicked();
         }
         if (e.getSource() == buttons[3]) {
-            onDeleteQuestClicked();
+            onRenameQuestClicked();
         }
         if (e.getSource() == buttons[4]) {
-            onUpdateQuestDataClicked();
+            onDeleteQuestClicked();
         }
 
+        if (e.getSource() == questVisibility || e.getSource() == questReceiver || e.getSource() == questType) {
+            if (!noUpdate) {
+                onUpdateQuestDataClicked();
+            }
+        }
         if (e.getSource() == questVisibility) {
             onQuestVisibilityChanged();
         }
@@ -404,15 +428,20 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (e.getSource() == questList) {
+            questList.requestFocusInWindow();
+            noUpdate = true;
             onQuestSelectionChanged();
+            noUpdate = false;
         }
     }
 
     @Override
     public void focusGained(FocusEvent focusEvent) {
         try {
-            JFormattedTextField src = (JFormattedTextField) focusEvent.getSource();
-            SwingUtilities.invokeLater(src::selectAll);
+            if (focusEvent.getSource() instanceof JFormattedTextField) {
+                JFormattedTextField src = (JFormattedTextField) focusEvent.getSource();
+                SwingUtilities.invokeLater(src::selectAll);
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -420,16 +449,22 @@ public class QuestSelectQuestPanel extends JPanel implements ActionListener, Lis
     }
 
     @Override
-    public void focusLost(FocusEvent focusEvent) {
-
+    public void focusLost(FocusEvent event) {
+        if (event.getSource() == questLimit || event.getSource() == questTitle || event.getSource() == questDescription) {
+            if (!noUpdate) {
+                onUpdateQuestDataClicked();
+            }
+        }
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+    public void propertyChange(PropertyChangeEvent event) {
         try {
-            JFormattedTextField src = (JFormattedTextField) propertyChangeEvent.getSource();
-            if (src.getText().startsWith("0") && src.getText().length() > 1) {
-                src.setText(src.getText().substring(1));
+            if (event.getSource() instanceof JFormattedTextField) {
+                JFormattedTextField src = (JFormattedTextField) event.getSource();
+                if (src.getText().startsWith("0") && src.getText().length() > 1) {
+                    src.setText(src.getText().substring(1));
+                }
             }
         }
         catch (Exception e) {}

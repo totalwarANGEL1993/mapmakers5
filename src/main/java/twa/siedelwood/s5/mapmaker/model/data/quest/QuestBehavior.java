@@ -7,6 +7,7 @@ import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -17,7 +18,7 @@ import java.util.regex.Pattern;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode
-public class QuestBehavior {
+public class QuestBehavior implements Serializable {
     List<String> parameters;
 
     public QuestBehavior() {

@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
  * The basic map settings panel
  */
 public abstract class MapSettingsBasePanel extends JPanel implements ViewPanel, ActionListener {
-    protected JButton updateButton;
     protected int height = 0;
     protected int yOffset = 0;
 
@@ -87,10 +86,6 @@ public abstract class MapSettingsBasePanel extends JPanel implements ViewPanel, 
     @Override
     public void initPanel() {
         setLayout(null);
-
-        updateButton = new JButton("Aktualisieren");
-        updateButton.addActionListener(this);
-        add(updateButton);
     }
 
     /**
@@ -99,15 +94,10 @@ public abstract class MapSettingsBasePanel extends JPanel implements ViewPanel, 
      */
     @Override
     public void updatePanelSize(Component reference) {
-        updateButton.setBounds(reference.getWidth() -160, reference.getHeight() -35, 150, 25);
     }
 
     //// Listener stuff ////
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == updateButton) {
-            onChangesSubmitted();
-        }
-    }
+    public void actionPerformed(ActionEvent actionEvent) {}
 }

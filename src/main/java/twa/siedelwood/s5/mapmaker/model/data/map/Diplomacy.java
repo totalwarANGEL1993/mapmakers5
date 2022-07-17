@@ -8,11 +8,13 @@ import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonObject;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Diplomacy {
+public class Diplomacy implements Serializable {
     private int target = 1;
     private int state = 2;
 

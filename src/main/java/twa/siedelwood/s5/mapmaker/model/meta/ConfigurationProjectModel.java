@@ -11,13 +11,14 @@ import twa.siedelwood.s5.mapmaker.model.data.briefing.BriefingCollection;
 import twa.siedelwood.s5.mapmaker.model.data.map.MapData;
 import twa.siedelwood.s5.mapmaker.model.data.quest.QuestCollection;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode
-public class ConfigurationProjectModel {
+public class ConfigurationProjectModel implements Serializable {
     private String name = "";
 
     private String description = "";

@@ -7,6 +7,7 @@ import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-public class BriefingRedirectPage implements BriefingPage {
+public class BriefingRedirectPage implements BriefingPage, Serializable {
     private String name;
     private String entity;
     private String title;

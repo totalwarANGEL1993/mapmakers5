@@ -7,6 +7,7 @@ import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
 import twa.lib.typesavejson.models.JsonObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
-public class MapData {
+public class MapData implements Serializable {
     private String mapName = "";
 
     private String mapDescription = "";

@@ -6,12 +6,14 @@ import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
 
+import java.io.Serializable;
+
 /**
  * Empty seperator page
  */
 @Data
 @NoArgsConstructor
-public class BriefingSepertorPage implements BriefingPage {
+public class BriefingSepertorPage implements BriefingPage, Serializable {
     private String name;
     private String entity;
     private String title;

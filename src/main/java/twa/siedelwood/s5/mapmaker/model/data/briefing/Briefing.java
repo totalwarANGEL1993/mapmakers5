@@ -6,6 +6,7 @@ import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
 import twa.lib.typesavejson.models.JsonObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -14,7 +15,7 @@ import java.util.Vector;
  * Briefing model
  */
 @Data
-public class Briefing {
+public class Briefing implements Serializable {
     private List<BriefingPage> pages;
 
     private String name = "";

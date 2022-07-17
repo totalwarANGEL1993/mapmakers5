@@ -9,6 +9,7 @@ import twa.siedelwood.s5.mapmaker.controller.ApplicationConstants;
 import twa.siedelwood.s5.mapmaker.model.data.quest.Quest;
 import twa.siedelwood.s5.mapmaker.model.data.quest.QuestBehavior;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,7 +21,7 @@ import java.util.regex.Pattern;
  * Collection of briefings
  */
 @Data
-public class BriefingCollection {
+public class BriefingCollection implements Serializable {
     List<Briefing> briefings;
 
     public BriefingCollection() {

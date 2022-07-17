@@ -6,6 +6,7 @@ import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
 import twa.lib.typesavejson.models.JsonObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,7 +19,7 @@ import java.util.Vector;
  * Quest model
  */
 @Data
-public class Quest implements Comparable<Quest>{
+public class Quest implements Comparable<Quest>, Serializable {
     private Map<String, String> subQuests;
 
     private List<QuestBehavior> behaviorList;

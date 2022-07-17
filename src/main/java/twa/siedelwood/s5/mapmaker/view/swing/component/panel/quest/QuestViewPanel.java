@@ -310,7 +310,7 @@ public class QuestViewPanel extends JPanel implements ViewPanel {
             questsGroup.updateQuestProperties(questCollection.get(currentSelectedQuest));
             questsGroup.onQuestVisibilityChanged();
         }
-
+        questsGroup.onEditQuestPropertiesChanged(false);
         behaviorGroup.clearSelection();
         onBehaviorSelectionChanged();
     }

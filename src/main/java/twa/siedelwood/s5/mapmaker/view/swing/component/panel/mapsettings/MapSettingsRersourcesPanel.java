@@ -22,7 +22,7 @@ public class MapSettingsRersourcesPanel extends MapSettingsBasePanel implements 
 
     public MapSettingsRersourcesPanel() {
         super();
-        height = 160;
+        height = 130;
     }
 
     /**
@@ -183,7 +183,11 @@ public class MapSettingsRersourcesPanel extends MapSettingsBasePanel implements 
 
     @Override
     public void focusLost(FocusEvent focusEvent) {
-
+        for (int i=0; i<6; i++) {
+            if (focusEvent.getSource() == fields[i]) {
+                onChangesSubmitted();
+            }
+        }
     }
 
     @Override

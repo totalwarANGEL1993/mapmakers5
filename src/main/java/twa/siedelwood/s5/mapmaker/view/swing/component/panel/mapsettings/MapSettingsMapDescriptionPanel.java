@@ -4,11 +4,13 @@ import twa.siedelwood.s5.mapmaker.model.data.map.MapData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 /**
  * Panel for changing the map description (ingame)
  */
-public class MapSettingsMapDescriptionPanel extends MapSettingsBasePanel {
+public class MapSettingsMapDescriptionPanel extends MapSettingsBasePanel implements FocusListener {
     protected JTextField infoTitle;
     protected JTextArea infoText;
     protected JScrollPane scrollPane;
@@ -18,7 +20,7 @@ public class MapSettingsMapDescriptionPanel extends MapSettingsBasePanel {
      */
     public MapSettingsMapDescriptionPanel() {
         super();
-        height = 180;
+        height = 150;
     }
 
     /**
@@ -87,10 +89,12 @@ public class MapSettingsMapDescriptionPanel extends MapSettingsBasePanel {
 
         infoTitle = new JTextField("");
         infoTitle.setFont(new Font("Arial", Font.PLAIN, 12));
+        infoTitle.addFocusListener(this);
         add(infoTitle);
         scrollPane = new JScrollPane();
         infoText = new JTextArea("");
         infoText.setFont(new Font("Arial", Font.PLAIN, 12));
+        infoText.addFocusListener(this);
         infoText.setLineWrap(true);
         infoText.setWrapStyleWord(true);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -121,5 +125,20 @@ public class MapSettingsMapDescriptionPanel extends MapSettingsBasePanel {
         infoText.setSize(width-50, 75);
 
         super.updatePanelSize(this);
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        if (e.getSource() == infoTitle) {
+            onChangesSubmitted();
+        }
+        if (e.getSource() == infoText) {
+            onChangesSubmitted();
+        }
     }
 }

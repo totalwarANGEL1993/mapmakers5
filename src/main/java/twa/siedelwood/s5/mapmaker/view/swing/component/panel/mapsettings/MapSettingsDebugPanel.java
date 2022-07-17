@@ -4,11 +4,15 @@ import twa.siedelwood.s5.mapmaker.model.data.map.MapData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 /**
  * Panel for configuring the debug options
  */
-public class MapSettingsDebugPanel extends MapSettingsBasePanel {
+public class MapSettingsDebugPanel extends MapSettingsBasePanel implements ActionListener {
     private JLabel checkQuestsLabel;
     private JComboBox<String> checkQuests;
     private JLabel traceQuestsLabel;
@@ -23,7 +27,7 @@ public class MapSettingsDebugPanel extends MapSettingsBasePanel {
      */
     public MapSettingsDebugPanel() {
         super();
-        height = 315;
+        height = 285;
     }
 
     /**
@@ -125,6 +129,7 @@ public class MapSettingsDebugPanel extends MapSettingsBasePanel {
         checkQuests.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         checkQuests.addItem("aktiv");
         checkQuests.addItem("abgeschaltet");
+        checkQuests.addActionListener(this);
         add(checkQuests);
 
         traceQuestsLabel = new JLabel("<html>Aktiviere die Statusverfolfung. Es wird eine Meldung angezeigt, wenn ein Quest seinen Status wechselt.</html>");
@@ -137,6 +142,7 @@ public class MapSettingsDebugPanel extends MapSettingsBasePanel {
         traceQuests.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         traceQuests.addItem("aktiv");
         traceQuests.addItem("abgeschaltet");
+        traceQuests.addActionListener(this);
         add(traceQuests);
 
         useCheatsLabel = new JLabel("<html>Aktiviere die Development Cheats um Deine Map schneller testen zu können.</html>");
@@ -149,6 +155,7 @@ public class MapSettingsDebugPanel extends MapSettingsBasePanel {
         useCheats.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         useCheats.addItem("aktiv");
         useCheats.addItem("abgeschaltet");
+        useCheats.addActionListener(this);
         add(useCheats);
 
         useShellLabel = new JLabel("<html>Aktiviere die Konsole um über spezielle Befehle Abläufe zu manipulieren oder nachträglich Skripte zu laden.</html>");
@@ -161,6 +168,7 @@ public class MapSettingsDebugPanel extends MapSettingsBasePanel {
         useShell.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         useShell.addItem("aktiv");
         useShell.addItem("abgeschaltet");
+        useShell.addActionListener(this);
         add(useShell);
     }
 
@@ -183,5 +191,12 @@ public class MapSettingsDebugPanel extends MapSettingsBasePanel {
         useShell.setBounds(10, 250, 150, 25);
 
         super.updatePanelSize(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == checkQuests || e.getSource() == traceQuests || e.getSource() == useCheats || e.getSource() == useShell) {
+            onChangesSubmitted();
+        }
     }
 }

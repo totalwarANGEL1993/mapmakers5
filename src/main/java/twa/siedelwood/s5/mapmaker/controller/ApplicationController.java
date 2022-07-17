@@ -1,6 +1,7 @@
 package twa.siedelwood.s5.mapmaker.controller;
 
 import lombok.Data;
+import org.apache.commons.lang3.SerializationUtils;
 import twa.lib.typesavejson.JsonParser;
 import twa.lib.typesavejson.models.Json;
 import twa.lib.typesavejson.models.JsonArray;
@@ -328,10 +329,10 @@ public class ApplicationController {
                         System.err.println("Could not find custom behavior in project!");
                     }
 
-                    internalReloadMapFile();
+                    final ConfigurationProjectModel projectData = SerializationUtils.clone(currentProject);
                     WorkbenchWindowFrame workbench = (WorkbenchWindowFrame) ApplicationController.getInstance().getWorkbenchWindow();
                     workbench.getProjectPanel().loadProjectData(currentProject);
-                    workbench.getMapPanel().loadMapData(currentProject.getMapData());
+                    workbench.getMapPanel().loadMapData(projectData.getMapData());
                     workbench.getBriefingPanel().loadBriefingData(currentProject.getBriefingCollection());
                     workbench.getQuestPanel().loadQuestData(currentProject.getQuestCollection());
                     workbench.onViewportResized();

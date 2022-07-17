@@ -20,7 +20,7 @@ public class MapSettingsPlayerDiplomacyPanel extends MapSettingsBasePanel implem
 
     public MapSettingsPlayerDiplomacyPanel() {
         super();
-        height = 370;
+        height = 340;
     }
 
     /**
@@ -156,5 +156,6 @@ public class MapSettingsPlayerDiplomacyPanel extends MapSettingsBasePanel implem
                 }
             }
         }
+        onChangesSubmitted();
     }
 }
